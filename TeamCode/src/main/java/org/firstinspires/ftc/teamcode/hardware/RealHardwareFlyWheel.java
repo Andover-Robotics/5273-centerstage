@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-public class RealFlyWheel implements FlyWheel {
+public class RealHardwareFlyWheel implements HardwareFlyWheel {
     public void on()
     {
         // ToDo: Turn the fly wheel on

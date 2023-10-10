@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-public class RealHangingMotor implements HangingMotor {
+public class RealHardwareHanger implements HardwareHanger {
     @Override
     public void on() {
         // ToDo: turn the motor on

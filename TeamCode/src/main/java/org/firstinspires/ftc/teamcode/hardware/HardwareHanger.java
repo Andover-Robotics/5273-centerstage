@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-public interface HangingMotor {
+public interface HardwareHanger {
     public enum onOffState {
         ON,
         OFF

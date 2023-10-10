@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-public interface FlyWheel {
+public interface HardwareFlyWheel {
     public enum onOffState {
         ON,
         OFF
