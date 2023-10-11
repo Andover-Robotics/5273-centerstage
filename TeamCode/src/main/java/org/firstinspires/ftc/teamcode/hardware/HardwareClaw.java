@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-public interface HardwareClaw {
-    public enum Claw{
-        OPEN,
-        CLOSE
-    }
+import com.qualcomm.robotcore.hardware.Servo;
 
-    public void open();
-    public void close();
-    public HardwareClaw getState();
+public interface HardwareClaw {
+    public double getPosition();
+    public void scaleRange(double min, double max);
+    public Servo.Direction getDirection();
+    public void setDirection(Servo.Direction direction);
+    public void setPosition(double position);
 
 }
