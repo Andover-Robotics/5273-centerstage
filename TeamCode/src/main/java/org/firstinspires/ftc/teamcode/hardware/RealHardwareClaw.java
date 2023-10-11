@@ -4,6 +4,7 @@ public class RealHardwareClaw implements HardwareClaw{
     @Override
     public void open() {
         //todo
+        //yo
     }
 
     @Override
