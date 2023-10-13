@@ -4,13 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public interface HardwareFlyWheel {
-    public enum onOffState {
-        ON,
-        OFF
-    }
-    public void on();
-    public void off();
-    public onOffState getState();
     public void setDirection(DcMotorSimple.Direction direction);
     public DcMotorSimple.Direction getDirection();
     public int getCurrentPosition();
