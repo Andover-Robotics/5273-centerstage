@@ -1,21 +1,44 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.hardware.HardwareLaunch;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareLaunch implements HardwareLaunch {
-    Simulation sim;
-    public SimHardwareLaunch(Simulation sim) {
+    private Simulation sim;
+
+    public SimHardwareLaunch(Simulation sim)
+    {
         this.sim = sim;
     }
 
     @Override
-    public void open() {
-
+    public double getPosition()
+    {
+        return 0; //TODO: Implement
     }
 
     @Override
-    public openCloseState getState() {
-        return null;
+    public void scaleRange(double min, double max)
+    {
+        //TODO: Implement
+    }
+
+    @Override
+    public Servo.Direction getDirection()
+    {
+        return null;//TODO: Implement
+    }
+
+    @Override
+    public void setDirection(Servo.Direction direction)
+    {
+        //TODO: Implement
+    }
+
+    @Override
+    public void setPosition(double position)
+    {
+        //TODO: Implement
     }
 }
