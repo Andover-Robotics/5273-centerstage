@@ -10,12 +10,12 @@ public class SimHardwareSlides implements HardwareSlides {
     }
 
     @Override
-    public void setSlidesPower(double power) {
+    public void setSlidesPosition(double power) {
 
     }
 
     @Override
-    public int getSlidesPosition() {
+    public double getSlidesPosition() {
         return 0;
     }
 }
