@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public interface HardwareFlyWheel {
-    public void setDirection(DcMotorSimple.Direction direction);
-    public DcMotorSimple.Direction getDirection();
-    public int getCurrentPosition();
-    public int getTargetPosition();
-    public void setTargetPosition(int position);
-    public boolean isBusy();
-    public double getPower();
-    public void setPower(double power);
+    void setDirection(DcMotorSimple.Direction direction);
+    DcMotorSimple.Direction getDirection();
+    int getCurrentPosition();
+    int getTargetPosition();
+    void setTargetPosition(int position);
+    boolean isBusy();
+    double getPower();
+    void setPower(double power);
 }
 
