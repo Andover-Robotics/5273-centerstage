@@ -38,4 +38,8 @@ public class RealHardwareHanger implements HardwareHanger {
     public void setPower(double power){
         motor.setPower(power);
     }
+    @Override
+    public int getCurrentPosition(){
+        return motor.getCurrentPosition();
+    }
 }

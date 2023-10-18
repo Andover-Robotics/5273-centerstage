@@ -32,4 +32,7 @@ public class SimHardwareHanger implements HardwareHanger {
     public void setPower(double power){
 
     }
+    public int getCurrentPosition(){
+        return 0;
+    }
 }
