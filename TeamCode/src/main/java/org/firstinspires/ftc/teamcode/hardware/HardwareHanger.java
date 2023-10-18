@@ -10,4 +10,5 @@ public interface HardwareHanger {
     double getPower();
     void setDirection(DcMotorSimple.Direction direction);
     void setPower(double power);
+    int getCurrentPosition();
 }
