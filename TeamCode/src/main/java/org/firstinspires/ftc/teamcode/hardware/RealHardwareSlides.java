@@ -1,21 +1,49 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 public class RealHardwareSlides implements HardwareSlides{
 
-        private Servo slidesServo;
+
+        private DcMotor slidesMotor;
+
+        public RealHardwareSlides(){
+                slidesMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
+        }
+
+        public void setDirection(DcMotorSimple.Direction direction){
+                slidesMotor.setDirection(direction);
+        }
+
+        public DcMotorSimple.Direction getDirection(){
+                return slidesMotor.getDirection();
+        }
         @Override
-        public void setSlidesPosition(double position) {
-                slidesServo.setPosition(position);
+        public void setSlidesPosition(int position) {
+                slidesMotor.setTargetPosition(position);
         }
 
         @Override
         public double getSlidesPosition() {
-            //TODO: Implement for real hardware motors
-            return slidesServo.getPosition();
+            return slidesMotor.getCurrentPosition();
+        }
+
+        public void setPower(double power){
+                slidesMotor.setPower(power);
+        }
+        public double getPower(){
+                return slidesMotor.getPower();
+        }
+
+        public int getTargetPosition(){
+                return slidesMotor.getTargetPosition();
+        }
+
+        public void setTargetPosition(int position){
+                slidesMotor.setTargetPosition(position);
         }
 }
