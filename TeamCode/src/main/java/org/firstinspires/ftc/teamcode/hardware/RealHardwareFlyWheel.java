@@ -1,39 +1,43 @@
 package org.firstinspires.ftc.teamcode.hardware;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class RealHardwareFlyWheel implements HardwareFlyWheel {
-    private DcMotor flyWheelMotor;
+    private final DcMotor flyWheelMotor;
     public RealHardwareFlyWheel(){
-        // to do
+        flyWheelMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
     }
+    @Override
     public void setDirection(DcMotorSimple.Direction direction){
         flyWheelMotor.setDirection(direction);
     }
+    @Override
     public DcMotorSimple.Direction getDirection(){
         return flyWheelMotor.getDirection();
     }
+    @Override
     public int getCurrentPosition(){
         return flyWheelMotor.getCurrentPosition();
     }
-    public DcMotor.RunMode getMode(){
-        return flyWheelMotor.getMode();
-    }
-    public void setMode(DcMotor.RunMode mode){
-        flyWheelMotor.setMode(mode);
-    }
+    @Override
     public int getTargetPosition(){
         return flyWheelMotor.getTargetPosition();
     }
+    @Override
     public void setTargetPosition(int position){
         flyWheelMotor.setTargetPosition(position);
     }
+    @Override
     public boolean isBusy(){
         return flyWheelMotor.isBusy();
     }
+    @Override
     public double getPower(){
         return flyWheelMotor.getPower();
     }
+    @Override
     public void setPower(double power){
         flyWheelMotor.setPower(power);
     }
