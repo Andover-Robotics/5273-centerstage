@@ -58,4 +58,33 @@ public class RealHardwareMechanumDrive implements HardwareMechanumDrive {
         leftBackMotor.setDirection(leftBackDir);
         rightBackMotor.setDirection(rightBackDir);
     }
+    public void resetEncoders(){
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void resetEncoders(boolean leftFrontReset, boolean rightFrontReset, boolean leftBackReset, boolean rightBackReset){
+        if(leftFrontReset){
+            leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if(rightFrontReset){
+            rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if(leftBackReset){
+            leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        if(rightBackReset){
+            rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
 }
