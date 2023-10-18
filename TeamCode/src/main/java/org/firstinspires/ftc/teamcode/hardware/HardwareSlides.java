@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 public interface HardwareSlides {
-    void setSlidesPower(double power);
-    int getSlidesPosition();
+    void setSlidesPosition(double power);
+    double getSlidesPosition();
 }
