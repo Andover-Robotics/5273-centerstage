@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import org.firstinspires.ftc.teamcode.hardware.HardwareHanger;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
@@ -9,18 +11,25 @@ public class SimHardwareHanger implements HardwareHanger {
         this.sim = sim;
     }
 
-    @Override
-    public void on() {
+    public int getTargetPosition(){
+        return 0;
+    }
+    public boolean isBusy(){
+        return true;
+    }
+    public void setTargetPosition(int position){
 
     }
-
-    @Override
-    public void off() {
-
-    }
-
-    @Override
-    public onOffState getState() {
+    public DcMotorSimple.Direction getDirection(){
         return null;
+    }
+    public double getPower(){
+        return 0;
+    }
+    public void setDirection(DcMotorSimple.Direction direction){
+
+    }
+    public void setPower(double power){
+
     }
 }
