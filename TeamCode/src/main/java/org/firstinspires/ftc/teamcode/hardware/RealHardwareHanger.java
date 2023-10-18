@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class RealHardwareHanger implements HardwareHanger {
     private final DcMotor motor;
     public RealHardwareHanger(){
-        motor = hardwareMap.get(DcMotor.class, "hangerMotor")
+        motor = hardwareMap.get(DcMotor.class, "hangerMotor");
     }
     @Override
     public int getTargetPosition(){
