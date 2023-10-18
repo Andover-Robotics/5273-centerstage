@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.hardware;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class RealHardwareFlyWheel implements HardwareFlyWheel {
-    private DcMotor flyWheelMotor;
+    private final DcMotor flyWheelMotor;
     public RealHardwareFlyWheel(){
-        // to do
+        flyWheelMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
     }
     public void setDirection(DcMotorSimple.Direction direction){
         flyWheelMotor.setDirection(direction);
@@ -15,12 +17,6 @@ public class RealHardwareFlyWheel implements HardwareFlyWheel {
     }
     public int getCurrentPosition(){
         return flyWheelMotor.getCurrentPosition();
-    }
-    public DcMotor.RunMode getMode(){
-        return flyWheelMotor.getMode();
-    }
-    public void setMode(DcMotor.RunMode mode){
-        flyWheelMotor.setMode(mode);
     }
     public int getTargetPosition(){
         return flyWheelMotor.getTargetPosition();

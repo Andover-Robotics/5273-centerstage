@@ -7,8 +7,6 @@ public interface HardwareFlyWheel {
     public void setDirection(DcMotorSimple.Direction direction);
     public DcMotorSimple.Direction getDirection();
     public int getCurrentPosition();
-    public DcMotor.RunMode getMode();
-    public void setMode(DcMotor.RunMode mode);
     public int getTargetPosition();
     public void setTargetPosition(int position);
     public boolean isBusy();

@@ -20,12 +20,6 @@ public class SimHardwareFlyWheel implements HardwareFlyWheel {
     public int getCurrentPosition(){
         return 0; //TODO: Implement
     }
-    public DcMotor.RunMode getMode(){
-        return null; //TODO: Implement
-    }
-    public void setMode(DcMotor.RunMode mode) {
-        //TODO: Implement
-    }
     public int getTargetPosition(){
         return 0; //TODO: Implement
     }
