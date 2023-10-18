@@ -11,4 +11,6 @@ public interface HardwareMechanumDrive {
     boolean[] isBusy();
     DcMotorSimple.Direction[] getDirection();
     void setDirection(DcMotorSimple.Direction leftFrontDir, DcMotorSimple.Direction rightFrontDir, DcMotorSimple.Direction leftBackDir, DcMotorSimple.Direction rightBackDir);
+    void resetEncoders();
+    void resetEncoders(boolean leftFront, boolean rightFront, boolean leftBack, boolean rightBack);
 }
