@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareMechanumDrive;
+import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
-public class SimHardwareMechanumDrive implements HardwareMechanumDrive {
+public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     Simulation sim;
-    public SimHardwareMechanumDrive(Simulation sim) {
+    public SimHardwareMecanumDrive(Simulation sim) {
         this.sim = sim;
     }
     @Override
@@ -40,6 +40,12 @@ public class SimHardwareMechanumDrive implements HardwareMechanumDrive {
     }
     @Override
     public void setDirection(DcMotorSimple.Direction leftFrontDir, DcMotorSimple.Direction rightFrontDir, DcMotorSimple.Direction leftBackDir, DcMotorSimple.Direction rightBackDir){
+
+    }
+    public void resetEncoders(){
+
+    }
+    public void resetEncoders(boolean leftFront, boolean rightFront, boolean leftBack, boolean rightBack){
 
     }
 }

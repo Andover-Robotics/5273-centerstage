@@ -8,7 +8,7 @@ public class HardwareBot {
     public HardwareFlyWheel flyWheel;
     public HardwareHanger hanger;
     public HardwareLaunch launch;
-    public HardwareMechanumDrive mechanumDrive;
+    public HardwareMecanumDrive mecanumDrive;
     public HardwareSlides slides;
 
     public HardwareBot() {
@@ -16,7 +16,7 @@ public class HardwareBot {
         flyWheel = null;
         hanger = null;
         launch = null;
-        mechanumDrive = null;
+        mecanumDrive = null;
         slides = null;
     }
 
@@ -25,7 +25,7 @@ public class HardwareBot {
         flyWheel = new RealHardwareFlyWheel();
         hanger = new RealHardwareHanger();
         launch = new RealHardwareLaunch();
-        mechanumDrive = new RealHardwareMechanumDrive();
+        mecanumDrive = new RealHardwareMecanumDrive();
         slides = new RealHardwareSlides();
     }
 
@@ -34,7 +34,7 @@ public class HardwareBot {
         flyWheel = new SimHardwareFlyWheel(sim);
         hanger = new SimHardwareHanger(sim);
         launch = new SimHardwareLaunch(sim);
-        mechanumDrive = new SimHardwareMechanumDrive(sim);
+        mecanumDrive = new SimHardwareMecanumDrive(sim);
         slides = new SimHardwareSlides(sim);
     }
 }

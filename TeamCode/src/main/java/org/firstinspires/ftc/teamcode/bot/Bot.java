@@ -7,7 +7,7 @@ public class Bot {
         assert hardwareBot.flyWheel != null;
         assert hardwareBot.hanger != null;
         assert hardwareBot.launch != null;
-        assert hardwareBot.mechanumDrive != null;
+        assert hardwareBot.mecanumDrive != null;
         assert hardwareBot.slides != null;
         this.hardwareBot = hardwareBot;
     }
