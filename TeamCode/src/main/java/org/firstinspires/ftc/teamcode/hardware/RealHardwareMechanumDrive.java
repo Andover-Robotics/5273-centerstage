@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class RealHardwareMechanumDrive implements HardwareMechanumDrive {
+public class RealHardwareMechanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
     private final DcMotor rightFrontMotor;
     private final DcMotor leftBackMotor;
