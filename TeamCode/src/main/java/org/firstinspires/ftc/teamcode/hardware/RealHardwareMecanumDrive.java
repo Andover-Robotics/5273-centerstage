@@ -5,12 +5,12 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class RealHardwareMechanumDrive implements HardwareMecanumDrive {
+public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
     private final DcMotor rightFrontMotor;
     private final DcMotor leftBackMotor;
     private final DcMotor rightBackMotor;
-    public RealHardwareMechanumDrive(){
+    public RealHardwareMecanumDrive(){
         leftFrontMotor=hardwareMap.get(DcMotor.class, "motorLF");
         rightFrontMotor=hardwareMap.get(DcMotor.class, "motorRF");
         leftBackMotor=hardwareMap.get(DcMotor.class, "motorLB");
