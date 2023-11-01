@@ -22,6 +22,10 @@ public class RealHardwareSlides implements HardwareSlides{
         public DcMotorSimple.Direction getDirection(){
                 return slidesMotor.getDirection();
         }
+
+
+
+
         @Override
         public void setSlidesPosition(int position) {
                 slidesMotor.setTargetPosition(position);
