@@ -9,6 +9,7 @@ public class Movement {
     public float y; // y position
     public float heading; // the direction that the bot is facing in radians
     private final HardwareMecanumDrive drive;
+    private final double ENCODER_RES = 384.5;
     public Movement(float x, float y, float heading, HardwareMecanumDrive hardwareMecanumDrive) {
         this.x = x;
         this.y = y;
@@ -19,6 +20,7 @@ public class Movement {
     }
     public void moveTo(float x, float y) { // no rotation
         while (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
+            drive.resetEncoders();
             double theta = Math.atan2(y - this.y, x - this.x) - heading;
             double motorPow1 = Math.sin(theta + Math.PI / 4);
             double motorPow2 = Math.sin(theta - Math.PI / 4);
@@ -26,6 +28,7 @@ public class Movement {
             motorPow1 *= scale;
             motorPow2 *= scale;
             drive.setPower(motorPow1, motorPow2, motorPow2, motorPow1); // vroom vroom
+            // TODO: get angular velocities by dividing by magic number and multiplying by 2pi
             // TODO: update x and y
         }
     }
