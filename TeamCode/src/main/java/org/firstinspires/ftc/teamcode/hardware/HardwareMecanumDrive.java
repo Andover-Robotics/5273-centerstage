@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public interface HardwareMechanumDrive {
+public interface HardwareMecanumDrive {
     void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower);
     double[] getPower();
     int[] getCurrentPosition();
