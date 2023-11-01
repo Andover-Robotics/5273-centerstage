@@ -25,7 +25,7 @@ public class HardwareBot {
         flyWheel = new RealHardwareFlyWheel();
         hanger = new RealHardwareHanger();
         launch = new RealHardwareLaunch();
-        mecanumDrive = new RealHardwareMecanumDrive();
+        mecanumDrive = new RealHardwareMechanumDrive();
         slides = new RealHardwareSlides();
     }
 
