@@ -55,7 +55,7 @@ public class Movement {
                 rightBack*=scale;
             }
             drive.setPower(leftFront, rightFront, leftBack, rightBack); // vroom vroom
-            // TODO: update x and y
+            // TODO: update x, y, and heading
         }
     }
 }
