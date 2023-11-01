@@ -15,6 +15,10 @@ public class RealHardwareMechanumDrive implements HardwareMecanumDrive {
         rightFrontMotor=hardwareMap.get(DcMotor.class, "motorRF");
         leftBackMotor=hardwareMap.get(DcMotor.class, "motorLB");
         rightBackMotor=hardwareMap.get(DcMotor.class, "motorRB");
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -64,27 +68,27 @@ public class RealHardwareMechanumDrive implements HardwareMecanumDrive {
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public void resetEncoders(boolean leftFrontReset, boolean rightFrontReset, boolean leftBackReset, boolean rightBackReset){
         if(leftFrontReset){
             leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         if(rightFrontReset){
             rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         if(leftBackReset){
             leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         if(rightBackReset){
             rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 }
