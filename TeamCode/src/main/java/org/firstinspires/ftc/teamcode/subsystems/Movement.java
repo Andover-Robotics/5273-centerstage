@@ -24,13 +24,13 @@ public class Movement {
     public void moveTo(double x, double y) { // no rotation
         drive.resetEncoders();
         while (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
-            moveTick(Math.atan2(y - this.y, x - this.x) - heading,1,0);
+            moveTick(heading - Math.atan2(y - this.y, x - this.x),1,0);
         }
     }
     public void moveTo(double x, double y, double heading){
         drive.resetEncoders();
         while (Math.abs(this.heading - heading) > 0.1 && Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
-            moveTick(Math.atan2(y - this.y, x - this.x) - this.heading,1,(int)(Math.abs(heading - this.heading) / (heading - this.heading))); // probably will not divide by zero
+            moveTick(this.heading - Math.atan2(y - this.y, x - this.x),1,(int)(Math.abs(heading - this.heading) / (heading - this.heading))); // probably will not divide by zero
         }
     }
     public void moveTick2(double direction, double power, double turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
@@ -48,30 +48,30 @@ public class Movement {
         double rightFront = motorPow2 + motorPow4;
         double leftBack = motorPow2 + motorPow3;
         double rightBack = motorPow1 + motorPow4;
-        scale=Math.max(Math.max(Math.max(Math.abs(leftFront), Math.abs(rightFront)),Math.abs(leftBack)),Math.abs(rightBack));
-        if(scale>1){ // scale down if needed
-            scale=1/scale;
-            leftFront*=scale;
-            rightFront*=scale;
-            leftBack*=scale;
-            rightBack*=scale;
+        scale = Math.max(Math.max(Math.max(Math.abs(leftFront), Math.abs(rightFront)),Math.abs(leftBack)),Math.abs(rightBack));
+        if(scale > 1){ // scale down if needed
+            scale = 1 / scale;
+            leftFront *= scale;
+            rightFront *= scale;
+            leftBack *= scale;
+            rightBack *= scale;
         }
         drive.setPower(leftFront, rightFront, leftBack, rightBack); // vroom vroom
         updateXYH();
     }
     private void updateXYH(){ // updates x, y, and heading and also resets encoders
-        int[] encoders=drive.getCurrentPosition();
+        int[] encoders = drive.getCurrentPosition();
         drive.resetEncoders();
-        double wheel1AVel=encoders[0]/ENCODER_RES*2*Math.PI;
-        double wheel2AVel=encoders[1]/ENCODER_RES*2*Math.PI;
-        double wheel3AVel=encoders[2]/ENCODER_RES*2*Math.PI;
-        double wheel4AVel=encoders[3]/ENCODER_RES*2*Math.PI;
-        double xVel=(wheel1AVel+wheel2AVel+wheel3AVel+wheel4AVel)*WHEEL_RAD/4;
-        double yVel=(-wheel1AVel+wheel2AVel+wheel3AVel-wheel4AVel)*WHEEL_RAD/4;
-        double aVel=(-wheel1AVel+wheel2AVel-wheel3AVel+wheel4AVel)*WHEEL_RAD/(4*(LX+LY));
-        heading+=aVel;
-        x+=Math.cos(heading)*yVel+Math.sin(heading)*xVel;
-        y+=Math.sin(heading)*yVel-Math.cos(heading)*xVel;
+        double wheel1AVel = encoders[0] / ENCODER_RES * 2 * Math.PI;
+        double wheel2AVel = encoders[1] / ENCODER_RES * 2 * Math.PI;
+        double wheel3AVel = encoders[2] / ENCODER_RES * 2 * Math.PI;
+        double wheel4AVel = encoders[3] / ENCODER_RES * 2 * Math.PI;
+        double xVel = (wheel1AVel + wheel2AVel + wheel3AVel + wheel4AVel) * WHEEL_RAD / 4;
+        double yVel = (-wheel1AVel + wheel2AVel + wheel3AVel - wheel4AVel) * WHEEL_RAD / 4;
+        double aVel = (-wheel1AVel + wheel2AVel - wheel3AVel + wheel4AVel) * WHEEL_RAD / (4 * (LX + LY));
+        heading += aVel;
+        x += Math.cos(heading) * yVel + Math.sin(heading) * xVel;
+        y += Math.sin(heading) * yVel - Math.cos(heading) * xVel;
     }
     public void resetEncoders(){ // bruh
         drive.resetEncoders();
