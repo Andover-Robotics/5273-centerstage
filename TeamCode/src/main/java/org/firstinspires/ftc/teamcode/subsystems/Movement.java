@@ -33,7 +33,7 @@ public class Movement {
             moveTick(Math.atan2(y - this.y, x - this.x) - this.heading,1,(int)(Math.abs(heading - this.heading) / (heading - this.heading))); // probably will not divide by zero
         }
     }
-    public void moveTick2(float direction, float power, float turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
+    public void moveTick2(double direction, double power, double turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
         moveTick(Math.PI/2-heading+direction,power,turnPower);
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
