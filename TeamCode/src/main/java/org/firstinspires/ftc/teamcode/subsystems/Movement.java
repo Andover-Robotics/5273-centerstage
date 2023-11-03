@@ -5,15 +5,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
 
 public class Movement {
-    public float x; // x position
-    public float y; // y position
-    public float heading; // the direction that the bot is facing in radians
+    public double x; // x position
+    public double y; // y position
+    public double heading; // the direction that the bot is facing in radians
     private final HardwareMecanumDrive drive;
     private static final double ENCODER_RES = 384.5; // ticks per revolution
     private static final double WHEEL_RAD = 1.9; // wheel radius (inches)
     private static final double LY = 7.5625; // half distance between front and back wheels (inches)
     private static final double LX = 6.625; // half distance between front wheels (inches)
-    public Movement(float x, float y, float heading, HardwareMecanumDrive hardwareMecanumDrive) {
+    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive) {
         this.x = x;
         this.y = y;
         this.heading = heading;
@@ -21,20 +21,20 @@ public class Movement {
         //TODO: verify that the right side is the side that should be reversed
         hardwareMecanumDrive.setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
-    public void moveTo(float x, float y) { // no rotation
+    public void moveTo(double x, double y) { // no rotation
         drive.resetEncoders();
         while (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
             moveTick(Math.atan2(y - this.y, x - this.x) - heading,1,0);
         }
     }
-    public void moveTo(float x, float y, float heading){
+    public void moveTo(double x, double y, double heading){
         drive.resetEncoders();
         while (Math.abs(this.heading - heading) > 0.1 && Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
             moveTick(Math.atan2(y - this.y, x - this.x) - this.heading,1,(int)(Math.abs(heading - this.heading) / (heading - this.heading))); // probably will not divide by zero
         }
     }
     public void moveTick2(double direction, double power, double turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
-        moveTick(Math.PI/2-heading+direction,power,turnPower);
+        moveTick(heading-direction,power,turnPower);
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
