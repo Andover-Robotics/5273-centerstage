@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.hardware.HardwareSlides;
@@ -34,5 +35,10 @@ public class SimHardwareSlides implements HardwareSlides {
     @Override
     public double getPower() {
         return 0;
+    }
+
+    @Override
+    public void setMode(DcMotor.RunMode runMode) {
+
     }
 }

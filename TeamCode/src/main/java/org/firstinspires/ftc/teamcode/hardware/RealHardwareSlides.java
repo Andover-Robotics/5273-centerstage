@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 
 
 public class RealHardwareSlides implements HardwareSlides{
@@ -41,6 +41,11 @@ public class RealHardwareSlides implements HardwareSlides{
         }
         public double getPower(){
                 return slidesMotor.getPower();
+        }
+
+        @Override
+        public void setMode(DcMotor.RunMode runMode) {
+
         }
 
         public int getTargetPosition(){
