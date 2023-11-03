@@ -1,44 +1,34 @@
 package org.firstinspires.ftc.teamcode.hardware;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+import com.qualcomm.robotcore.hardware.Servo;
 public class RealHardwareFlyWheel implements HardwareFlyWheel {
-    private final DcMotor flyWheelMotor;
-    public RealHardwareFlyWheel(){
-        flyWheelMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
+    private final Servo flyWheelServo;
+    public RealHardwareFlyWheel() {
+        this.flyWheelServo = hardwareMap.get(Servo.class, "flyWheelServo");
     }
+
     @Override
-    public void setDirection(DcMotorSimple.Direction direction){
-        flyWheelMotor.setDirection(direction);
+    public double getPosition() {
+        return flyWheelServo.getPosition();
     }
+
     @Override
-    public DcMotorSimple.Direction getDirection(){
-        return flyWheelMotor.getDirection();
+    public void scaleRange(double min, double max) {
+        flyWheelServo.scaleRange(min, max);
     }
+
     @Override
-    public int getCurrentPosition(){
-        return flyWheelMotor.getCurrentPosition();
+    public Servo.Direction getDirection() {
+        return flyWheelServo.getDirection();
     }
+
     @Override
-    public int getTargetPosition(){
-        return flyWheelMotor.getTargetPosition();
+    public void setDirection(Servo.Direction direction) {
+        flyWheelServo.setDirection(direction);
     }
+
     @Override
-    public void setTargetPosition(int position){
-        flyWheelMotor.setTargetPosition(position);
-    }
-    @Override
-    public boolean isBusy(){
-        return flyWheelMotor.isBusy();
-    }
-    @Override
-    public double getPower(){
-        return flyWheelMotor.getPower();
-    }
-    @Override
-    public void setPower(double power){
-        flyWheelMotor.setPower(power);
+    public void setPosition(double position) {
+        flyWheelServo.setPosition(position);
     }
 }

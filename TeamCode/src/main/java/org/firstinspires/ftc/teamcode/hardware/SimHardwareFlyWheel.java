@@ -1,45 +1,38 @@
 package org.firstinspires.ftc.teamcode.hardware;
-
-import org.firstinspires.ftc.teamcode.hardware.HardwareFlyWheel;
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.teamcode.hardware.HardwareFlyWheel;
 
 public class SimHardwareFlyWheel implements HardwareFlyWheel {
-    Simulation sim;
+    private Simulation sim;
+
     public SimHardwareFlyWheel(Simulation sim) {
         this.sim = sim;
     }
-    public void setDirection(DcMotorSimple.Direction direction){
-        //TODO: Implement
-    }
-    @Override
 
-    public DcMotorSimple.Direction getDirection(){
-        return null;
-    }
+
     @Override
-    public int getCurrentPosition(){
+    public double getPosition() {
         return 0; //TODO: Implement
     }
+
     @Override
-    public int getTargetPosition(){
-        return 0; //TODO: Implement
-    }
-    @Override
-    public void setTargetPosition(int position){
+    public void scaleRange(double min, double max) {
         //TODO: Implement
     }
+
     @Override
-    public boolean isBusy(){
-        return false; //TODO: Implement
+    public Servo.Direction getDirection() {
+        return null;//TODO: Implement
     }
+
     @Override
-    public double getPower(){
-        return 0.0; //TODO: Implement
+    public void setDirection(Servo.Direction direction) {
+        //TODO: Implement
     }
+
     @Override
-    public void setPower(double power){
+    public void setPosition(double position) {
         //TODO: Implement
     }
 }
