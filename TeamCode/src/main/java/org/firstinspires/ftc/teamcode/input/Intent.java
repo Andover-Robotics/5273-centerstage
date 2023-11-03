@@ -7,8 +7,7 @@ public class Intent {
     }
 
     Centric centric;
-    double x_dir;
-    double y_dir;
+    double move_dir;
     double move_speed;
     double turn_speed;
     boolean launch;
@@ -26,5 +25,16 @@ public class Intent {
         OPEN_HALF
     }
     ClawIntent claw;
+    public enum SlidesIntent {
+        UP_RELATIVE_HALF,
+        DOWN_RELATIVE_HALF,
+        UP_RELATIVE_FULL,
+        DOWN_RELATIVE_FULL,
+        TOP,
+        BOTTOM,
+        ABSOLUTE,
+    }
+    SlidesIntent slides;
+    int slides_absolute;
 
 }
