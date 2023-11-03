@@ -36,7 +36,7 @@ public class Movement {
     public void moveTick2(float direction, float power, float turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
         moveTick(Math.PI/2-heading+direction,power,turnPower);
     }
-    public void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
+    private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
         double motorPow2 = Math.sin(theta - Math.PI / 4); // right front and left back
         double scale = 1 / Math.max(Math.abs(motorPow1), Math.abs(motorPow2)); // scale up
@@ -59,7 +59,7 @@ public class Movement {
         drive.setPower(leftFront, rightFront, leftBack, rightBack); // vroom vroom
         updateXYH();
     }
-    public void updateXYH(){ // updates x, y, and heading and also resets encoders
+    private void updateXYH(){ // updates x, y, and heading and also resets encoders
         int[] encoders=drive.getCurrentPosition();
         drive.resetEncoders();
         double wheel1AVel=encoders[0]/ENCODER_RES*2*Math.PI;
