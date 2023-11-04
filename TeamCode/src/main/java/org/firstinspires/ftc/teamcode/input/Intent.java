@@ -6,17 +6,17 @@ public class Intent {
         FIELD
     }
 
-    Centric centric;
-    double move_dir;
-    double move_speed;
-    double turn_speed;
-    boolean launch;
+    public Centric centric;
+    public double move_dir;
+    public double move_speed;
+    public double turn_speed;
+    public boolean launch;
     public enum IntakeIntent {
         START,
         STOP,
         NONE,
     }
-    IntakeIntent intake;
+    public IntakeIntent intake;
     public enum ClawIntent {
         OPEN_HALF_RELATIVE,
         CLOSE_HALF_RELATIVE,
@@ -24,7 +24,7 @@ public class Intent {
         CLOSE_FULL,
         OPEN_HALF
     }
-    ClawIntent claw;
+    public ClawIntent claw;
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
         DOWN_RELATIVE_HALF,
@@ -34,7 +34,7 @@ public class Intent {
         BOTTOM,
         ABSOLUTE,
     }
-    SlidesIntent slides;
-    int slides_absolute;
+    public SlidesIntent slides;
+    public int slides_absolute;
 
 }
