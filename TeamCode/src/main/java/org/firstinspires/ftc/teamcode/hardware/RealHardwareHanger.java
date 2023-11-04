@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RealHardwareHanger implements HardwareHanger {
     private final DcMotor motor;
-    public RealHardwareHanger(){
+    public RealHardwareHanger(HardwareMap hardwareMap){
         motor = hardwareMap.get(DcMotor.class, "hangerMotor");
     }
     @Override

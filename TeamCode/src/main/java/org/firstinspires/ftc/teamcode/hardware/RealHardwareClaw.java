@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RealHardwareClaw implements HardwareClaw{
     private final Servo clawServo;
-    public RealHardwareClaw() {
+    public RealHardwareClaw(HardwareMap hardwareMap) {
         this.clawServo = hardwareMap.get(Servo.class, "clawServo");
     }
 

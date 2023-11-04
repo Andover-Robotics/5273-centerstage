@@ -1,16 +1,15 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
     private final DcMotor rightFrontMotor;
     private final DcMotor leftBackMotor;
     private final DcMotor rightBackMotor;
-    public RealHardwareMecanumDrive(){
+    public RealHardwareMecanumDrive(HardwareMap hardwareMap){
         leftFrontMotor=hardwareMap.get(DcMotor.class, "motorLF");
         rightFrontMotor=hardwareMap.get(DcMotor.class, "motorRF");
         leftBackMotor=hardwareMap.get(DcMotor.class, "motorLB");

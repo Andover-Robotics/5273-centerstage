@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 public class RealHardwareLaunch implements HardwareLaunch {
     private final Servo launchServo;
-    public RealHardwareLaunch() {
+    public RealHardwareLaunch(HardwareMap hardwareMap) {
         this.launchServo = hardwareMap.get(Servo.class, "launchServo");
     }
 

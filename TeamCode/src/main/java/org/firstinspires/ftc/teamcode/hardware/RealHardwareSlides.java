@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class RealHardwareSlides implements HardwareSlides{
@@ -11,7 +10,7 @@ public class RealHardwareSlides implements HardwareSlides{
 
         private DcMotor slidesMotor;
 
-        public RealHardwareSlides(){
+        public RealHardwareSlides(HardwareMap hardwareMap){
                 slidesMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
         }
 

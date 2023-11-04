@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.hardware;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 public class RealHardwareFlyWheel implements HardwareFlyWheel {
     private final Servo flyWheelServo;
-    public RealHardwareFlyWheel() {
+    public RealHardwareFlyWheel(HardwareMap hardwareMap) {
         this.flyWheelServo = hardwareMap.get(Servo.class, "flyWheelServo");
     }
 
