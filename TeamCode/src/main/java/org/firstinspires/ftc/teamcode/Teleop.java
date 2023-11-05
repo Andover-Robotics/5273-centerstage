@@ -17,8 +17,9 @@ public class Teleop extends LinearOpMode {
         Bot bot = new Bot(hardwareBot);
         waitForStart();
         bot.movement.resetEncoders();
+        ControllerMapping controllerMapping = new ControllerMapping(gamepad1, gamepad2);
         while(opModeIsActive()){
-            Intent intent = ControllerMapping.get_intent();
+            Intent intent = controllerMapping.get_intent();
             bot.movement.moveTick2(intent.move_dir, intent.move_speed, intent.turn_speed);
         }
     }

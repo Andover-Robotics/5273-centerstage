@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.input;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+
 public class ControllerMapping {
-    HardwareController controller;
+    HardwareController controller1;
+    HardwareController controller2;
     private static class ControllerState {
         public double left_stick_x;
         public double left_stick_y;
@@ -21,62 +24,53 @@ public class ControllerMapping {
         public boolean right_bumper;
         public boolean left_stick_button;
         public boolean right_stick_button;
-        public ControllerState(int controller) {
-            if (controller == 1) {
-                left_stick_x = HardwareController.getLeftStickX1();
-                left_stick_y = HardwareController.getLeftStickY1();
-                right_stick_x = HardwareController.getRightStickX1();
-                right_stick_y = HardwareController.getRightStickY1();
-                left_trigger = HardwareController.getLeftTrigger1();
-                right_trigger = HardwareController.getRightTrigger1();
-                a = HardwareController.getA1();
-                b = HardwareController.getB1();
-                x = HardwareController.getX1();
-                y = HardwareController.getY1();
-                dpad_up = HardwareController.getDpadUp1();
-                dpad_down = HardwareController.getDpadDown1();
-                dpad_left = HardwareController.getDpadLeft1();
-                dpad_right = HardwareController.getDpadRight1();
-                left_bumper = HardwareController.getLeftBumper1();
-                right_bumper = HardwareController.getRightBumper1();
-                left_stick_button = HardwareController.getLeftStickButton1();
-                right_stick_button = HardwareController.getRightStickButton1();
-            } else if (controller == 2) {
-                left_stick_x = HardwareController.getLeftStickX2();
-                left_stick_y = HardwareController.getLeftStickY2();
-                right_stick_x = HardwareController.getRightStickX2();
-                right_stick_y = HardwareController.getRightStickY2();
-                left_trigger = HardwareController.getLeftTrigger2();
-                right_trigger = HardwareController.getRightTrigger2();
-                a = HardwareController.getA2();
-                b = HardwareController.getB2();
-                x = HardwareController.getX2();
-                y = HardwareController.getY2();
-                dpad_up = HardwareController.getDpadUp2();
-                dpad_down = HardwareController.getDpadDown2();
-                dpad_left = HardwareController.getDpadLeft2();
-                dpad_right = HardwareController.getDpadRight2();
-                left_bumper = HardwareController.getLeftBumper2();
-                right_bumper = HardwareController.getRightBumper2();
-                left_stick_button = HardwareController.getLeftStickButton2();
-                right_stick_button = HardwareController.getRightStickButton2();
-            }
+        public ControllerState(HardwareController gamepad) {
+            left_stick_x = gamepad.getLeftStickX();
+            left_stick_y = gamepad.getLeftStickY();
+            right_stick_x = gamepad.getRightStickX();
+            right_stick_y = gamepad.getRightStickY();
+            left_trigger = gamepad.getLeftTrigger();
+            right_trigger = gamepad.getRightTrigger();
+            a = gamepad.getA();
+            b = gamepad.getB();
+            x = gamepad.getX();
+            y = gamepad.getY();
+            dpad_up = gamepad.getDpadUp();
+            dpad_down = gamepad.getDpadDown();
+            dpad_left = gamepad.getDpadLeft();
+            dpad_right = gamepad.getDpadRight();
+            left_bumper = gamepad.getLeftBumper();
+            right_bumper = gamepad.getRightBumper();
+            left_stick_button = gamepad.getLeftStickButton();
+            right_stick_button = gamepad.getRightStickButton();
         }
     }
     ControllerState lastState1;
     ControllerState lastState2;
-    public static Intent get_intent() {
+
+    public ControllerMapping(Gamepad gamepad1, Gamepad gamepad2) {
+        controller1 = new HardwareController(gamepad1);
+        controller2 = new HardwareController(gamepad2);
+        lastState1 = new ControllerState(controller1);
+        lastState2 = new ControllerState(controller2);
+    }
+    public Intent get_intent() {
         Intent intent = new Intent();
         //drive direction + magnitude: controller 1 left stick, feild centric
-        double x = HardwareController.getLeftStickX1();
-        double y = HardwareController.getLeftStickY1();
+        ControllerState state1 = new ControllerState(controller1);
+        ControllerState state2 = new ControllerState(controller2);
+
+        double x = state1.left_stick_x;
+        double y = state1.left_stick_y;
 
         intent.move_dir = Math.atan2(y, x);
         intent.move_speed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
         //turn speed: controller 1 right stick left/right
-        intent.turn_speed = HardwareController.getRightStickX1();
+        intent.turn_speed = state1.right_stick_x;
         intent.centric = Intent.Centric.FIELD;
         //TODO: do literally all of the rest of the controls
+        lastState1 = state1;
+        lastState2 = state2;
         return intent;
     }
 
