@@ -11,12 +11,12 @@ public class Bot {
     public Slides slides;
 
     public Bot(HardwareBot hardwareBot) {
-        assert hardwareBot.claw != null;
-        assert hardwareBot.flyWheel != null;
-        assert hardwareBot.hanger != null;
-        assert hardwareBot.launch != null;
+//        assert hardwareBot.claw != null;
+//        assert hardwareBot.flyWheel != null;
+//        assert hardwareBot.hanger != null;
+//        assert hardwareBot.launch != null;
         assert hardwareBot.mecanumDrive != null;
-        assert hardwareBot.slides != null;
+//        assert hardwareBot.slides != null;
 //        claw = new Claw(hardwareBot.claw);
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);
