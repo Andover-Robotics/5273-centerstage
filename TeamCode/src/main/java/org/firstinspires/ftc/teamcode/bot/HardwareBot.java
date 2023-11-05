@@ -14,12 +14,12 @@ public class HardwareBot {
     public HardwareSlides slides;
 
     public void initReal(HardwareMap hardwareMap) {
-        claw = new RealHardwareClaw(hardwareMap);
-        flyWheel = new RealHardwareFlyWheel(hardwareMap);
-        hanger = new RealHardwareHanger(hardwareMap);
-        launch = new RealHardwareLaunch(hardwareMap);
+//        claw = new RealHardwareClaw(hardwareMap);
+//        flyWheel = new RealHardwareFlyWheel(hardwareMap);
+//        hanger = new RealHardwareHanger(hardwareMap);
+//        launch = new RealHardwareLaunch(hardwareMap);
         mecanumDrive = new RealHardwareMecanumDrive(hardwareMap);
-        slides = new RealHardwareSlides(hardwareMap);
+//        slides = new RealHardwareSlides(hardwareMap);
     }
 
     public void initSim(Simulation sim) {
