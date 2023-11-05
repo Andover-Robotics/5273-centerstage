@@ -10,10 +10,10 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftBackMotor;
     private final DcMotor rightBackMotor;
     public RealHardwareMecanumDrive(HardwareMap hardwareMap){
-        leftFrontMotor=hardwareMap.get(DcMotor.class, "motorLF");
-        rightFrontMotor=hardwareMap.get(DcMotor.class, "motorRF");
-        leftBackMotor=hardwareMap.get(DcMotor.class, "motorLB");
-        rightBackMotor=hardwareMap.get(DcMotor.class, "motorRB");
+        leftFrontMotor=hardwareMap.get(DcMotor.class, "motorFL");
+        rightFrontMotor=hardwareMap.get(DcMotor.class, "motorFR");
+        leftBackMotor=hardwareMap.get(DcMotor.class, "motorBL");
+        rightBackMotor=hardwareMap.get(DcMotor.class, "motorBR");
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
