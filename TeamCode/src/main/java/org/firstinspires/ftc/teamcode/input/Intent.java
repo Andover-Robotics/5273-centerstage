@@ -5,11 +5,23 @@ public class Intent {
         ROBOT,
         FIELD
     }
+    public static class MovementIntent {
+        public Centric centric;
+        public double moveDirection;
+        public double moveSpeed;
+        public double turnSpeed;
 
-    public Centric centric;
-    public double move_dir;
-    public double move_speed;
-    public double turn_speed;
+        @Override
+        public String toString() {
+            return "MovementIntent{" +
+                    "centric=" + centric +
+                    ", moveDirection=" + moveDirection +
+                    ", moveSpeed=" + moveSpeed +
+                    ", turnSpeed=" + turnSpeed +
+                    '}';
+        }
+    }
+    public MovementIntent movement;
     public boolean launch;
     public enum IntakeIntent {
         START,
@@ -22,7 +34,8 @@ public class Intent {
         CLOSE_HALF_RELATIVE,
         OPEN_FULL,
         CLOSE_FULL,
-        OPEN_HALF
+        OPEN_HALF,
+        NONE,
     }
     public ClawIntent claw;
     public enum SlidesIntent {
@@ -37,4 +50,15 @@ public class Intent {
     public SlidesIntent slides;
     public int slides_absolute;
 
+    @Override
+    public String toString() {
+        return "Intent{" +
+                "movement=" + movement +
+                ", launch=" + launch +
+                ", intake=" + intake +
+                ", claw=" + claw +
+                ", slides=" + slides +
+                ", slides_absolute=" + slides_absolute +
+                '}';
+    }
 }

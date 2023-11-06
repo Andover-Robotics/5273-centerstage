@@ -63,11 +63,21 @@ public class ControllerMapping {
         double x = state1.left_stick_x;
         double y = state1.left_stick_y;
 
-        intent.move_dir = Math.atan2(y, x);
-        intent.move_speed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        intent.movement = new Intent.MovementIntent();
+        intent.movement.moveDirection = Math.atan2(y, x);
+        intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
         //turn speed: controller 1 right stick left/right
-        intent.turn_speed = state1.right_stick_x;
-        intent.centric = Intent.Centric.FIELD;
+        intent.movement.turnSpeed = state1.right_stick_x;
+        intent.movement.centric = Intent.Centric.FIELD;
+
+        //claw
+        if(state2.dpad_up && !lastState2.dpad_up){
+            intent.claw = Intent.ClawIntent.CLOSE_FULL;
+        }else if(state2.dpad_down && !lastState2.dpad_down){
+            intent.claw = Intent.ClawIntent.OPEN_HALF_RELATIVE;
+        }else{
+            intent.claw = Intent.ClawIntent.NONE;
+        }
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

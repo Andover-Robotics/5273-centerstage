@@ -20,7 +20,10 @@ public class Teleop extends LinearOpMode {
         ControllerMapping controllerMapping = new ControllerMapping(gamepad1, gamepad2);
         while(opModeIsActive()){
             Intent intent = controllerMapping.get_intent();
-            bot.movement.moveTick2(intent.move_dir, intent.move_speed, intent.turn_speed);
+            telemetry.addData("intent", intent.toString());
+            bot.movement.executeIntent(intent.movement);
+            bot.claw.executeIntent(intent.claw);
+
             telemetry.update();
         }
     }

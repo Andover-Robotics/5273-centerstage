@@ -54,6 +54,34 @@ public class Claw {
         return this.state;
     }
 
-
+    public void executeIntent(Intent.ClawIntent intent) {
+        switch (intent) {
+            case OPEN_HALF_RELATIVE:
+                if (this.state == ClawState.CLOSED) {
+                    this.setState(ClawState.HALF_OPEN);
+                } else if (this.state == ClawState.HALF_OPEN) {
+                    this.setState(ClawState.OPEN);
+                }
+                break;
+            case CLOSE_HALF_RELATIVE:
+                if (this.state == ClawState.OPEN) {
+                    this.setState(ClawState.HALF_OPEN);
+                } else if (this.state == ClawState.HALF_OPEN) {
+                    this.setState(ClawState.CLOSED);
+                }
+                break;
+            case OPEN_FULL:
+                this.setState(ClawState.OPEN);
+                break;
+            case CLOSE_FULL:
+                this.setState(ClawState.CLOSED);
+                break;
+            case OPEN_HALF:
+                this.setState(ClawState.HALF_OPEN);
+                break;
+            case NONE:
+                break;
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Movement {
     public double x; // x position
@@ -35,8 +36,15 @@ public class Movement {
             moveTick(this.heading - Math.atan2(y - this.y, x - this.x),1,(int)(Math.abs(heading - this.heading) / (heading - this.heading))); // probably will not divide by zero
         }
     }
-    public void moveTick2(double direction, double power, double turnPower){ // direction is field centric, power [0,1], turnPower is [-1,1]
-        moveTick(heading-direction,power,turnPower);
+    public void executeIntent(Intent.MovementIntent intent) {
+        if (intent == null) {
+            return;
+        }
+        if(intent.centric == Intent.Centric.ROBOT) {
+            moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
+        } else if(intent.centric == Intent.Centric.FIELD){
+            moveTick(heading - intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
+        }
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
