@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
 
 public class Movement {
@@ -13,12 +14,13 @@ public class Movement {
     private static final double WHEEL_RAD = 1.9; // wheel radius (inches)
     private static final double LY = 7.5625; // half distance between front and back wheels (inches)
     private static final double LX = 6.625; // half distance between front wheels (inches)
-    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive) {
+    private final Telemetry telemetry;
+    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Telemetry telemetry) {
+        this.telemetry = telemetry;
         this.x = x;
         this.y = y;
         this.heading = heading;
         this.drive = hardwareMecanumDrive;
-        //TODO: verify that the right side is the side that should be reversed
         hardwareMecanumDrive.setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
     public void moveTo(double x, double y) { // no rotation

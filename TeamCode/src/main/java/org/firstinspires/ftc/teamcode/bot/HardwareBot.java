@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.bot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.*;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
@@ -13,12 +14,12 @@ public class HardwareBot {
     public HardwareMecanumDrive mecanumDrive;
     public HardwareSlides slides;
 
-    public void initReal(HardwareMap hardwareMap) {
+    public void initReal(HardwareMap hardwareMap, Telemetry telemetry) {
 //        claw = new RealHardwareClaw(hardwareMap);
 //        flyWheel = new RealHardwareFlyWheel(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
 //        launch = new RealHardwareLaunch(hardwareMap);
-        mecanumDrive = new RealHardwareMecanumDrive(hardwareMap);
+        mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, telemetry);
 //        slides = new RealHardwareSlides(hardwareMap);
     }
 

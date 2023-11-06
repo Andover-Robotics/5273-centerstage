@@ -4,12 +4,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
     private final DcMotor rightFrontMotor;
     private final DcMotor leftBackMotor;
     private final DcMotor rightBackMotor;
-    public RealHardwareMecanumDrive(HardwareMap hardwareMap){
+    private final Telemetry telemetry;
+    public RealHardwareMecanumDrive(HardwareMap hardwareMap, Telemetry telemetry){
+        this.telemetry = telemetry;
         leftFrontMotor=hardwareMap.get( DcMotor.class, "driveFL");
         rightFrontMotor=hardwareMap.get(DcMotor.class, "driveFR");
         leftBackMotor=hardwareMap.get(  DcMotor.class, "driveBL");
@@ -22,6 +26,8 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
 
     @Override
     public void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower){
+        telemetry.addData("setPower", "leftFrontPower: " + leftFrontPower + " rightFrontPower: " + rightFrontPower + " leftBackPower: " + leftBackPower + " rightBackPower: " + rightBackPower);
+        telemetry.addData("motors", "leftFrontMotor: " + leftFrontMotor + " rightFrontMotor: " + rightFrontMotor + " leftBackMotor: " + leftBackMotor + " rightBackMotor: " + rightBackMotor);
         leftFrontMotor.setPower(leftFrontPower);
         rightFrontMotor.setPower(rightFrontPower);
         leftBackMotor.setPower(leftBackPower);

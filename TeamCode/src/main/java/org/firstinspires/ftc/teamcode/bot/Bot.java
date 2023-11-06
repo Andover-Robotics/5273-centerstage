@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.bot;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
 public class Bot {
@@ -9,8 +10,9 @@ public class Bot {
     public Launch launch;
     public Movement movement;
     public Slides slides;
+    public Telemetry telemetry;
 
-    public Bot(HardwareBot hardwareBot) {
+    public Bot(HardwareBot hardwareBot, Telemetry telemetry) {
 //        assert hardwareBot.claw != null;
 //        assert hardwareBot.flyWheel != null;
 //        assert hardwareBot.hanger != null;
@@ -21,7 +23,7 @@ public class Bot {
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);
 //        launch = new Launch(hardwareBot.launch);
-        movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive);
+        movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, telemetry);
 //        slides = new Slides(hardwareBot.slides);
     }
 

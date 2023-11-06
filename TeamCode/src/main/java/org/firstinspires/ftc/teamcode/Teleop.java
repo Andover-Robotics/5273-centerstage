@@ -13,14 +13,15 @@ public class Teleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         HardwareBot hardwareBot = new HardwareBot();
-        hardwareBot.initReal(hardwareMap);
-        Bot bot = new Bot(hardwareBot);
+        hardwareBot.initReal(hardwareMap, telemetry);
+        Bot bot = new Bot(hardwareBot, telemetry);
         waitForStart();
         bot.movement.resetEncoders();
         ControllerMapping controllerMapping = new ControllerMapping(gamepad1, gamepad2);
         while(opModeIsActive()){
             Intent intent = controllerMapping.get_intent();
             bot.movement.moveTick2(intent.move_dir, intent.move_speed, intent.turn_speed);
+            telemetry.update();
         }
     }
 }
