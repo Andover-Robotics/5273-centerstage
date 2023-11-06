@@ -15,7 +15,7 @@ public class HardwareBot {
     public HardwareSlides slides;
 
     public void initReal(HardwareMap hardwareMap, Telemetry telemetry) {
-//        claw = new RealHardwareClaw(hardwareMap);
+        claw = new RealHardwareClaw(hardwareMap, telemetry);
 //        flyWheel = new RealHardwareFlyWheel(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
 //        launch = new RealHardwareLaunch(hardwareMap);
