@@ -26,8 +26,6 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
 
     @Override
     public void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower){
-        telemetry.addData("setPower", "leftFrontPower: " + leftFrontPower + " rightFrontPower: " + rightFrontPower + " leftBackPower: " + leftBackPower + " rightBackPower: " + rightBackPower);
-        telemetry.addData("motors", "leftFrontMotor: " + leftFrontMotor + " rightFrontMotor: " + rightFrontMotor + " leftBackMotor: " + leftBackMotor + " rightBackMotor: " + rightBackMotor);
         leftFrontMotor.setPower(leftFrontPower);
         rightFrontMotor.setPower(rightFrontPower);
         leftBackMotor.setPower(leftBackPower);
