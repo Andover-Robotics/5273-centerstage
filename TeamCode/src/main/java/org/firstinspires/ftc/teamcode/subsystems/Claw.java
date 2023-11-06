@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import org.firstinspires.ftc.teamcode.hardware.HardwareClaw;
+import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Claw {
-    private static final double CLAW_OPEN = 0.5;
-    private static final double CLAW_HALF_OPEN = 0.25;
-    private static final double CLAW_CLOSED = 0.0;
+    private static final double CLAW_OPEN = 0.4;
+    private static final double CLAW_HALF_OPEN = 0.37;
+    private static final double CLAW_CLOSED = 0.25;
 
     private final HardwareClaw hardwareClaw;
     private ClawState state;
