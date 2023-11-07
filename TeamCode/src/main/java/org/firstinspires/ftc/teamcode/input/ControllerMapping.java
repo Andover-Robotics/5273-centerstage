@@ -78,6 +78,16 @@ public class ControllerMapping {
         }else{
             intent.claw = Intent.ClawIntent.NONE;
         }
+
+        //intake
+        if(state2.left_bumper){
+            intent.intake = Intent.IntakeIntent.FORWARD;
+        } else if(state2.right_bumper){
+            intent.intake = Intent.IntakeIntent.BACKWARD;
+        } else {
+            intent.intake = Intent.IntakeIntent.STOP;
+        }
+
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

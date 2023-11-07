@@ -24,9 +24,9 @@ public class Intent {
     public MovementIntent movement;
     public boolean launch;
     public enum IntakeIntent {
-        START,
+        FORWARD,
         STOP,
-        NONE,
+        BACKWARD,
     }
     public IntakeIntent intake;
     public enum ClawIntent {

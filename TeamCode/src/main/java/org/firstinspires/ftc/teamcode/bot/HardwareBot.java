@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class HardwareBot {
     public HardwareClaw claw;
-    public HardwareFlyWheel flyWheel;
+    public HardwareFlyWheels flyWheel;
     public HardwareHanger hanger;
     public HardwareLaunch launch;
     public HardwareMecanumDrive mecanumDrive;
@@ -16,7 +16,7 @@ public class HardwareBot {
 
     public void initReal(HardwareMap hardwareMap, Telemetry telemetry) {
         claw = new RealHardwareClaw(hardwareMap, telemetry);
-//        flyWheel = new RealHardwareFlyWheel(hardwareMap);
+        flyWheel = new RealHardwareFlyWheels(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
 //        launch = new RealHardwareLaunch(hardwareMap);
         mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, telemetry);
@@ -25,7 +25,7 @@ public class HardwareBot {
 
     public void initSim(Simulation sim) {
         claw = new SimHardwareClaw(sim);
-        flyWheel = new SimHardwareFlyWheel(sim);
+        flyWheel = new SimHardwareFlyWheels(sim);
         hanger = new SimHardwareHanger(sim);
         launch = new SimHardwareLaunch(sim);
         mecanumDrive = new SimHardwareMecanumDrive(sim);

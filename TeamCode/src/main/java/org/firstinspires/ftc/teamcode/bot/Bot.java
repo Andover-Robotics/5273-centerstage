@@ -11,15 +11,17 @@ public class Bot {
     public Movement movement;
     public Slides slides;
     public Telemetry telemetry;
+    public Intake intake;
 
     public Bot(HardwareBot hardwareBot, Telemetry telemetry) {
         assert hardwareBot.claw != null;
-//        assert hardwareBot.flyWheel != null;
+        assert hardwareBot.flyWheel != null;
 //        assert hardwareBot.hanger != null;
 //        assert hardwareBot.launch != null;
         assert hardwareBot.mecanumDrive != null;
 //        assert hardwareBot.slides != null;
         claw = new Claw(hardwareBot.claw);
+        intake = new Intake(hardwareBot.flyWheel);
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);
 //        launch = new Launch(hardwareBot.launch);
