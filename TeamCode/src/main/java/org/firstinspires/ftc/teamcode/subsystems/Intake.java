@@ -11,20 +11,20 @@ public class Intake {
         this.flyWheels = flyWheels;
         flyWheels.setDirections(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
-    public void forword(){
-        flyWheels.setPowers(1000000000, 1000000000);
+    public void forward(){
+        flyWheels.setPowers(1, 1);
     }
     public void off(){
-//        flyWheels.setPowers(0, 0);
+        flyWheels.setPowers(0, 0);
     }
     public void reverse(){
-        flyWheels.setPowers(-1000000000, -1000000000);
+        flyWheels.setPowers(-1, -1);
     }
 
     public void executeIntent(Intent.IntakeIntent intake) {
         switch (intake) {
             case FORWARD:
-                forword();
+                forward();
                 break;
             case STOP:
                 off();
