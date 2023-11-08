@@ -1,15 +1,20 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import org.firstinspires.ftc.teamcode.hardware.HardwareClaw;
+import org.firstinspires.ftc.teamcode.hardware.HardwareClawFlipper;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Claw {
     private static final double CLAW_OPEN = 0.4;
     private static final double CLAW_HALF_OPEN = 0.37;
     private static final double CLAW_CLOSED = 0.25;
+    private static final double CLAW_FLIPPED = 0.6; // guessed
+    private static final double CLAW_UNFLIPPED = 0; // guessed
 
     private final HardwareClaw hardwareClaw;
+    private final HardwareClawFlipper clawFlipper;
     private ClawState state;
+    private boolean isFlipped;
 
     public enum ClawState {
         OPEN,
@@ -18,8 +23,9 @@ public class Claw {
     }
 
 
-    public Claw(HardwareClaw hardwareClaw) {
+    public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper) {
         this.hardwareClaw = hardwareClaw;
+        this.clawFlipper = clawFlipper;
         this.state = ClawState.OPEN;
         this.open();
     }
@@ -53,6 +59,18 @@ public class Claw {
 
     public ClawState getState() {
         return this.state;
+    }
+    public void flip(){
+        if(isFlipped){
+            clawFlipper.setPosition(CLAW_UNFLIPPED);
+            isFlipped = false;
+        }else{
+            clawFlipper.setPosition(CLAW_FLIPPED);
+            isFlipped = true;
+        }
+    }
+    public boolean isFlipped(){
+        return isFlipped;
     }
 
     public void executeIntent(Intent.ClawIntent intent) {

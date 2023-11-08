@@ -13,9 +13,11 @@ public class HardwareBot {
     public HardwareLaunch launch;
     public HardwareMecanumDrive mecanumDrive;
     public HardwareSlides slides;
+    public HardwareClawFlipper clawFlipper;
 
     public void initReal(HardwareMap hardwareMap, Telemetry telemetry) {
         claw = new RealHardwareClaw(hardwareMap, telemetry);
+        clawFlipper = new RealHardwareClawFlipper(hardwareMap);
         flyWheel = new RealHardwareFlyWheels(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
 //        launch = new RealHardwareLaunch(hardwareMap);
@@ -25,6 +27,7 @@ public class HardwareBot {
 
     public void initSim(Simulation sim) {
         claw = new SimHardwareClaw(sim);
+        clawFlipper = new SimHardwareClawFlipper(sim);
         flyWheel = new SimHardwareFlyWheels(sim);
         hanger = new SimHardwareHanger(sim);
         launch = new SimHardwareLaunch(sim);
