@@ -48,7 +48,7 @@ public class Intent {
         BOTTOM,
         ABSOLUTE,
     }
-    public SlidesIntent slides;
+    public double slides;
     public int slides_absolute;
 
     @Override

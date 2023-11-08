@@ -91,6 +91,11 @@ public class ControllerMapping {
         // claw flip
         intent.clawFlip = state2.y && !lastState2.y;
 
+        // slides
+        intent.slides = -state2.left_stick_y;
+
+
+
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

@@ -18,14 +18,11 @@ public class SimHardwareSlides implements HardwareSlides {
     }
 
     @Override
-    public double getSlidesPosition() {
+    public int getSlidesPosition() {
         return 0;
     }
 
-    @Override
-    public DcMotorSimple.Direction getDirection() {
-        return null;
-    }
+
 
     @Override
     public void setPower(double power) {

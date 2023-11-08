@@ -24,6 +24,7 @@ public class Teleop extends LinearOpMode {
             bot.movement.executeIntent(intent.movement);
             bot.claw.executeIntent(intent.claw, intent.clawFlip);
             bot.intake.executeIntent(intent.intake);
+            bot.slides.executeIntent(intent.slides);
 
             telemetry.update();
         }

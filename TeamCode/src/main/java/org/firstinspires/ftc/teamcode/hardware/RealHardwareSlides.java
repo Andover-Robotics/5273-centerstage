@@ -18,20 +18,13 @@ public class RealHardwareSlides implements HardwareSlides{
                 slidesMotor.setDirection(direction);
         }
 
-        public DcMotorSimple.Direction getDirection(){
-                return slidesMotor.getDirection();
-        }
-
-
-
-
         @Override
         public void setSlidesPosition(int position) {
                 slidesMotor.setTargetPosition(position);
         }
 
         @Override
-        public double getSlidesPosition() {
+        public int getSlidesPosition() {
             return slidesMotor.getCurrentPosition();
         }
 
@@ -44,7 +37,7 @@ public class RealHardwareSlides implements HardwareSlides{
 
         @Override
         public void setMode(DcMotor.RunMode runMode) {
-
+                slidesMotor.setMode(runMode);
         }
 
         public int getTargetPosition(){
