@@ -88,6 +88,9 @@ public class ControllerMapping {
             intent.intake = Intent.IntakeIntent.STOP;
         }
 
+        // claw flip
+        intent.clawFlip = state2.y && !lastState2.y;
+
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

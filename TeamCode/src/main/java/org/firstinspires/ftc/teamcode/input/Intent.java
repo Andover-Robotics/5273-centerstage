@@ -38,6 +38,7 @@ public class Intent {
         NONE,
     }
     public ClawIntent claw;
+    public boolean clawFlip;
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
         DOWN_RELATIVE_HALF,

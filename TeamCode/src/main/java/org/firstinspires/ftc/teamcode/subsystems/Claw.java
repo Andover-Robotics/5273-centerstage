@@ -8,15 +8,19 @@ public class Claw {
     private static final double CLAW_OPEN = 0.4;
     private static final double CLAW_HALF_OPEN = 0.37;
     private static final double CLAW_CLOSED = 0.25;
-    private static final double CLAW_FLIPPED = 0.6; // guessed
-    private static final double CLAW_UNFLIPPED = 0; // guessed
+    private static final double FLIP_IN = 0.6; // guessed
+    private static final double FLIP_OUT = 0; // guessed
 
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
-    private ClawState state;
-    private boolean isFlipped;
+    private PincherState pincherState;
+    private FlipState flipState;
+    public enum FlipState{
+        IN,
+        OUT
+    }
 
-    public enum ClawState {
+    public enum PincherState {
         OPEN,
         HALF_OPEN,
         CLOSED
@@ -26,13 +30,14 @@ public class Claw {
     public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper) {
         this.hardwareClaw = hardwareClaw;
         this.clawFlipper = clawFlipper;
-        this.state = ClawState.OPEN;
+        this.pincherState = PincherState.OPEN;
+        this.flipState = FlipState.IN;
         this.open();
     }
 
-    public void setState(ClawState state) {
-        this.state = state;
-        switch (state) {
+    public void setPincherState(PincherState pincherState) {
+        this.pincherState = pincherState;
+        switch (pincherState) {
             case OPEN:
                 this.open();
                 break;
@@ -57,49 +62,52 @@ public class Claw {
         this.hardwareClaw.setPosition(CLAW_CLOSED);
     }
 
-    public ClawState getState() {
-        return this.state;
+    public PincherState getPincherState() {
+        return this.pincherState;
     }
     public void flip(){
-        if(isFlipped){
-            clawFlipper.setPosition(CLAW_UNFLIPPED);
-            isFlipped = false;
+        if(flipState==FlipState.IN){
+            clawFlipper.setPosition(FLIP_OUT);
+            flipState=FlipState.OUT;
         }else{
-            clawFlipper.setPosition(CLAW_FLIPPED);
-            isFlipped = true;
+            clawFlipper.setPosition(FLIP_IN);
+            flipState=FlipState.IN;
         }
     }
-    public boolean isFlipped(){
-        return isFlipped;
+    public FlipState getFlipState(){
+        return flipState;
     }
 
-    public void executeIntent(Intent.ClawIntent intent) {
+    public void executeIntent(Intent.ClawIntent intent, boolean clawFlip) {
         switch (intent) {
             case OPEN_HALF_RELATIVE:
-                if (this.state == ClawState.CLOSED) {
-                    this.setState(ClawState.HALF_OPEN);
-                } else if (this.state == ClawState.HALF_OPEN) {
-                    this.setState(ClawState.OPEN);
+                if (this.pincherState == PincherState.CLOSED) {
+                    this.setPincherState(PincherState.HALF_OPEN);
+                } else if (this.pincherState == PincherState.HALF_OPEN) {
+                    this.setPincherState(PincherState.OPEN);
                 }
                 break;
             case CLOSE_HALF_RELATIVE:
-                if (this.state == ClawState.OPEN) {
-                    this.setState(ClawState.HALF_OPEN);
-                } else if (this.state == ClawState.HALF_OPEN) {
-                    this.setState(ClawState.CLOSED);
+                if (this.pincherState == PincherState.OPEN) {
+                    this.setPincherState(PincherState.HALF_OPEN);
+                } else if (this.pincherState == PincherState.HALF_OPEN) {
+                    this.setPincherState(PincherState.CLOSED);
                 }
                 break;
             case OPEN_FULL:
-                this.setState(ClawState.OPEN);
+                this.setPincherState(PincherState.OPEN);
                 break;
             case CLOSE_FULL:
-                this.setState(ClawState.CLOSED);
+                this.setPincherState(PincherState.CLOSED);
                 break;
             case OPEN_HALF:
-                this.setState(ClawState.HALF_OPEN);
+                this.setPincherState(PincherState.HALF_OPEN);
                 break;
             case NONE:
                 break;
+        }
+        if(clawFlip){
+            flip();
         }
     }
 
