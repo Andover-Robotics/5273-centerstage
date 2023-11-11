@@ -15,7 +15,7 @@ public class Bot {
 
     public Bot(HardwareBot hardwareBot, Telemetry telemetry) {
         assert hardwareBot.claw != null;
-        assert hardwareBot.clawFlipper != null;
+//        assert hardwareBot.clawFlipper != null;
         assert hardwareBot.flyWheel != null;
 //        assert hardwareBot.hanger != null;
 //        assert hardwareBot.launch != null;
@@ -27,7 +27,7 @@ public class Bot {
 //        hanger = new Hanger(hardwareBot.hanger);
 //        launch = new Launch(hardwareBot.launch);
         movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, telemetry);
-//        slides = new Slides(hardwareBot.slides);
+        slides = new Slides(hardwareBot.slides, telemetry);
     }
 
     public void place_pixel_ground() {}

@@ -17,12 +17,12 @@ public class HardwareBot {
 
     public void initReal(HardwareMap hardwareMap, Telemetry telemetry) {
         claw = new RealHardwareClaw(hardwareMap, telemetry);
-        clawFlipper = new RealHardwareClawFlipper(hardwareMap);
+//        clawFlipper = new RealHardwareClawFlipper(hardwareMap);
         flyWheel = new RealHardwareFlyWheels(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
 //        launch = new RealHardwareLaunch(hardwareMap);
         mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, telemetry);
-//        slides = new RealHardwareSlides(hardwareMap);
+        slides = new RealHardwareSlides(hardwareMap);
     }
 
     public void initSim(Simulation sim) {

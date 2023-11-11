@@ -7,9 +7,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 public interface HardwareSlides {
-    void setSlidesPosition(int position);
-    int getSlidesPosition();
-    void setPower(double power);
-    double getPower();
-    void setMode(DcMotor.RunMode runMode);
+    int[] getSlidesPositions();
+    void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight);
+
+    void setPowers(double powerLeft, double powerRight);
+    double[] getPowers();
+    void setModes(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight);
 }

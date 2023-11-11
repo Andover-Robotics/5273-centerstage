@@ -11,31 +11,28 @@ public class SimHardwareSlides implements HardwareSlides {
     public SimHardwareSlides(Simulation sim) {
         this.sim = sim;
     }
+    @Override
+    public int[] getSlidesPositions() {
+        return new int[0];
+    }
 
     @Override
-    public void setSlidesPosition(int power) {
+    public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight) {
 
     }
 
     @Override
-    public int getSlidesPosition() {
-        return 0;
-    }
-
-
-
-    @Override
-    public void setPower(double power) {
+    public void setPowers(double powerLeft, double powerRight) {
 
     }
 
     @Override
-    public double getPower() {
-        return 0;
+    public double[] getPowers() {
+        return new double[0];
     }
 
     @Override
-    public void setMode(DcMotor.RunMode runMode) {
+    public void setModes(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight) {
 
     }
 }

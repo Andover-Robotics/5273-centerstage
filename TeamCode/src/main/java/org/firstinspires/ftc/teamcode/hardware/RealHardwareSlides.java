@@ -8,43 +8,36 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class RealHardwareSlides implements HardwareSlides{
 
 
-        private DcMotor slidesMotor;
+        private final DcMotor slidesMotorLeft;
+        private final DcMotor slidesMotorRight;
 
         public RealHardwareSlides(HardwareMap hardwareMap){
-                slidesMotor=hardwareMap.get(DcMotor.class, "flyWheelMotor");
+                slidesMotorLeft=hardwareMap.get(DcMotor.class, "flyWheelMotorLeft");
+                slidesMotorRight=hardwareMap.get(DcMotor.class, "flyWheelMotorRight");
         }
-
-        public void setDirection(DcMotorSimple.Direction direction){
-                slidesMotor.setDirection(direction);
+        @Override
+        public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight){
+                slidesMotorLeft.setDirection(directionLeft);
+                slidesMotorRight.setDirection(directionRight);
         }
 
         @Override
-        public void setSlidesPosition(int position) {
-                slidesMotor.setTargetPosition(position);
+        public int[] getSlidesPositions() {
+            return new int[]{slidesMotorLeft.getCurrentPosition(), slidesMotorRight.getCurrentPosition()};
+        }
+        @Override
+        public void setPowers(double powerLeft, double powerRight){
+                slidesMotorLeft.setPower(powerLeft);
+                slidesMotorRight.setPower(powerRight);
+        }
+        @Override
+        public double[] getPowers(){
+                return new double[]{slidesMotorLeft.getPower(), slidesMotorRight.getPower()};
         }
 
         @Override
-        public int getSlidesPosition() {
-            return slidesMotor.getCurrentPosition();
-        }
-
-        public void setPower(double power){
-                slidesMotor.setPower(power);
-        }
-        public double getPower(){
-                return slidesMotor.getPower();
-        }
-
-        @Override
-        public void setMode(DcMotor.RunMode runMode) {
-                slidesMotor.setMode(runMode);
-        }
-
-        public int getTargetPosition(){
-                return slidesMotor.getTargetPosition();
-        }
-
-        public void setTargetPosition(int position){
-                slidesMotor.setTargetPosition(position);
+        public void setModes(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight) {
+            slidesMotorLeft.setMode(runModeLeft);
+            slidesMotorRight.setMode(runModeRight);
         }
 }
