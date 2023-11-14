@@ -72,11 +72,11 @@ public class ControllerMapping {
 
         //claw
         if(state2.dpad_up && !lastState2.dpad_up){
-            intent.claw = Intent.ClawIntent.CLOSE_FULL;
+            intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
         }else if(state2.dpad_down && !lastState2.dpad_down){
-            intent.claw = Intent.ClawIntent.OPEN_HALF_RELATIVE;
+            intent.clawPincher = Intent.ClawPincherIntent.OPEN_HALF_RELATIVE;
         }else{
-            intent.claw = Intent.ClawIntent.NONE;
+            intent.clawPincher = Intent.ClawPincherIntent.NONE;
         }
 
         //intake
@@ -87,9 +87,6 @@ public class ControllerMapping {
         } else {
             intent.intake = Intent.IntakeIntent.STOP;
         }
-
-        // claw flip
-        intent.clawFlip = state2.y && !lastState2.y;
 
         // slides
         intent.slides = -state2.left_stick_y;

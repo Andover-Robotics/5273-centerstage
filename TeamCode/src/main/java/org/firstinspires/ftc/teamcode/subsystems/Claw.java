@@ -1,23 +1,26 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.HardwareClaw;
 import org.firstinspires.ftc.teamcode.hardware.HardwareClawFlipper;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Claw {
-    private static final double CLAW_OPEN = 0.4;
+    private Telemetry telemetry;
+    private static final double CLAW_OPEN = 0.45;
     private static final double CLAW_HALF_OPEN = 0.37;
-    private static final double CLAW_CLOSED = 0.25;
-    private static final double FLIP_IN = 0.6; // guessed
-    private static final double FLIP_OUT = 0; // guessed
-
+    private static final double CLAW_CLOSED = 0.30;
+    private static final double FLIP_IN = 0.517;
+    private static final double FLIP_OUT = 0.854;
+    private static final double FLIP_IN_IN = 0.456;
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
     private PincherState pincherState;
     private FlipState flipState;
     public enum FlipState{
         IN,
-        OUT
+        OUT,
+        IN_IN
     }
 
     public enum PincherState {
@@ -27,7 +30,8 @@ public class Claw {
     }
 
 
-    public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper) {
+    public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper, Telemetry telemetry) {
+        this.telemetry = telemetry;
         this.hardwareClaw = hardwareClaw;
         this.clawFlipper = clawFlipper;
         this.pincherState = PincherState.OPEN;
@@ -65,21 +69,28 @@ public class Claw {
     public PincherState getPincherState() {
         return this.pincherState;
     }
-    public void flip(){
-        if(flipState==FlipState.IN){
-            clawFlipper.setPosition(FLIP_OUT);
-            flipState=FlipState.OUT;
-        }else{
-            clawFlipper.setPosition(FLIP_IN);
-            flipState=FlipState.IN;
+    public void setFlipState(FlipState state){
+        switch (state) {
+            case IN_IN:
+                clawFlipper.setPosition(FLIP_IN_IN);
+                flipState=FlipState.IN_IN;
+                break;
+            case IN:
+                clawFlipper.setPosition(FLIP_IN);
+                flipState = FlipState.IN;
+                break;
+            case OUT:
+                clawFlipper.setPosition(FLIP_OUT);
+                flipState = FlipState.OUT;
+                break;
         }
     }
     public FlipState getFlipState(){
         return flipState;
     }
 
-    public void executeIntent(Intent.ClawIntent intent, boolean clawFlip) {
-        switch (intent) {
+    public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
+        switch (pincherIntent) {
             case OPEN_HALF_RELATIVE:
                 if (this.pincherState == PincherState.CLOSED) {
                     this.setPincherState(PincherState.HALF_OPEN);
@@ -106,9 +117,18 @@ public class Claw {
             case NONE:
                 break;
         }
-        if(clawFlip){
-            flip();
+        switch (flipIntent){
+            case IN_IN:
+                setFlipState(FlipState.IN_IN);
+                break;
+            case IN:
+                setFlipState(FlipState.IN);
+                break;
+            case OUT:
+                setFlipState(FlipState.OUT);
+                break;
         }
+        telemetry.addData("flipper pos: ",clawFlipper.getPosition());
     }
 
 }

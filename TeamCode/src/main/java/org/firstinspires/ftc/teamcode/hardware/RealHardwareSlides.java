@@ -12,8 +12,8 @@ public class RealHardwareSlides implements HardwareSlides{
         private final DcMotor slidesMotorRight;
 
         public RealHardwareSlides(HardwareMap hardwareMap){
-                slidesMotorLeft=hardwareMap.get(DcMotor.class, "flyWheelMotorLeft");
-                slidesMotorRight=hardwareMap.get(DcMotor.class, "flyWheelMotorRight");
+                slidesMotorLeft=hardwareMap.get(DcMotor.class, "slidesWheelMotorLeft");
+                slidesMotorRight=hardwareMap.get(DcMotor.class, "slidesWheelMotorRight");
         }
         @Override
         public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight){

@@ -10,12 +10,12 @@ public class SimHardwareFlyWheels implements HardwareFlyWheels {
     }
 
     @Override
-    public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight) {
+    public void setDirection(DcMotorSimple.Direction direction) {
 
     }
 
     @Override
-    public void setPowers(double powerLeft, double powerRight) {
+    public void setPower(double power) {
 
     }
 }

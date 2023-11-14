@@ -29,7 +29,7 @@ public class Intent {
         BACKWARD,
     }
     public IntakeIntent intake;
-    public enum ClawIntent {
+    public enum ClawPincherIntent {
         OPEN_HALF_RELATIVE,
         CLOSE_HALF_RELATIVE,
         OPEN_FULL,
@@ -37,8 +37,14 @@ public class Intent {
         OPEN_HALF,
         NONE,
     }
-    public ClawIntent claw;
-    public boolean clawFlip;
+    public ClawFlipIntent clawFlip;
+    public ClawPincherIntent clawPincher;
+    public enum ClawFlipIntent{
+        IN,
+        OUT,
+        IN_IN,
+        NONE,
+    }
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
         DOWN_RELATIVE_HALF,
@@ -51,13 +57,14 @@ public class Intent {
     public double slides;
     public int slides_absolute;
 
+
     @Override
     public String toString() {
         return "Intent{" +
                 "movement=" + movement +
                 ", launch=" + launch +
                 ", intake=" + intake +
-                ", claw=" + claw +
+                ", claw=" + clawPincher +
                 ", slides=" + slides +
                 ", slides_absolute=" + slides_absolute +
                 '}';

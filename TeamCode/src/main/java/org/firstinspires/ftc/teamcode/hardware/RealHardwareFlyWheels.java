@@ -1,25 +1,23 @@
 package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RealHardwareFlyWheels implements HardwareFlyWheels {
-    private final CRServo servoLeft;
-    private final CRServo servoRight;
+    private final DcMotor motor;
     public RealHardwareFlyWheels(HardwareMap hardwareMap) {
-        servoLeft = hardwareMap.get(CRServo.class, "flyWheelLeft");
-        servoRight = hardwareMap.get(CRServo.class, "flyWheelRight");
+        motor = hardwareMap.get(DcMotor.class, "flyWheelMotor");
     }
 
     @Override
-    public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight) {
-        servoLeft.setDirection(directionLeft);
-        servoRight.setDirection(directionRight);
+    public void setDirection(DcMotorSimple.Direction direction) {
+        motor.setDirection(direction);
     }
 
     @Override
-    public void setPowers(double powerLeft, double powerRight) {
-        servoLeft.setPower(powerLeft);
-        servoRight.setPower(powerRight);
+    public void setPower(double power) {
+        motor.setPower(power);
     }
 }

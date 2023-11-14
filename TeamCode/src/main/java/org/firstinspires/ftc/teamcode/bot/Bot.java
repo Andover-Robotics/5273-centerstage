@@ -21,7 +21,7 @@ public class Bot {
 //        assert hardwareBot.launch != null;
         assert hardwareBot.mecanumDrive != null;
 //        assert hardwareBot.slides != null;
-        claw = new Claw(hardwareBot.claw, hardwareBot.clawFlipper);
+        claw = new Claw(hardwareBot.claw, hardwareBot.clawFlipper, telemetry);
         intake = new Intake(hardwareBot.flyWheel);
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);

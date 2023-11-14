@@ -6,15 +6,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RealHardwareClawFlipper implements HardwareClawFlipper{
     private final Servo servo;
     public RealHardwareClawFlipper(HardwareMap hardwareMap){
-        servo = hardwareMap.get(Servo.class, "clawFlipper");
+        servo = hardwareMap.get(Servo.class, "flipperServo");
     }
+    @Override
     public void setDirection(Servo.Direction direction) {
         servo.setDirection(direction);
     }
-    public void setPosition(double pos){
+
+    @Override
+    public void setPosition(double pos) {
         servo.setPosition(pos);
     }
-    public double getPosition(){
+
+    @Override
+    public double getPosition() {
         return servo.getPosition();
     }
 }

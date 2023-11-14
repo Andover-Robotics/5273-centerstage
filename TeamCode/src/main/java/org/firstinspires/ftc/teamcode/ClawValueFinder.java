@@ -4,17 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.bot.Bot;
-import org.firstinspires.ftc.teamcode.bot.HardwareBot;
-import org.firstinspires.ftc.teamcode.input.ControllerMapping;
-import org.firstinspires.ftc.teamcode.input.Intent;
-
-@TeleOp(name = "Test Teleop", group = "Teleop")
-public class Testop extends LinearOpMode {
+@TeleOp(name = "Claw Value Finder", group = "Teleop")
+public class ClawValueFinder extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        HardwareBot hardwareBot = new HardwareBot();
-        hardwareBot.initReal(hardwareMap, telemetry);
         waitForStart();
         Servo claw = hardwareMap.get(Servo.class, "clawServo");
         while(opModeIsActive()){
