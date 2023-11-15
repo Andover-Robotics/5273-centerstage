@@ -11,7 +11,7 @@ public class Claw {
     private static final double CLAW_HALF_OPEN = 0.37;
     private static final double CLAW_CLOSED = 0.30;
     private static final double FLIP_IN = 0.517;
-    private static final double FLIP_OUT = 0.854;
+    private static final double FLIP_OUT = 0.744;
     private static final double FLIP_IN_IN = 0.456;
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;

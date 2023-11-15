@@ -89,7 +89,13 @@ public class Slides {
             telemetry.addData("limiting", "upper bound");
             power = 0;
         }
-        power*=2/(1+Math.pow(Math.E,-SPEED_LIMIT_FACTOR*(Math.abs(speed)-200)))-1;
+        //if above CLAW_FLIP_BOUND2, dont limit power
+        if(pos < CLAW_FLIP_BOUND2 && power > 0) {
+        }else if(between(pos, CLAW_FLIP_BOUND2, CLAW_FLIP_BOUND1) && power < 0){
+            power *= 0.3;
+        }else{
+            power *= 0.4;
+        }
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
