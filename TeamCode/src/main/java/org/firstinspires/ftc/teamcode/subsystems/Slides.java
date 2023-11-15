@@ -90,14 +90,14 @@ public class Slides {
             power = 0;
         }
         //if pos is near CLAW_FLIP_BOUND2, clamp the power between -0.1 and 0.1
-        if(between(pos, CLAW_FLIP_BOUND2 + 300, CLAW_FLIP_BOUND2 - 300)){
-            //limit speed to +- 200 ticks/second
-            if(speed > 200){
-                power = 0.1;
-            }else if(speed < -200){
-                power = -0.1;
-            }
-        }
+//        if(between(pos, CLAW_FLIP_BOUND2 + 300, CLAW_FLIP_BOUND2 - 300)){
+//            //limit speed to +- 200 ticks/second
+//            if(speed > 200){
+//                power = 0.1;
+//            }else if(speed < -200){
+//                power = -0.1;
+//            }
+//        }
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
