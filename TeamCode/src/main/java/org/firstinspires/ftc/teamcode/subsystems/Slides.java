@@ -18,6 +18,7 @@ public class Slides {
     private static final double MAX_SLIDES_POSITION = REAL_MAX_SLIDES_POSITION + 250;
     private static final int CLAW_FLIP_BOUND1 = -200; // above is in, below or equal is inin
     private static final int CLAW_FLIP_BOUND2 = -1000; // above or equal is inin, below is out
+    private static final double SPEED_LIMIT_FACTOR = 0.2;
     private double startingPositionLeft = 0;
     private double startingPositionRight = 0;
     private final Telemetry telemetry;
@@ -88,10 +89,7 @@ public class Slides {
             telemetry.addData("limiting", "upper bound");
             power = 0;
         }
-        //if pos is near CLAW_FLIP_BOUND2, clamp the power to 0, limit speed to +- 200 ticks/second
-        if(between(pos, CLAW_FLIP_BOUND2 + 300, CLAW_FLIP_BOUND2 - 300) && Math.abs(speed) > 200){
-            power = 0;
-        }
+        power*=2/(1+Math.pow(Math.E,-SPEED_LIMIT_FACTOR*(Math.abs(speed)-200)))-1;
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
