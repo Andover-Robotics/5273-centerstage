@@ -64,7 +64,7 @@ public class Slides {
         }
     }
 
-    public Intent.ClawFlipIntent executeIntent(double _power){
+    public Intent.ClawFlipIntent executeIntent(double power){
         int[] positions = hardwareSlides.getSlidesPositions();
         double pos=(positions[0]+positions[1])/2.0;
         double dt = timer.seconds();
@@ -76,8 +76,7 @@ public class Slides {
 
         telemetry.addData("speed", speed);
 
-        telemetry.addData("real power", _power);
-        double power = _power;
+        telemetry.addData("real power", power);
 
         //prevent pos from going above 0
         if((pos > 0) && (power < 0)){
@@ -89,15 +88,10 @@ public class Slides {
             telemetry.addData("limiting", "upper bound");
             power = 0;
         }
-        //if pos is near CLAW_FLIP_BOUND2, clamp the power between -0.1 and 0.1
-//        if(between(pos, CLAW_FLIP_BOUND2 + 300, CLAW_FLIP_BOUND2 - 300)){
-//            //limit speed to +- 200 ticks/second
-//            if(speed > 200){
-//                power = 0.1;
-//            }else if(speed < -200){
-//                power = -0.1;
-//            }
-//        }
+        //if pos is near CLAW_FLIP_BOUND2, clamp the power to 0, limit speed to +- 200 ticks/second
+        if(between(pos, CLAW_FLIP_BOUND2 + 300, CLAW_FLIP_BOUND2 - 300) && Math.abs(speed) > 200){
+            power = 0;
+        }
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
