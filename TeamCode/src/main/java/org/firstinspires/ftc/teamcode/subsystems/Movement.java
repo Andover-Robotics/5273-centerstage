@@ -40,6 +40,9 @@ public class Movement {
         if (intent == null) {
             return;
         }
+        if(intent.resetHeading){
+            heading = 0;
+        }
         if(intent.centric == Intent.Centric.ROBOT) {
             moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
         } else if(intent.centric == Intent.Centric.FIELD){

@@ -10,6 +10,7 @@ public class Intent {
         public double moveDirection;
         public double moveSpeed;
         public double turnSpeed;
+        public boolean resetHeading;
 
         @Override
         public String toString() {
