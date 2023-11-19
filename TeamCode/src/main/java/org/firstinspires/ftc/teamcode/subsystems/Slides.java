@@ -14,16 +14,16 @@ import org.firstinspires.ftc.teamcode.input.Intent;
 public class Slides {
     private final HardwareSlides hardwareSlides;
     private static final double ENCODER_RES = 384.5;
-    private static final double REAL_MAX_SLIDES_POSITION = -3900;
-    private static final double MAX_SLIDES_POSITION = REAL_MAX_SLIDES_POSITION + 250;
-    private static final int CLAW_FLIP_BOUND1 = -200; // above is in, below or equal is inin
-    private static final int CLAW_FLIP_BOUND2 = -1000; // above or equal is inin, below is out
+    private static final int REAL_MAX_SLIDES_POSITION = -3900;
+    private static final int MAX_SLIDES_POSITION = REAL_MAX_SLIDES_POSITION + 250;
+    private static final int CLAW_FLIP_BOUND1 = -250; // above is in, below or equal is inin
+    private static final int CLAW_FLIP_BOUND2 = -1250; // above or equal is inin, below is out
     private static final double SPEED_LIMIT_FACTOR = 0.2;
-    private double startingPositionLeft = 0;
-    private double startingPositionRight = 0;
+    private int startingPositionLeft = 0;
+    private int startingPositionRight = 0;
     private final Telemetry telemetry;
     private ElapsedTime timer;
-    private double lastPos;
+    private int lastPos;
 
     public Slides(HardwareSlides hardwareSlides, Telemetry telemetry){
         this.telemetry = telemetry;
@@ -37,7 +37,7 @@ public class Slides {
         lastPos = 0;
     }
 
-    private boolean between(double value, double limit1, double limit2){
+    private boolean between(int value, int limit1, int limit2){
         if(limit1 > limit2){
             return value >= limit2 && value <= limit1;
         }else{
@@ -45,7 +45,7 @@ public class Slides {
         }
     }
 
-    private double clamp(double value, double limit1, double limit2){
+    private int clamp(int value, int limit1, int limit2){
         if(limit1 > limit2){
             if(value < limit2){
                 return limit2;
@@ -55,6 +55,7 @@ public class Slides {
                 return value;
             }
         }else{
+
             if(value < limit1){
                 return limit1;
             }else if(value > limit2){
@@ -67,7 +68,7 @@ public class Slides {
 
     public Intent.ClawFlipIntent executeIntent(double power){
         int[] positions = hardwareSlides.getSlidesPositions();
-        double pos=(positions[0]+positions[1])/2.0;
+        int pos=Math.min(positions[0], positions[1]);
         double dt = timer.seconds();
         timer.reset();
         double dx = pos - lastPos;
@@ -96,6 +97,7 @@ public class Slides {
         }else{
             power *= 0.4;
         }
+//        power *= 0.5;
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
@@ -110,4 +112,8 @@ public class Slides {
         }
     }
 
+    public void resetEncoders() {
+        hardwareSlides.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hardwareSlides.setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
 }

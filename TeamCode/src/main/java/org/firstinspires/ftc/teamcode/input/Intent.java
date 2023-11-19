@@ -1,6 +1,15 @@
 package org.firstinspires.ftc.teamcode.input;
 
 public class Intent {
+    public Intent() {
+        movement = new MovementIntent();
+        launch = false;
+        intake = IntakeIntent.STOP;
+        clawPincher = ClawPincherIntent.NONE;
+        clawFlip = ClawFlipIntent.NONE;
+        slides = 0;
+        slides_absolute = 0;
+    }
     public enum Centric {
         ROBOT,
         FIELD

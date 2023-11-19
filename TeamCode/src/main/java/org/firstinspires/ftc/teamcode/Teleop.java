@@ -17,6 +17,7 @@ public class Teleop extends LinearOpMode {
         Bot bot = new Bot(hardwareBot, telemetry);
         waitForStart();
         bot.movement.resetEncoders();
+        bot.slides.resetEncoders();
         ControllerMapping controllerMapping = new ControllerMapping(gamepad1, gamepad2);
         while(opModeIsActive()){
             Intent intent = controllerMapping.get_intent();

@@ -27,7 +27,16 @@ public class Movement {
     public void moveTo(double x, double y) { // no rotation
         drive.resetEncoders();
         while (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
-            moveTick(heading - Math.atan2(y - this.y, x - this.x),1,0);
+            telemetry.addData("x", this.x);
+            telemetry.addData("y", this.y);
+            telemetry.addData("theta", this.heading);
+            telemetry.addData("target x", x);
+            telemetry.addData("target y", y);
+            telemetry.addData("movement direction", Math.toDegrees(Math.atan2(y - this.y, x - this.x)));
+
+            telemetry.update();
+
+            moveTick(heading - Math.atan2(y - this.y, x - this.x),0.4,0);
         }
     }
     public void moveTo(double x, double y, double heading){
@@ -72,7 +81,7 @@ public class Movement {
         drive.setPower(leftFront, rightFront, leftBack, rightBack); // vroom vroom
         updateXYH();
     }
-    private void updateXYH(){ // updates x, y, and heading and also resets encoders
+    public void updateXYH(){ // updates x, y, and heading and also resets encoders
         int[] encoders = drive.getCurrentPosition();
         drive.resetEncoders();
         double wheel1AVel = encoders[0] / ENCODER_RES * 2 * Math.PI;
