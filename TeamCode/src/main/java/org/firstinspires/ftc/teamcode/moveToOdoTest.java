@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -17,7 +19,11 @@ public class moveToOdoTest extends LinearOpMode {
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
-        bot.movement.moveTo(20, 0);
+        while(true){
+            bot.movement.moveTo(20, 0, 0);
+            bot.movement.moveTo(0, 0, 0);
+        }
+
 
     }
 }

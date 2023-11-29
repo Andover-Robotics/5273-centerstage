@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import static androidx.core.math.MathUtils.clamp;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -21,6 +23,7 @@ public class Movement {
     private static final double LX = 6.625; // half distance between front wheels (inches)
     private static final double MAX_ACCEL = 3.0; // max acceleration (inches per second squared)
     private static final double DECEL_FACTOR = 0.5;
+    private static final double TARGET_RES = 1; // target resolution (inches)
     private final Telemetry telemetry;
     public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -49,9 +52,19 @@ public class Movement {
     }
     public void moveTo(double x, double y, double heading){
         drive.resetEncoders();
-        double dist=0;
-        while (Math.abs(this.heading - heading) > 0.1 || (dist=Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2))) > 0.1){
-            moveTick(this.heading - Math.atan2(y - this.y, x - this.x), -Math.pow(2,-DECEL_FACTOR*dist)+1, clamp(heading - this.heading, -1, 1));
+        double dist;
+        while ((dist=Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2))) > TARGET_RES || Math.abs(this.heading - heading) > 0.1){
+            TelemetryPacket packet = new TelemetryPacket();
+            packet.put("distance error", dist);
+            packet.put("heading error", this.heading - heading);
+            double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
+            packet.put("power", power);
+
+            double turnPower = clamp(this.heading - heading, -1, 1);
+//            double turnPower = 0;
+            packet.put("turn power", turnPower);
+            FtcDashboard.getInstance().sendTelemetryPacket(packet);
+            moveTick(Math.atan2(y - this.y, x - this.x) - heading, power, turnPower);
         }
     }
 
