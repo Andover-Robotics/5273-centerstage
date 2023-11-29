@@ -31,21 +31,7 @@ public class Movement {
         hardwareMecanumDrive.setDirection(DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
     public void moveTo(double x, double y) { // no rotation
-        drive.resetEncoders();
-        while (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
-            telemetry.addData("x", this.x);
-            telemetry.addData("y", this.y);
-            telemetry.addData("theta", this.heading);
-            telemetry.addData("target x", x);
-            telemetry.addData("target y", y);
-            telemetry.addData("movement direction", Math.toDegrees(Math.atan2(y - this.y, x - this.x)));
-            telemetry.addData("relative movement direction", Math.toDegrees(Math.atan2(y - this.y, x - this.x)-heading));
-
-            telemetry.update();
-
-            moveTick(Math.atan2(y - this.y, x - this.x)-heading,1,0);
-        }
-        drive.setPower(0,0,0,0);
+        moveTo(x, y, heading);
     }
     public void moveTo(double x, double y, double heading){
         drive.resetEncoders();

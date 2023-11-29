@@ -31,5 +31,5 @@ public class Bot {
     }
 
     public void place_pixel_ground() {}
-    public void place_pixel_backboard(int height) {}
+    public void place_pixel_backboard(int x, int height) {}
 }
