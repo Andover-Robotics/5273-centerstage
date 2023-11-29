@@ -20,6 +20,7 @@ public class Movement {
     private static final double LY = 7.5625; // half distance between front and back wheels (inches)
     private static final double LX = 6.625; // half distance between front wheels (inches)
     private static final double MAX_ACCEL = 3.0; // max acceleration (inches per second squared)
+    private static final double DECEL_FACTOR = 0.5;
     private final Telemetry telemetry;
     public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -48,8 +49,9 @@ public class Movement {
     }
     public void moveTo(double x, double y, double heading){
         drive.resetEncoders();
-        while (Math.abs(this.heading - heading) > 0.1 || Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) > 0.1){
-            moveTick(this.heading - Math.atan2(y - this.y, x - this.x),1, clamp(heading - this.heading, -1, 1)); // probably will not divide by zero
+        double dist=0;
+        while (Math.abs(this.heading - heading) > 0.1 || (dist=Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2))) > 0.1){
+            moveTick(this.heading - Math.atan2(y - this.y, x - this.x), -Math.pow(2,-DECEL_FACTOR*dist)+1, clamp(heading - this.heading, -1, 1));
         }
     }
 
