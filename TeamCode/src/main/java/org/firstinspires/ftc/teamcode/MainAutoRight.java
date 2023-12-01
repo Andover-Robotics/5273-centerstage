@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import static androidx.core.math.MathUtils.clamp;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
