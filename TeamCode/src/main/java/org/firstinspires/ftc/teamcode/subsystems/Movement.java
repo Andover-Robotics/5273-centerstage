@@ -47,11 +47,33 @@ public class Movement {
             packet.put("power", power);
 
             double turnPower = clamp(this.heading - heading, -1, 1);
-//            double turnPower = 0;
             packet.put("turn power", turnPower);
+
+                double[] xPoints = new double[4];
+                double[] yPoints = new double[4];
+                double width = 18;
+                double length = 18;
+                xPoints[0] = +width / 2;
+                yPoints[0] = +length / 2;
+                xPoints[1] = -width / 2;
+                yPoints[1] = +length / 2;
+                xPoints[2] = -width / 2;
+                yPoints[2] = -length / 2;
+                xPoints[3] = +width / 2;
+                yPoints[3] = -length / 2;
+                for (int i = 0; i < 4; i++) {
+                    double xTemp = xPoints[i];
+                    double yTemp = yPoints[i];
+                    xPoints[i] = xTemp * Math.cos(heading) - yTemp * Math.sin(heading) + x;
+                    yPoints[i] = xTemp * Math.sin(heading) + yTemp * Math.cos(heading) + y;
+                }
+                packet.fieldOverlay().fillPolygon(xPoints, yPoints);
+
+
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
             moveTick(Math.atan2(y - this.y, x - this.x) - heading, power, turnPower);
         }
+        drive.setPower(0,0,0,0);
     }
 
 //    public void motionProfileTo(double x, double y, double heading)
@@ -128,6 +150,7 @@ public class Movement {
         x += xVel_global;
         y += yVel_global;
         heading += aVel;
+        heading = (((heading % (Math.PI*2)) + (Math.PI*2)) % (Math.PI*2));
     }
     public void resetEncoders(){ // bruh
         drive.resetEncoders();

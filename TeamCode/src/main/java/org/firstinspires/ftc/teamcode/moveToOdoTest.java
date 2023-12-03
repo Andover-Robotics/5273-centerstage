@@ -16,13 +16,20 @@ public class moveToOdoTest extends LinearOpMode {
         HardwareBot hardwareBot = new HardwareBot();
         hardwareBot.initReal(hardwareMap, telemetry);
         Bot bot = new Bot(hardwareBot, telemetry);
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("distance error", 0);
+        packet.put("heading error", 0);
+        packet.put("power", 0);
+        packet.put("turn power", 0);
+        FtcDashboard.getInstance().sendTelemetryPacket(packet);
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
-        while(true){
-            bot.movement.moveTo(20, 0, 0);
-            bot.movement.moveTo(0, 0, 0);
-        }
+        bot.movement.moveTo(0, 0, Math.PI);
+//        while(true){
+//            bot.movement.moveTo(30, 0, 0);
+//            bot.movement.moveTo(0, 0, 0);
+//        }
 
 
     }
