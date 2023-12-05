@@ -26,7 +26,7 @@ public class Bot {
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);
 //        launch = new Launch(hardwareBot.launch);
-        movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, telemetry);
+        movement = new Movement(12, 60, Math.PI, hardwareBot.mecanumDrive, telemetry);
         slides = new Slides(hardwareBot.slides, telemetry);
     }
 

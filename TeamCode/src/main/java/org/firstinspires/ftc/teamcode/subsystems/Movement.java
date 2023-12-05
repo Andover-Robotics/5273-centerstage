@@ -86,9 +86,9 @@ public class Movement {
             heading = 0;
         }
         if(intent.centric == Intent.Centric.ROBOT) {
-            moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
+            moveTick(intent.moveDirection - Math.PI/2, intent.moveSpeed, intent.turnSpeed);
         } else if(intent.centric == Intent.Centric.FIELD){
-            moveTick(heading - intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
+            moveTick(heading - intent.moveDirection - Math.PI/2, intent.moveSpeed, intent.turnSpeed);
         }
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
