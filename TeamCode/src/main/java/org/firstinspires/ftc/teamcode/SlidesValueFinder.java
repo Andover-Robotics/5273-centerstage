@@ -20,11 +20,11 @@ public class SlidesValueFinder extends LinearOpMode {
         slidesMotorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         while(opModeIsActive()){
             if(gamepad2.dpad_up){
-                slidesMotorLeft.setPower(0.1);
-                slidesMotorRight.setPower(0.1);
+                slidesMotorLeft.setPower(0.3);
+                slidesMotorRight.setPower(0.3);
             }else if(gamepad2.dpad_down){
-                slidesMotorLeft.setPower(-0.1);
-                slidesMotorRight.setPower(-0.1);
+                slidesMotorLeft.setPower(-0.3);
+                slidesMotorRight.setPower(-0.3);
             }else{
                 slidesMotorLeft.setPower(0);
                 slidesMotorRight.setPower(0);

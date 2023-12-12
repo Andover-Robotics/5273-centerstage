@@ -50,9 +50,7 @@ public class Intent {
     public ClawFlipIntent clawFlip;
     public ClawPincherIntent clawPincher;
     public enum ClawFlipIntent{
-        IN,
-        OUT,
-        IN_IN,
+        FLIP,
         NONE,
     }
     public enum SlidesIntent {

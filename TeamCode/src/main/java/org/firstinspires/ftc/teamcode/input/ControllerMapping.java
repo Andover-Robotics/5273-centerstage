@@ -93,6 +93,7 @@ public class ControllerMapping {
         // slides
         intent.slides = -state2.left_stick_y;
 
+        intent.clawFlip = state2.a && !lastState2.a ? Intent.ClawFlipIntent.FLIP : Intent.ClawFlipIntent.NONE;
 
 
         //TODO: do literally all of the rest of the controls
