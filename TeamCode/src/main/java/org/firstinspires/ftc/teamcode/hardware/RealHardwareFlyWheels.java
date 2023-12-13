@@ -6,18 +6,23 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class RealHardwareFlyWheels implements HardwareFlyWheels {
-    private final DcMotor motor;
+    private final CRServo leftFlyWheel;
+    private final CRServo rightFlyWheel;
     public RealHardwareFlyWheels(HardwareMap hardwareMap) {
-        motor = hardwareMap.get(DcMotor.class, "flyWheelMotor");
+        leftFlyWheel = hardwareMap.get(CRServo.class, "flywheelLeft");
+        rightFlyWheel = hardwareMap.get(CRServo.class, "flywheelRight");
+        leftFlyWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFlyWheel.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     @Override
     public void setDirection(DcMotorSimple.Direction direction) {
-        motor.setDirection(direction);
+
     }
 
     @Override
     public void setPower(double power) {
-        motor.setPower(power);
+        leftFlyWheel.setPower(power);
+        rightFlyWheel.setPower(power);
     }
 }

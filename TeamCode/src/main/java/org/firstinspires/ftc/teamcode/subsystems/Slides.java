@@ -10,14 +10,11 @@ import org.firstinspires.ftc.teamcode.hardware.HardwareSlides;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 
-//up is negitive for some reason
 public class Slides {
     private final HardwareSlides hardwareSlides;
     private static final double ENCODER_RES = 384.5;
-    private static final int REAL_MAX_SLIDES_POSITION = -3900;
-    private static final int MAX_SLIDES_POSITION = REAL_MAX_SLIDES_POSITION + 250;
-    private static final int CLAW_FLIP_BOUND1 = -250; // above is in, below or equal is inin
-    private static final int CLAW_FLIP_BOUND2 = -1250; // above or equal is inin, below is out
+    private static final int MIN_FLIP_HEIGHT = 2350;
+    private static final int MAX_HEIGHT = 4300;
     private static final double SPEED_LIMIT_FACTOR = 0.2;
     private int startingPositionLeft = 0;
     private int startingPositionRight = 0;
@@ -66,9 +63,11 @@ public class Slides {
         }
     }
 
-    public Intent.ClawFlipIntent executeIntent(double power){
+    public void executeIntent(double power){
         int[] positions = hardwareSlides.getSlidesPositions();
-        int pos=Math.min(positions[0], positions[1]);
+        positions[0] = -positions[0];//for some reason these are negitive by default(up is negitive)
+        positions[1] = -positions[1];//this fixes them so that up is positive
+        int pos=Math.max(positions[0], positions[1]);
         double dt = timer.seconds();
         timer.reset();
         double dx = pos - lastPos;
@@ -76,9 +75,9 @@ public class Slides {
 
         double speed = dx/dt;
 
-        telemetry.addData("speed", speed);
+//        telemetry.addData("speed", speed);
 
-        telemetry.addData("real power", power);
+//        telemetry.addData("real power", power);
 
         //prevent pos from going above 0
         if((pos > 0) && (power < 0)){
@@ -86,30 +85,18 @@ public class Slides {
             power = 0;
         }
         //prevent pos from going below MAX_SLIDES_POSITION
-        if((pos < MAX_SLIDES_POSITION) && (power > 0)){
+        if((pos < MAX_HEIGHT) && (power > 0)){
             telemetry.addData("limiting", "upper bound");
             power = 0;
         }
-        //if above CLAW_FLIP_BOUND2, dont limit power
-        if(pos < CLAW_FLIP_BOUND2 && power > 0) {
-        }else if(between(pos, CLAW_FLIP_BOUND2, CLAW_FLIP_BOUND1) && power < 0){
-            power *= 0.3;
-        }else{
-            power *= 0.4;
-        }
+
 //        power *= 0.5;
         telemetry.addData("power", power);
         telemetry.addData("pos", pos);
 
         hardwareSlides.setPowers(power, power);
 
-        if(pos>CLAW_FLIP_BOUND1) {
-            return Intent.ClawFlipIntent.IN;
-        }else if(pos<CLAW_FLIP_BOUND2) {
-            return Intent.ClawFlipIntent.OUT;
-        }else {
-            return Intent.ClawFlipIntent.IN_IN;
-        }
+
     }
 
     public void resetEncoders() {
