@@ -17,7 +17,8 @@ public class RealHardwareFlyWheels implements HardwareFlyWheels {
 
     @Override
     public void setDirection(DcMotorSimple.Direction direction) {
-
+        leftFlyWheel.setDirection(direction);
+        rightFlyWheel.setDirection(direction == DcMotorSimple.Direction.FORWARD ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
     }
 
     @Override

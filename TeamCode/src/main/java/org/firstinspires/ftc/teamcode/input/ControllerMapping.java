@@ -82,9 +82,9 @@ public class ControllerMapping {
         }
 
         //intake
-        if(state2.left_bumper){
+        if(state2.left_trigger > 0.5){
             intent.intake = Intent.IntakeIntent.FORWARD;
-        } else if(state2.right_bumper){
+        } else if(state2.right_trigger > 0.5){
             intent.intake = Intent.IntakeIntent.BACKWARD;
         } else {
             intent.intake = Intent.IntakeIntent.STOP;
@@ -93,7 +93,12 @@ public class ControllerMapping {
         // slides
         intent.slides = -state2.left_stick_y;
 
-        intent.clawFlip = state2.a && !lastState2.a ? Intent.ClawFlipIntent.FLIP : Intent.ClawFlipIntent.NONE;
+        if(state2.a && !lastState2.a){
+            intent.clawFlip = Intent.ClawFlipIntent.FLIP;
+            intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
+        }else{
+            intent.clawFlip = Intent.ClawFlipIntent.NONE;
+        }
 
 
         //TODO: do literally all of the rest of the controls

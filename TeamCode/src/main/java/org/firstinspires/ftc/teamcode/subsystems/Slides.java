@@ -80,12 +80,12 @@ public class Slides {
 //        telemetry.addData("real power", power);
 
         //prevent pos from going above 0
-        if((pos > 0) && (power < 0)){
+        if(pos < 0 && power < 0){
             telemetry.addData("limiting", "lower bound");
             power = 0;
         }
         //prevent pos from going below MAX_SLIDES_POSITION
-        if((pos < MAX_HEIGHT) && (power > 0)){
+        if((pos > MAX_HEIGHT) && (power > 0)){
             telemetry.addData("limiting", "upper bound");
             power = 0;
         }
