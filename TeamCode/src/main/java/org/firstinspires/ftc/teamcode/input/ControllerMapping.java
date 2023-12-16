@@ -63,7 +63,7 @@ public class ControllerMapping {
         double x = state1.left_stick_x;
         double y = -state1.left_stick_y;
 
-        intent.movement.moveDirection = Math.atan2(y, x);
+        intent.movement.moveDirection = Math.atan2(y, x) - Math.PI/2; // zero is forwards
         // right trigger scales down movement and turn speeds
         intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * (1 - state1.right_trigger * 0.75);
         //turn speed: controller 1 right stick left/right
