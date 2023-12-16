@@ -68,7 +68,7 @@ public class ControllerMapping {
         intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * (1 - state1.right_trigger * 0.75);
         //turn speed: controller 1 right stick left/right
         intent.movement.turnSpeed = state1.right_stick_x * (1 - state1.right_trigger * 0.75);
-        intent.movement.centric = Intent.Centric.ROBOT;
+        intent.movement.centric = Intent.Centric.FIELD;
         // y resets heading for field centric angle correction
         intent.movement.resetHeading = state1.y && !lastState1.y;
 
