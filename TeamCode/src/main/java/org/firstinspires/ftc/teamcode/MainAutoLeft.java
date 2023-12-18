@@ -17,15 +17,17 @@ public class MainAutoLeft extends LinearOpMode {
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
-        while(opModeIsActive()){
-            Intent intent = new Intent();
-
-            intent.movement.centric = Intent.Centric.ROBOT;
-            intent.movement.moveDirection = 0;
-            intent.movement.moveSpeed = 0.4;
-            intent.movement.turnSpeed = 0;
+        Intent intent=new Intent();
+        intent.movement.centric=Intent.Centric.FIELD;
+        //intent.movement.moveDirection=Math.PI/2;
+        intent.movement.moveSpeed=0.6;
+        intent.movement.turnSpeed=0;
+//        while(opModeIsActive()&&bot.movement.y<0.25){
+//            bot.movement.executeIntent(intent.movement);
+//        }
+        intent.movement.moveDirection=Math.PI;
+        while(opModeIsActive()&&bot.movement.y<45){
             bot.movement.executeIntent(intent.movement);
-            telemetry.update();
         }
     }
 }

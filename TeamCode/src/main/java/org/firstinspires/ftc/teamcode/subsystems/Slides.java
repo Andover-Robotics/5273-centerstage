@@ -85,10 +85,11 @@ public class Slides {
             power = 0;
         }
         //prevent pos from going below MAX_SLIDES_POSITION
-        if((pos > MAX_HEIGHT) && (power > 0)){
-            telemetry.addData("limiting", "upper bound");
-            power = 0;
-        }
+        //disable max height check for now, it is limiting at a much lower height then intended
+//        if((pos > MAX_HEIGHT) && (power > 0)){
+//            telemetry.addData("limiting", "upper bound");
+//            power = 0;
+//        }
 
 //        power *= 0.5;
         telemetry.addData("power", power);

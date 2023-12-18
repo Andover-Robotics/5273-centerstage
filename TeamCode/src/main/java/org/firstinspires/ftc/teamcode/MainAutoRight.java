@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.bot.Bot;
 import org.firstinspires.ftc.teamcode.bot.HardwareBot;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
+import java.time.Duration;
+import java.util.Timer;
+
 @Autonomous(name="MainAutoRight", group="Linear Opmode")
 public class MainAutoRight extends LinearOpMode {
     @Override
@@ -21,11 +24,23 @@ public class MainAutoRight extends LinearOpMode {
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
-        while(opModeIsActive()){
-            bot.movement.moveTo(0, -20);
-            telemetry.addData("x", bot.movement.x);
-            telemetry.addData("y", bot.movement.y);
-            telemetry.addData("theta", bot.movement.heading);
+        Intent intent=new Intent();
+        intent.movement.centric=Intent.Centric.FIELD;
+        //intent.movement.moveDirection=Math.PI/2;
+        intent.movement.moveSpeed=0.6;
+        intent.movement.turnSpeed=0;
+//        while(opModeIsActive()&&bot.movement.y<0.25){
+//            bot.movement.executeIntent(intent.movement);
+//            telemetry.addData("x: ",bot.movement.x);
+//            telemetry.addData("y: ",bot.movement.y);
+//            telemetry.update();
+//        }
+        intent.movement.moveDirection=0;
+
+        while(opModeIsActive()&&bot.movement.y>-45){
+            bot.movement.executeIntent(intent.movement);
+            telemetry.addData("x: ",bot.movement.x);
+            telemetry.addData("y: ",bot.movement.y);
             telemetry.update();
         }
     }

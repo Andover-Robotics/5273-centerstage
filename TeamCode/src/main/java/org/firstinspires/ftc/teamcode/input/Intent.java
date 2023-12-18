@@ -52,6 +52,8 @@ public class Intent {
     public enum ClawFlipIntent{
         FLIP,
         NONE,
+        TWEAK_UP,
+        TWEAK_DOWN
     }
     public enum SlidesIntent {
         UP_RELATIVE_HALF,

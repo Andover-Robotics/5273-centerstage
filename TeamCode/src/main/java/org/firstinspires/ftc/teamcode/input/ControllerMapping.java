@@ -63,7 +63,7 @@ public class ControllerMapping {
         double x = state1.left_stick_x;
         double y = -state1.left_stick_y;
 
-        intent.movement.moveDirection = Math.atan2(y, x) - Math.PI/2; // zero is forwards
+        intent.movement.moveDirection = Math.atan2(y, x); // zero is forwards
         // right trigger scales down movement and turn speeds
         intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * (1 - state1.right_trigger * 0.75);
         //turn speed: controller 1 right stick left/right
@@ -81,6 +81,7 @@ public class ControllerMapping {
             intent.clawPincher = Intent.ClawPincherIntent.NONE;
         }
 
+
         //intake
         if(state2.left_trigger > 0.5){
             intent.intake = Intent.IntakeIntent.FORWARD;
@@ -93,14 +94,20 @@ public class ControllerMapping {
         // slides
         intent.slides = -state2.left_stick_y;
 
-        if(state2.a && !lastState2.a){
+        if(state2.a && !lastState2.a) {
             intent.clawFlip = Intent.ClawFlipIntent.FLIP;
             intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
+        } else if((-state2.right_stick_y) > 0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.TWEAK_UP;
+        }else if((-state2.right_stick_y) < -0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.TWEAK_DOWN;
         }else{
             intent.clawFlip = Intent.ClawFlipIntent.NONE;
         }
 
-
+//        if(state2.x){
+//            intent.slides.force =true
+//        }
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;
