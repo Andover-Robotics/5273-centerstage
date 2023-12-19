@@ -65,6 +65,7 @@ public class Intent {
         ABSOLUTE,
     }
     public double slides;
+    public boolean slidesOverride;
     public int slides_absolute;
 
 

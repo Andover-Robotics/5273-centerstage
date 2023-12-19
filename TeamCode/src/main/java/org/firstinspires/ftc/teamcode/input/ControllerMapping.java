@@ -93,6 +93,7 @@ public class ControllerMapping {
 
         // slides
         intent.slides = -state2.left_stick_y;
+        intent.slidesOverride = state2.b;
 
         if(state2.a && !lastState2.a) {
             intent.clawFlip = Intent.ClawFlipIntent.FLIP;
