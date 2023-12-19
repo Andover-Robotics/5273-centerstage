@@ -7,14 +7,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.HardwareSlides;
-import org.firstinspires.ftc.teamcode.input.Intent;
 
 
 public class Slides {
     private final HardwareSlides hardwareSlides;
     private static final double ENCODER_RES = 384.5;
     private static final int MIN_FLIP_HEIGHT = 2350;
-    private static final int MAX_HEIGHT = 4300;
+    private static final int OFFSET = 4300; // max height when minHeight = 0
+    private int minHeight=0; // can be overridden
     private static final double SPEED_LIMIT_FACTOR = 0.2;
     private int startingPositionLeft = 0;
     private int startingPositionRight = 0;
@@ -63,7 +63,7 @@ public class Slides {
         }
     }
 
-    public void executeIntent(double power){
+    public void executeIntent(double power, boolean override){
         int[] positions = hardwareSlides.getSlidesPositions();
         positions[0] = -positions[0];//for some reason these are negitive by default(up is negitive)
         positions[1] = -positions[1];//this fixes them so that up is positive
@@ -80,16 +80,23 @@ public class Slides {
 //        telemetry.addData("real power", power);
 
         //prevent pos from going above 0
-        if(pos < 0 && power < 0){
-            telemetry.addData("limiting", "lower bound");
-            power = 0;
+        if(pos < minHeight && power < 0){
+            if(override){
+                minHeight = pos;
+            }else {
+                telemetry.addData("limiting", "lower bound");
+                power = 0;
+            }
         }
         //prevent pos from going below MAX_SLIDES_POSITION
-        //disable max height check for now, it is limiting at a much lower height then intended
-//        if((pos > MAX_HEIGHT) && (power > 0)){
-//            telemetry.addData("limiting", "upper bound");
-//            power = 0;
-//        }
+        if((pos > minHeight + OFFSET) && (power > 0)){
+            if(override){
+                minHeight = pos - OFFSET;
+            }else {
+                telemetry.addData("limiting", "upper bound");
+                power = 0;
+            }
+        }
 
 //        power *= 0.5;
         telemetry.addData("power", power);
