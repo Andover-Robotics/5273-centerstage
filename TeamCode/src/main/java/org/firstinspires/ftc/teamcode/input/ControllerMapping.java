@@ -63,12 +63,12 @@ public class ControllerMapping {
         double x = state1.left_stick_x;
         double y = -state1.left_stick_y;
 
-        intent.movement.moveDirection = Math.atan2(y, x);
+        intent.movement.moveDirection = Math.atan2(y, x); // zero is forwards
         // right trigger scales down movement and turn speeds
         intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * (1 - state1.right_trigger * 0.75);
         //turn speed: controller 1 right stick left/right
         intent.movement.turnSpeed = state1.right_stick_x * (1 - state1.right_trigger * 0.75);
-        intent.movement.centric = Intent.Centric.ROBOT;
+        intent.movement.centric = Intent.Centric.FIELD;
         // y resets heading for field centric angle correction
         intent.movement.resetHeading = state1.y && !lastState1.y;
 
@@ -81,10 +81,11 @@ public class ControllerMapping {
             intent.clawPincher = Intent.ClawPincherIntent.NONE;
         }
 
+
         //intake
-        if(state2.left_bumper){
+        if(state2.left_trigger > 0.5){
             intent.intake = Intent.IntakeIntent.FORWARD;
-        } else if(state2.right_bumper){
+        } else if(state2.right_trigger > 0.5){
             intent.intake = Intent.IntakeIntent.BACKWARD;
         } else {
             intent.intake = Intent.IntakeIntent.STOP;
@@ -93,9 +94,20 @@ public class ControllerMapping {
         // slides
         intent.slides = -state2.left_stick_y;
 
-        intent.clawFlip = state2.a && !lastState2.a ? Intent.ClawFlipIntent.FLIP : Intent.ClawFlipIntent.NONE;
+        if(state2.a && !lastState2.a) {
+            intent.clawFlip = Intent.ClawFlipIntent.FLIP;
+            intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
+        } else if((-state2.right_stick_y) > 0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.TWEAK_UP;
+        }else if((-state2.right_stick_y) < -0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.TWEAK_DOWN;
+        }else{
+            intent.clawFlip = Intent.ClawFlipIntent.NONE;
+        }
 
-
+//        if(state2.x){
+//            intent.slides.force =true
+//        }
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

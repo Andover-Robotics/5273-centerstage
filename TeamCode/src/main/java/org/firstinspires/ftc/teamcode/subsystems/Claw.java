@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.input.Intent;
 public class Claw {
     private Telemetry telemetry;
     private static final double CLAW_OPEN = 0.501;
-    private static final double CLAW_HALF_OPEN = 0.43;
+    private static final double CLAW_HALF_OPEN = 0.424;
     private static final double CLAW_CLOSED = 0.353;
-    private static final double FLIP_IN = 0.2106;
-    private static final double FLIP_OUT = 0.5806;
+    private static final double FLIP_IN = 0.182;
+    private static final double FLIP_OUT = 0.512;
     private static final double BOTTOM_FLIP_LIMIT = 2000;
 
     private final HardwareClaw hardwareClaw;
@@ -37,6 +37,7 @@ public class Claw {
         this.pincherState = PincherState.OPEN;
         this.flipState = FlipState.IN;
         this.open();
+        this.setFlipState(FlipState.IN);
     }
 
     public void setPincherState(PincherState pincherState) {
@@ -122,7 +123,12 @@ public class Claw {
                 }
                 setFlipState(FlipState.IN);
             }
+        }else if(flipIntent == Intent.ClawFlipIntent.TWEAK_UP){
+            clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
+        }else if(flipIntent == Intent.ClawFlipIntent.TWEAK_DOWN){
+            clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
         }
+
         telemetry.addData("flipper pos: ",clawFlipper.getPosition());
     }
 

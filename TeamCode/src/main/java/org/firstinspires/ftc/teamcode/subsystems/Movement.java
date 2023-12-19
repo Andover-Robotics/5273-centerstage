@@ -86,14 +86,14 @@ public class Movement {
             heading = 0;
         }
         if(intent.centric == Intent.Centric.ROBOT) {
-            moveTick(intent.moveDirection - Math.PI/2, intent.moveSpeed, intent.turnSpeed);
+            moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
         } else if(intent.centric == Intent.Centric.FIELD){
-            moveTick(heading - intent.moveDirection - Math.PI/2, intent.moveSpeed, intent.turnSpeed);
+            moveTick(intent.moveDirection - heading, intent.moveSpeed, intent.turnSpeed);
         }
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
-        //theta 0 should be forward
-        theta += Math.PI / 2; //corrects the issues?
+        // zero radians is forwards
+        // theta += Math.PI / 2; //corrects the issues?
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
         double motorPow2 = Math.sin(theta - Math.PI / 4); // right front and left back
         double scale = 1 / Math.max(Math.abs(motorPow1), Math.abs(motorPow2)); // scale up
