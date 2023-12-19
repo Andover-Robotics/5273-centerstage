@@ -13,9 +13,11 @@ public class Slides {
     private final HardwareSlides hardwareSlides;
     private static final double ENCODER_RES = 384.5;
     private static final int MIN_FLIP_HEIGHT = 2350;
+    private static final int AUTO_RES = 20;
     private static final int OFFSET = 4300; // max height when minHeight = 0
     private int minHeight=0; // can be overridden
     private static final double SPEED_LIMIT_FACTOR = 0.2;
+    private static final double DECEL_FACTOR = 0.5;
     private int startingPositionLeft = 0;
     private int startingPositionRight = 0;
     private final Telemetry telemetry;
@@ -64,10 +66,7 @@ public class Slides {
     }
 
     public void executeIntent(double power, boolean override){
-        int[] positions = hardwareSlides.getSlidesPositions();
-        positions[0] = -positions[0];//for some reason these are negitive by default(up is negitive)
-        positions[1] = -positions[1];//this fixes them so that up is positive
-        int pos=Math.max(positions[0], positions[1]);
+        int pos = getPos();
         double dt = timer.seconds();
         timer.reset();
         double dx = pos - lastPos;
@@ -105,6 +104,18 @@ public class Slides {
         hardwareSlides.setPowers(power, power);
 
 
+    }
+    public void moveTo(int targ){
+        int dist;
+        while(Math.abs(dist = targ - getPos()) > AUTO_RES){
+            double power = (dist < 0 ? -1 : 1) * (-Math.pow(2, -DECEL_FACTOR * Math.abs(dist)) + 1);
+            hardwareSlides.setPowers(power, power);
+        }
+        hardwareSlides.setPowers(0, 0);
+    }
+    private int getPos(){
+        int[] positions = hardwareSlides.getSlidesPositions();
+        return Math.max(-positions[0], -positions[1]);
     }
 
     public void resetEncoders() {

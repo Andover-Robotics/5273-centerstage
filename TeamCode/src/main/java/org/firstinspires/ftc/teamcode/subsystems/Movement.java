@@ -92,8 +92,7 @@ public class Movement {
         }
     }
     private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
-        // zero radians is forwards
-        // theta += Math.PI / 2; //corrects the issues?
+        // pi/2 rad is forwards
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
         double motorPow2 = Math.sin(theta - Math.PI / 4); // right front and left back
         double scale = 1 / Math.max(Math.abs(motorPow1), Math.abs(motorPow2)); // scale up
