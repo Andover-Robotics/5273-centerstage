@@ -106,9 +106,8 @@ public class ControllerMapping {
             intent.clawFlip = Intent.ClawFlipIntent.NONE;
         }
 
-//        if(state2.x){
-//            intent.slides.force =true
-//        }
+        intent.launch = state2.x && !lastState2.x;
+
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

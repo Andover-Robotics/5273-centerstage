@@ -20,7 +20,7 @@ public class HardwareBot {
         clawFlipper = new RealHardwareClawFlipper(hardwareMap);
         flyWheel = new RealHardwareFlyWheels(hardwareMap);
 //        hanger = new RealHardwareHanger(hardwareMap);
-//        launch = new RealHardwareLaunch(hardwareMap);
+        launch = new RealHardwareLaunch(hardwareMap);
         mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, telemetry);
         slides = new RealHardwareSlides(hardwareMap);
     }

@@ -67,6 +67,7 @@ public class Intent {
     public double slides;
     public boolean slidesOverride;
     public int slides_absolute;
+    public boolean launch;
 
 
     @Override
