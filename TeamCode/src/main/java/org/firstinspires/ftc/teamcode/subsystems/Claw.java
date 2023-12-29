@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.hardware.HardwareClaw;
-import org.firstinspires.ftc.teamcode.hardware.HardwareClawFlipper;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClaw;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClawFlipper;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Claw {
-    private Telemetry telemetry;
+    private final Logger logger;
     private static final double CLAW_OPEN = 0.501;
     private static final double CLAW_HALF_OPEN = 0.424;
     private static final double CLAW_CLOSED = 0.353;
@@ -30,8 +30,8 @@ public class Claw {
     }
 
 
-    public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper, Telemetry telemetry) {
-        this.telemetry = telemetry;
+    public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper, Logger logger) {
+        this.logger = logger;
         this.hardwareClaw = hardwareClaw;
         this.clawFlipper = clawFlipper;
         this.pincherState = PincherState.OPEN;
@@ -129,7 +129,7 @@ public class Claw {
             clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
         }
 
-        telemetry.addData("flipper pos: ",clawFlipper.getPosition());
+        logger.setProp("flipper pos", clawFlipper.getPosition());
     }
 
 }

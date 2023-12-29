@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class HardwareController {
     public final double DEADZONE = 0.05;
 
-    Gamepad gamepad;
+    final Gamepad gamepad;
     public HardwareController(Gamepad gamepad) {
         this.gamepad = gamepad;
     }

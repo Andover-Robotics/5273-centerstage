@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.subsystems;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareLaunch;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareLaunch;
 
 public class Launch {
     private class LaunchThread extends Thread{
         public void run(){
             launching=true;
             hardwareLaunch.setPosition(LAUNCH_ON);
-            Thread.sleep(1000);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             hardwareLaunch.setPosition(LAUNCH_OFF);
             launching=false;
         }

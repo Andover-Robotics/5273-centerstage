@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareMecanumDrive;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
-    Simulation sim;
+    final Simulation sim;
     public SimHardwareMecanumDrive(Simulation sim) {
         this.sim = sim;
     }

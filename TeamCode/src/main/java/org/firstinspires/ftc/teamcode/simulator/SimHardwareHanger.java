@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareHanger;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareHanger;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareHanger implements HardwareHanger {
-    Simulation sim;
+    final Simulation sim;
     public SimHardwareHanger(Simulation sim) {
         this.sim = sim;
     }

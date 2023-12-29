@@ -5,10 +5,9 @@ import static androidx.core.math.MathUtils.clamp;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.hardware.HardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Movement {
@@ -24,9 +23,9 @@ public class Movement {
     private static final double MAX_ACCEL = 3.0; // max acceleration (inches per second squared)
     private static final double DECEL_FACTOR = 0.5;
     private static final double TARGET_RES = 1; // target resolution (inches)
-    private final Telemetry telemetry;
-    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Telemetry telemetry) {
-        this.telemetry = telemetry;
+    private final Logger logger;
+    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Logger logger) {
+        this.logger = logger;
         this.x = x;
         this.y = y;
         this.heading = heading;
@@ -53,13 +52,13 @@ public class Movement {
                 double[] yPoints = new double[4];
                 double width = 18;
                 double length = 18;
-                xPoints[0] = +width / 2;
-                yPoints[0] = +length / 2;
+                xPoints[0] = width / 2;
+                yPoints[0] = length / 2;
                 xPoints[1] = -width / 2;
-                yPoints[1] = +length / 2;
+                yPoints[1] = length / 2;
                 xPoints[2] = -width / 2;
                 yPoints[2] = -length / 2;
-                xPoints[3] = +width / 2;
+                xPoints[3] = width / 2;
                 yPoints[3] = -length / 2;
                 for (int i = 0; i < 4; i++) {
                     double xTemp = xPoints[i];
@@ -104,10 +103,10 @@ public class Movement {
         double rightFront = motorPow2 + motorPow4;
         double leftBack = motorPow2 + motorPow3;
         double rightBack = motorPow1 + motorPow4;
-        telemetry.addData("FR power", rightFront);
-        telemetry.addData("FL power", leftFront);
-        telemetry.addData("BR power", rightBack);
-        telemetry.addData("BL power", leftBack);
+        logger.setProp("FR power", rightFront);
+        logger.setProp("FL power", leftFront);
+        logger.setProp("BR power", rightBack);
+        logger.setProp("BL power", leftBack);
 
         scale = Math.max(Math.max(Math.max(Math.abs(leftFront), Math.abs(rightFront)),Math.abs(leftBack)),Math.abs(rightBack));
         if(scale > 1){ // scale down if needed
@@ -121,10 +120,10 @@ public class Movement {
         updateXYH();
     }
 
-    private class RobotVals {
-        public double x;
-        public double y;
-        public double heading;
+    private static class RobotVals {
+        public final double x;
+        public final double y;
+        public final double heading;
         public RobotVals(double x, double y, double heading) {
             this.x = x;
             this.y = y;

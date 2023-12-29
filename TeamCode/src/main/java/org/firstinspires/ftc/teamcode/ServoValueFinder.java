@@ -18,6 +18,9 @@ public class LauncherValueFinder extends LinearOpMode {
         while(!gamepad2.a){
             if(gamepad2.dpad_right){
                 num = (num + 1) % SERVO_LIST.length;
+                //TODO: fix this so it does not block
+                //blocking will make nothing else work
+                //and also if stop is pressed it will not stop
                 while(gamepad2.dpad_right){}
             }else if(gamepad2.dpad_left){
                 num = (num + SERVO_LIST.length - 1) % SERVO_LSIT.length;

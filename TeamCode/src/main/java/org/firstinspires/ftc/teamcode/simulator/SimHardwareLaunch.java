@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.hardware.HardwareLaunch;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareLaunch;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareLaunch implements HardwareLaunch {
-    private Simulation sim;
+    private final Simulation sim;
 
     public SimHardwareLaunch(Simulation sim)
     {

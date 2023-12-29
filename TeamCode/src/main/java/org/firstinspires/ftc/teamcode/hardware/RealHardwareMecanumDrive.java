@@ -4,16 +4,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 
 public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
     private final DcMotor rightFrontMotor;
     private final DcMotor leftBackMotor;
     private final DcMotor rightBackMotor;
-    private final Telemetry telemetry;
-    public RealHardwareMecanumDrive(HardwareMap hardwareMap, Telemetry telemetry){
-        this.telemetry = telemetry;
+    private final Logger logger;
+    public RealHardwareMecanumDrive(HardwareMap hardwareMap, Logger logger){
+        this.logger = logger;
         leftFrontMotor=hardwareMap.get( DcMotor.class, "driveFL");
         rightFrontMotor=hardwareMap.get(DcMotor.class, "driveFR");
         leftBackMotor=hardwareMap.get(  DcMotor.class, "driveBL");

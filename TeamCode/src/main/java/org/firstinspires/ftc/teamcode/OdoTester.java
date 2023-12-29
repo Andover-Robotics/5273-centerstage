@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.bot.HardwareBot;
 public class OdoTester extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        //TODO: convert to new logging system
         HardwareBot hardwareBot = new HardwareBot();
         hardwareBot.initReal(hardwareMap, telemetry);
         Bot bot = new Bot(hardwareBot, telemetry);
@@ -35,13 +36,13 @@ public class OdoTester extends LinearOpMode {
             double heading = bot.movement.heading;
             double width = 18;
             double length = 18;
-            xPoints[0] =  + width/2;
-            yPoints[0] =  + length/2;
+            xPoints[0] =  width /2;
+            yPoints[0] =  length /2;
             xPoints[1] =  - width/2;
-            yPoints[1] =  + length/2;
+            yPoints[1] =  length /2;
             xPoints[2] =  - width/2;
             yPoints[2] =  - length/2;
-            xPoints[3] =  + width/2;
+            xPoints[3] =  width /2;
             yPoints[3] =  - length/2;
             for(int i = 0; i < 4; i++){
                 double xTemp = xPoints[i];

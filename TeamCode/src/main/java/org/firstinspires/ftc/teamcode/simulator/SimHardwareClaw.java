@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareClaw;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClaw;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareClaw implements HardwareClaw {
-    private Simulation sim;
+    private final Simulation sim;
 
     public SimHardwareClaw(Simulation sim) {
         this.sim = sim;

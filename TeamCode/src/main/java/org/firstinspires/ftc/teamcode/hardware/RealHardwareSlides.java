@@ -4,14 +4,18 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareSlides;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 
-public class RealHardwareSlides implements HardwareSlides{
+
+public class RealHardwareSlides implements HardwareSlides {
 
 
         private final DcMotor slidesMotorLeft;
         private final DcMotor slidesMotorRight;
-
-        public RealHardwareSlides(HardwareMap hardwareMap){
+        private final Logger logger;
+        public RealHardwareSlides(HardwareMap hardwareMap, Logger logger){
+                this.logger = logger;
                 slidesMotorLeft=hardwareMap.get(DcMotor.class, "slidesWheelMotorLeft");
                 slidesMotorRight=hardwareMap.get(DcMotor.class, "slidesWheelMotorRight");
         }

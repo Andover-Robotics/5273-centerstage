@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.input;
 
+import androidx.annotation.NonNull;
+
 public class Intent {
     public Intent() {
         movement = new MovementIntent();
@@ -21,6 +23,7 @@ public class Intent {
         public double turnSpeed;
         public boolean resetHeading;
 
+        @NonNull
         @Override
         public String toString() {
             return "MovementIntent{" +
@@ -31,7 +34,7 @@ public class Intent {
                     '}';
         }
     }
-    public MovementIntent movement;
+    public final MovementIntent movement;
     public boolean launch;
     public enum IntakeIntent {
         FORWARD,
@@ -66,10 +69,10 @@ public class Intent {
     }
     public double slides;
     public boolean slidesOverride;
-    public int slides_absolute;
-    public boolean launch;
+    public final int slides_absolute;
 
 
+    @NonNull
     @Override
     public String toString() {
         return "Intent{" +

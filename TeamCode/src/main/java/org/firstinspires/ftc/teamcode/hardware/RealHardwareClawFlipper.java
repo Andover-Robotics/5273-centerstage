@@ -3,9 +3,14 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RealHardwareClawFlipper implements HardwareClawFlipper{
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClawFlipper;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+
+public class RealHardwareClawFlipper implements HardwareClawFlipper {
     private final Servo servo;
-    public RealHardwareClawFlipper(HardwareMap hardwareMap){
+    private final Logger logger;
+    public RealHardwareClawFlipper(HardwareMap hardwareMap, Logger logger){
+        this.logger = logger;
         servo = hardwareMap.get(Servo.class, "flipperServo");
     }
     @Override

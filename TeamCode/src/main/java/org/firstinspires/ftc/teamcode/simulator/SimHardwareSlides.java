@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareSlides;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareSlides;
 import org.firstinspires.ftc.teamcode.simulator.Simulation;
 
 public class SimHardwareSlides implements HardwareSlides {
-    Simulation sim;
+    final Simulation sim;
     public SimHardwareSlides(Simulation sim) {
         this.sim = sim;
     }

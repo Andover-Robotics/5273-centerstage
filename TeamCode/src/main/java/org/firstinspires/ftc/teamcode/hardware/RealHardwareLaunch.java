@@ -1,9 +1,15 @@
 package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareLaunch;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+
 public class RealHardwareLaunch implements HardwareLaunch {
     private final Servo launchServo;
-    public RealHardwareLaunch(HardwareMap hardwareMap) {
+    private final Logger logger;
+    public RealHardwareLaunch(HardwareMap hardwareMap, Logger logger) {
+        this.logger = logger;
         this.launchServo = hardwareMap.get(Servo.class, "launchServo");
     }
 

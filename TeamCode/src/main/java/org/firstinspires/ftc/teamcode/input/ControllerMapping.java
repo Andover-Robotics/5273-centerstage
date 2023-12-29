@@ -3,27 +3,27 @@ package org.firstinspires.ftc.teamcode.input;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class ControllerMapping {
-    HardwareController controller1;
-    HardwareController controller2;
+    final HardwareController controller1;
+    final HardwareController controller2;
     private static class ControllerState {
-        public double left_stick_x;
-        public double left_stick_y;
-        public double right_stick_x;
-        public double right_stick_y;
-        public double left_trigger;
-        public double right_trigger;
-        public boolean a;
-        public boolean b;
-        public boolean x;
-        public boolean y;
-        public boolean dpad_up;
-        public boolean dpad_down;
-        public boolean dpad_left;
-        public boolean dpad_right;
-        public boolean left_bumper;
-        public boolean right_bumper;
-        public boolean left_stick_button;
-        public boolean right_stick_button;
+        public final double left_stick_x;
+        public final double left_stick_y;
+        public final double right_stick_x;
+        public final double right_stick_y;
+        public final double left_trigger;
+        public final double right_trigger;
+        public final boolean a;
+        public final boolean b;
+        public final boolean x;
+        public final boolean y;
+        public final boolean dpad_up;
+        public final boolean dpad_down;
+        public final boolean dpad_left;
+        public final boolean dpad_right;
+        public final boolean left_bumper;
+        public final boolean right_bumper;
+        public final boolean left_stick_button;
+        public final boolean right_stick_button;
         public ControllerState(HardwareController gamepad) {
             left_stick_x = gamepad.getLeftStickX();
             left_stick_y = gamepad.getLeftStickY();

@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static androidx.core.math.MathUtils.clamp;
-
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -11,13 +7,11 @@ import org.firstinspires.ftc.teamcode.bot.Bot;
 import org.firstinspires.ftc.teamcode.bot.HardwareBot;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
-import java.time.Duration;
-import java.util.Timer;
-
 @Autonomous(name="MainAutoRight", group="Linear Opmode")
 public class MainAutoRight extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        //TODO: convert to new logging system
         HardwareBot hardwareBot = new HardwareBot();
         hardwareBot.initReal(hardwareMap, telemetry);
         Bot bot = new Bot(hardwareBot, telemetry);

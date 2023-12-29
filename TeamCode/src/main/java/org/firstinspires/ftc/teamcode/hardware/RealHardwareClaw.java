@@ -3,14 +3,15 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClaw;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 
-public class RealHardwareClaw implements HardwareClaw{
+public class RealHardwareClaw implements HardwareClaw {
     private final Servo clawServo;
-    private final Telemetry telemetry;
-    public RealHardwareClaw(HardwareMap hardwareMap, Telemetry telemetry){
+    private final Logger logger;
+    public RealHardwareClaw(HardwareMap hardwareMap, Logger logger){
         this.clawServo = hardwareMap.get(Servo.class, "clawServo");
-        this.telemetry = telemetry;
+        this.logger = logger;
     }
 
     @Override

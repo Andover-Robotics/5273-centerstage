@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardware.HardwareFlyWheels;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareFlyWheels;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
 public class Intake {

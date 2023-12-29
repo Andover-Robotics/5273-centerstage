@@ -5,8 +5,8 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.hardware.HardwareSlides;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareSlides;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 
 
 public class Slides {
@@ -18,20 +18,16 @@ public class Slides {
     private int minHeight=0; // can be overridden
     private static final double SPEED_LIMIT_FACTOR = 0.2;
     private static final double DECEL_FACTOR = 0.5;
-    private int startingPositionLeft = 0;
-    private int startingPositionRight = 0;
-    private final Telemetry telemetry;
-    private ElapsedTime timer;
+    private final Logger logger;
+    private final ElapsedTime timer;
     private int lastPos;
 
-    public Slides(HardwareSlides hardwareSlides, Telemetry telemetry){
-        this.telemetry = telemetry;
+    public Slides(HardwareSlides hardwareSlides, Logger logger){
+        this.logger = logger;
         this.hardwareSlides = hardwareSlides;
         hardwareSlides.setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         hardwareSlides.setDirections(DcMotor.Direction.FORWARD, DcMotor.Direction.REVERSE);
         int[] positions = hardwareSlides.getSlidesPositions();
-        startingPositionLeft = positions[0];
-        startingPositionRight = positions[1];
         timer = new ElapsedTime();
         lastPos = 0;
     }
@@ -83,7 +79,7 @@ public class Slides {
             if(override){
                 minHeight = pos;
             }else {
-                telemetry.addData("limiting", "lower bound");
+                logger.setProp("limiting", "lower bound");
                 power = 0;
             }
         }
@@ -92,14 +88,14 @@ public class Slides {
             if(override){
                 minHeight = pos - OFFSET;
             }else {
-                telemetry.addData("limiting", "upper bound");
+                logger.setProp("limiting", "upper bound");
                 power = 0;
             }
         }
 
 //        power *= 0.5;
-        telemetry.addData("power", power);
-        telemetry.addData("pos", pos);
+        logger.setProp("power", power);
+        logger.setProp("pos", pos);
 
         hardwareSlides.setPowers(power, power);
 
