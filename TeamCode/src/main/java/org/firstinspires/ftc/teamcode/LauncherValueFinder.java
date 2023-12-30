@@ -12,11 +12,11 @@ public class LauncherValueFinder extends LinearOpMode {
         Servo launcher = hardwareMap.get(Servo.class, "launchServo");
         while(opModeIsActive()){
             if(gamepad2.dpad_up){
-                launcher.setPosition(claw.getPosition()+0.0001);
+                launcher.setPosition(launcher.getPosition()+0.0001);
             }else if(gamepad2.dpad_down){
-                launcher.setPosition(claw.getPosition()-0.0001);
+                launcher.setPosition(launcher.getPosition()-0.0001);
             }
-            telemetry.addData("launcher pos: ",claw.getPosition());
+            telemetry.addData("launcher pos: ",launcher.getPosition());
             telemetry.update();
         }
     }

@@ -23,6 +23,13 @@ public class CombinedLogger extends Logger {
     }
 
     @Override
+    public void close() {
+        for(Logger logger : loggers) {
+            logger.close();
+        }
+    }
+
+    @Override
     public void push() {
         for (Logger logger : loggers) {
             logger.push();

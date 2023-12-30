@@ -17,14 +17,14 @@ public class Bot {
         assert hardwareBot.clawFlipper != null;
         assert hardwareBot.flyWheel != null;
 //        assert hardwareBot.hanger != null;
-//        assert hardwareBot.launch != null;
+        assert hardwareBot.launch != null;
         assert hardwareBot.mecanumDrive != null;
         assert hardwareBot.slides != null;
         claw = new Claw(hardwareBot.claw, hardwareBot.clawFlipper, logger);
         intake = new Intake(hardwareBot.flyWheel);
 //        camera = new Camera();
 //        hanger = new Hanger(hardwareBot.hanger);
-//        launch = new Launch(hardwareBot.launch);
+        launch = new Launch(hardwareBot.launch);
         movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, logger);
         slides = new Slides(hardwareBot.slides, logger);
     }

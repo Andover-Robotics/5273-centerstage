@@ -22,8 +22,9 @@ public class Teleop extends LinearOpMode {
         CombinedLogger logger = new CombinedLogger(
             new FtcTelemetryLogger(telemetry),
             new FtcDashboardLogger(),
-            new FileLogger(Environment.getExternalStorageDirectory() + "FIRST/")
+            new FileLogger("/sdcard/FIRST/")
         );
+        logger.setProp("opmode", "Main Teleop");
 
         HardwareBot hardwareBot = new HardwareBot();
         hardwareBot.initReal(hardwareMap, logger);
@@ -47,5 +48,6 @@ public class Teleop extends LinearOpMode {
 
             logger.push();
         }
+        logger.close();
     }
 }

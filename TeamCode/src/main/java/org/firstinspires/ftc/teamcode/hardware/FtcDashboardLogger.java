@@ -20,6 +20,11 @@ public class FtcDashboardLogger extends Logger {
     }
 
     @Override
+    public void close() {
+        this.ftcDashboard.sendTelemetryPacket(packet);
+    }
+
+    @Override
     public void push() {
         ftcDashboard.sendTelemetryPacket(packet);
         packet = new TelemetryPacket();

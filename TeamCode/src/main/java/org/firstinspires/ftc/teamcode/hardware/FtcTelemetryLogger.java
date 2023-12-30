@@ -24,6 +24,7 @@ public class FtcTelemetryLogger extends Logger {
     public FtcTelemetryLogger(Telemetry telemetry) {
         super();
         this.telemetry = telemetry;
+        this.data = new HashMap<>();
     }
 
     @Override
@@ -32,11 +33,15 @@ public class FtcTelemetryLogger extends Logger {
     }
 
     @Override
+    public void close() {
+    }
+
+    @Override
     public void push() {
         // loop over all entries in data and push them to the telemetry
         for (String key : data.keySet()) {
             LogEntry logEntry = data.get(key);
-            if(logEntry == null){
+            if (logEntry == null) {
                 continue;
             }
             telemetry.addData(key, logEntry.value.toString());

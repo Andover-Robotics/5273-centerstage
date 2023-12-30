@@ -13,9 +13,9 @@ public class FileLogger extends Logger {
 
     private static class LogEntry {
         public final Object value;
-        public final Date timestamp;
+        public final long timestamp;
 
-        public LogEntry(Object value, Date timestamp) {
+        public LogEntry(Object value, long timestamp) {
             this.value = value;
             this.timestamp = timestamp;
         }
@@ -25,6 +25,7 @@ public class FileLogger extends Logger {
 
     public FileLogger(String logFilePath) {
         super();
+        this.data = new HashMap<>();
         Date now = new Date();
         String fileName = logFilePath + "log" + now + ".txt";
         try {
@@ -41,7 +42,17 @@ public class FileLogger extends Logger {
 
     @Override
     public void setProp(String label, Object value) {
-        data.put(label, new LogEntry(value, new Date()));
+        data.put(label, new LogEntry(value, System.currentTimeMillis()));
+    }
+
+    @Override
+    public void close() {
+        try {
+            logFile.flush();
+            logFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -54,9 +65,9 @@ public class FileLogger extends Logger {
             }
             try {
                 if (logEntry.value != null) {
-                    logFile.write(String.format("[%s] %s: %s", logEntry.timestamp.toString(), key, logEntry.value).getBytes());
+                    logFile.write(String.format("[%s] %s: %s\n", logEntry.timestamp, key, logEntry.value).getBytes());
                 } else {
-                    logFile.write(String.format("[%s] %s", logEntry.timestamp.toString(), key).getBytes());
+                    logFile.write(String.format("[%s] %s\n", logEntry.timestamp, key).getBytes());
                 }
             } catch (IOException e) {
                 System.out.println("Failed to write to log file");

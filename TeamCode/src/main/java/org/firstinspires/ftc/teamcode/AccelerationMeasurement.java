@@ -5,16 +5,26 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.bot.Bot;
 import org.firstinspires.ftc.teamcode.bot.HardwareBot;
+import org.firstinspires.ftc.teamcode.hardware.FtcDashboardLogger;
+import org.firstinspires.ftc.teamcode.hardware.FtcTelemetryLogger;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.CombinedLogger;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.FileLogger;
 import org.firstinspires.ftc.teamcode.input.Intent;
 
-@Autonomous(name="find movement acceleration", group="Auto")
+@Autonomous(name = "find movement acceleration", group = "Auto")
 public class AccelerationMeasurement extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        CombinedLogger logger = new CombinedLogger(
+                new FtcTelemetryLogger(telemetry),
+                new FtcDashboardLogger(),
+                new FileLogger("/sdcard/FIRST/")
+        );
+        logger.setProp("opmode", "Main Teleop");
         HardwareBot hardwareBot = new HardwareBot();
-        hardwareBot.initReal(hardwareMap, telemetry);
-        Bot bot = new Bot(hardwareBot, telemetry);
+        hardwareBot.initReal(hardwareMap, logger);
+        Bot bot = new Bot(hardwareBot, logger);
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
@@ -31,7 +41,7 @@ public class AccelerationMeasurement extends LinearOpMode {
 
         bot.movement.executeIntent(intent);
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
             bot.movement.updateXYH();
             double currentTime = System.currentTimeMillis();
             double currentX = bot.movement.x;

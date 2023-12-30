@@ -7,15 +7,24 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.bot.Bot;
 import org.firstinspires.ftc.teamcode.bot.HardwareBot;
+import org.firstinspires.ftc.teamcode.hardware.FtcDashboardLogger;
+import org.firstinspires.ftc.teamcode.hardware.FtcTelemetryLogger;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.CombinedLogger;
+import org.firstinspires.ftc.teamcode.hardwareInterfaces.FileLogger;
 
 @Autonomous(name="odo tester", group="Linear Opmode")
 public class OdoTester extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        //TODO: convert to new logging system
+        CombinedLogger logger = new CombinedLogger(
+                new FtcTelemetryLogger(telemetry),
+                new FtcDashboardLogger(),
+                new FileLogger("/sdcard/FIRST/")
+        );
+        logger.setProp("opmode", "Main Teleop");
         HardwareBot hardwareBot = new HardwareBot();
-        hardwareBot.initReal(hardwareMap, telemetry);
-        Bot bot = new Bot(hardwareBot, telemetry);
+        hardwareBot.initReal(hardwareMap, logger);
+        Bot bot = new Bot(hardwareBot, logger);
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
