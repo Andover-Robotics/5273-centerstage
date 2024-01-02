@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareMecanumDrive;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+import com.example.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;
@@ -55,16 +55,23 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     public boolean[] isBusy(){
         return new boolean[]{leftFrontMotor.isBusy(),rightFrontMotor.isBusy(),leftBackMotor.isBusy(),rightBackMotor.isBusy()};
     }
-    @Override
-    public DcMotorSimple.Direction[] getDirection(){
-        return new DcMotorSimple.Direction[]{leftFrontMotor.getDirection(),rightFrontMotor.getDirection(),leftBackMotor.getDirection(),rightBackMotor.getDirection()};
+    private Direction[] convertDirections(DcMotorSimple.Direction[] directions){
+        Direction[] convertedDirections = new Direction[directions.length];
+        for(int i = 0; i < directions.length; i++){
+            convertedDirections[i] = directions[i] == DcMotorSimple.Direction.FORWARD ? Direction.FORWARD : Direction.REVERSE;
+        }
+        return convertedDirections;
     }
     @Override
-    public void setDirection(DcMotorSimple.Direction leftFrontDir, DcMotorSimple.Direction rightFrontDir, DcMotorSimple.Direction leftBackDir, DcMotorSimple.Direction rightBackDir){
-        leftFrontMotor.setDirection(leftFrontDir);
-        rightFrontMotor.setDirection(rightFrontDir);
-        leftBackMotor.setDirection(leftBackDir);
-        rightBackMotor.setDirection(rightBackDir);
+    public Direction[] getDirection(){
+        return convertDirections(new DcMotor.Direction[]{leftFrontMotor.getDirection(),rightFrontMotor.getDirection(),leftBackMotor.getDirection(),rightBackMotor.getDirection()});
+    }
+    @Override
+    public void setDirection(Direction leftFrontDir, Direction rightFrontDir, Direction leftBackDir, Direction rightBackDir){
+        leftFrontMotor.setDirection(leftFrontDir == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+        rightFrontMotor.setDirection(rightFrontDir == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+        leftBackMotor.setDirection(leftBackDir == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+        rightBackMotor.setDirection(rightBackDir == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
     }
     public void resetEncoders(){
         leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

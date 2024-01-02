@@ -3,13 +3,21 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.bot.Bot;
-import org.firstinspires.ftc.teamcode.bot.HardwareBot;
+import com.example.commonlogic.bot.Bot;
+import com.example.commonlogic.bot.HardwareBot;
 import org.firstinspires.ftc.teamcode.hardware.FtcDashboardLogger;
 import org.firstinspires.ftc.teamcode.hardware.FtcTelemetryLogger;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.CombinedLogger;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.FileLogger;
-import org.firstinspires.ftc.teamcode.input.Intent;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareClaw;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareClawFlipper;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareFlyWheels;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareHanger;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareLaunch;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwareSlides;
+
+import com.example.commonlogic.hardwareInterfaces.CombinedLogger;
+import com.example.commonlogic.hardwareInterfaces.FileLogger;
+import com.example.commonlogic.input.Intent;
 
 @Autonomous(name="MainAutoRight", group="Linear Opmode")
 public class MainAutoRight extends LinearOpMode {
@@ -22,7 +30,13 @@ public class MainAutoRight extends LinearOpMode {
         );
         logger.setProp("opmode", "Main Teleop");
         HardwareBot hardwareBot = new HardwareBot();
-        hardwareBot.initReal(hardwareMap, logger);
+        hardwareBot.claw = new RealHardwareClaw(hardwareMap, logger);
+        hardwareBot.clawFlipper = new RealHardwareClawFlipper(hardwareMap, logger);
+        hardwareBot.flyWheel = new RealHardwareFlyWheels(hardwareMap, logger);
+        hardwareBot.mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, logger);
+        hardwareBot.launch = new RealHardwareLaunch(hardwareMap, logger);
+        hardwareBot.hanger = new RealHardwareHanger(hardwareMap, logger);
+        hardwareBot.slides = new RealHardwareSlides(hardwareMap, logger);
         Bot bot = new Bot(hardwareBot, logger);
         waitForStart();
         bot.movement.resetEncoders();

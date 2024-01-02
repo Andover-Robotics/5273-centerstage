@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareFlyWheels;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareFlyWheels;
 
 public class SimHardwareFlyWheels implements HardwareFlyWheels {
 
@@ -11,7 +9,7 @@ public class SimHardwareFlyWheels implements HardwareFlyWheels {
     }
 
     @Override
-    public void setDirection(DcMotorSimple.Direction direction) {
+    public void setDirection(Direction direction) {
 
     }
 

@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.example.commonlogic.hardwareInterfaces.HardwareSlides;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareSlides;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
 
 
 public class RealHardwareSlides implements HardwareSlides {
@@ -20,9 +19,16 @@ public class RealHardwareSlides implements HardwareSlides {
                 slidesMotorRight=hardwareMap.get(DcMotor.class, "slidesWheelMotorRight");
         }
         @Override
-        public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight){
-                slidesMotorLeft.setDirection(directionLeft);
-                slidesMotorRight.setDirection(directionRight);
+        public void resetEncoders() {
+                slidesMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slidesMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                slidesMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slidesMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        @Override
+        public void setDirections(Direction directionLeft, Direction directionRight){
+                slidesMotorLeft.setDirection(directionLeft == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+                slidesMotorRight.setDirection(directionRight == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
         }
 
         @Override
@@ -37,11 +43,5 @@ public class RealHardwareSlides implements HardwareSlides {
         @Override
         public double[] getPowers(){
                 return new double[]{slidesMotorLeft.getPower(), slidesMotorRight.getPower()};
-        }
-
-        @Override
-        public void setModes(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight) {
-            slidesMotorLeft.setMode(runModeLeft);
-            slidesMotorRight.setMode(runModeRight);
         }
 }

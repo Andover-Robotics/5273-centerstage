@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClaw;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareClaw;
 
 public class SimHardwareClaw implements HardwareClaw {
     private final Simulation sim;
@@ -24,12 +23,12 @@ public class SimHardwareClaw implements HardwareClaw {
     }
 
     @Override
-    public Servo.Direction getDirection() {
+    public Direction getDirection() {
         return null;//TODO: Implement
     }
 
     @Override
-    public void setDirection(Servo.Direction direction) {
+    public void setDirection(Direction direction) {
         //TODO: Implement
     }
 

@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareLaunch;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+import com.example.commonlogic.hardwareInterfaces.HardwareLaunch;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareLaunch implements HardwareLaunch {
     private final Servo launchServo;
@@ -24,13 +24,13 @@ public class RealHardwareLaunch implements HardwareLaunch {
     }
 
     @Override
-    public Servo.Direction getDirection() {
-        return launchServo.getDirection();
+    public Direction getDirection() {
+        return launchServo.getDirection() == Servo.Direction.FORWARD ? Direction.FORWARD : Direction.REVERSE;
     }
 
     @Override
-    public void setDirection(Servo.Direction direction) {
-        launchServo.setDirection(direction);
+    public void setDirection(Direction direction) {
+        launchServo.setDirection(direction == Direction.FORWARD ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
     }
 
     @Override

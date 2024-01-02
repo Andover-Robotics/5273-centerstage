@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClaw;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+import com.example.commonlogic.hardwareInterfaces.HardwareClaw;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareClaw implements HardwareClaw {
     private final Servo clawServo;
@@ -25,13 +25,13 @@ public class RealHardwareClaw implements HardwareClaw {
     }
 
     @Override
-    public Servo.Direction getDirection() {
-        return clawServo.getDirection();
+    public Direction getDirection() {
+        return clawServo.getDirection() == Servo.Direction.FORWARD ? Direction.FORWARD : Direction.BACKWARD;
     }
 
     @Override
-    public void setDirection(Servo.Direction direction) {
-        clawServo.setDirection(direction);
+    public void setDirection(Direction direction) {
+        clawServo.setDirection(direction == Direction.FORWARD ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
     }
 
     @Override

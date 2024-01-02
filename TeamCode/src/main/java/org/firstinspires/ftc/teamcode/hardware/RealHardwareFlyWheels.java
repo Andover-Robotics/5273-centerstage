@@ -3,8 +3,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareFlyWheels;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+import com.example.commonlogic.hardwareInterfaces.HardwareFlyWheels;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareFlyWheels implements HardwareFlyWheels {
     private final CRServo leftFlyWheel;
@@ -19,9 +19,9 @@ public class RealHardwareFlyWheels implements HardwareFlyWheels {
     }
 
     @Override
-    public void setDirection(DcMotorSimple.Direction direction) {
-        leftFlyWheel.setDirection(direction);
-        rightFlyWheel.setDirection(direction == DcMotorSimple.Direction.FORWARD ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
+    public void setDirection(Direction direction) {
+        leftFlyWheel.setDirection(direction == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+        rightFlyWheel.setDirection(direction == Direction.FORWARD ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
     }
 
     @Override

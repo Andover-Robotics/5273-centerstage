@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClawFlipper;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareClawFlipper;
 
 public class SimHardwareClawFlipper implements HardwareClawFlipper {
     public SimHardwareClawFlipper(Simulation sim){}
 
     @Override
-    public void setDirection(Servo.Direction direction) {
+    public void setDirection(Direction direction) {
 
     }
 

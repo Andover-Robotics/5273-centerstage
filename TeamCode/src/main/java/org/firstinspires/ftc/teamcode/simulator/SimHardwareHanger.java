@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareHanger;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareHanger;
 
 public class SimHardwareHanger implements HardwareHanger {
     final Simulation sim;
@@ -20,13 +19,13 @@ public class SimHardwareHanger implements HardwareHanger {
     public void setTargetPosition(int position){
 
     }
-    public DcMotorSimple.Direction getDirection(){
+    public Direction getDirection(){
         return null;
     }
     public double getPower(){
         return 0;
     }
-    public void setDirection(DcMotorSimple.Direction direction){
+    public void setDirection(Direction direction){
 
     }
     public void setPower(double power){

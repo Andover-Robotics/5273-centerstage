@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.simulator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareSlides;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareSlides;
 
 public class SimHardwareSlides implements HardwareSlides {
     final Simulation sim;
@@ -17,7 +16,7 @@ public class SimHardwareSlides implements HardwareSlides {
     }
 
     @Override
-    public void setDirections(DcMotorSimple.Direction directionLeft, DcMotorSimple.Direction directionRight) {
+    public void setDirections(Direction directionLeft, Direction directionRight) {
 
     }
 
@@ -32,7 +31,7 @@ public class SimHardwareSlides implements HardwareSlides {
     }
 
     @Override
-    public void setModes(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight) {
+    public void resetEncoders() {
 
     }
 }

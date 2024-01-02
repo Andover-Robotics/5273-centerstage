@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareMecanumDrive;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 
 public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     final Simulation sim;
@@ -35,11 +32,11 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
         return null;
     }
     @Override
-    public DcMotorSimple.Direction[] getDirection(){
+    public Direction[] getDirection(){
         return null;
     }
     @Override
-    public void setDirection(DcMotorSimple.Direction leftFrontDir, DcMotorSimple.Direction rightFrontDir, DcMotorSimple.Direction leftBackDir, DcMotorSimple.Direction rightBackDir){
+    public void setDirection(Direction leftFrontDir, Direction rightFrontDir, Direction leftBackDir, Direction rightBackDir){
 
     }
     public void resetEncoders(){

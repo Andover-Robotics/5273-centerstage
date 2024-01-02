@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareClawFlipper;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.Logger;
+import com.example.commonlogic.hardwareInterfaces.HardwareClawFlipper;
+import com.example.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareClawFlipper implements HardwareClawFlipper {
     private final Servo servo;
@@ -14,8 +14,8 @@ public class RealHardwareClawFlipper implements HardwareClawFlipper {
         servo = hardwareMap.get(Servo.class, "flipperServo");
     }
     @Override
-    public void setDirection(Servo.Direction direction) {
-        servo.setDirection(direction);
+    public void setDirection(Direction direction) {
+        servo.setDirection(direction == Direction.FORWARD ? Servo.Direction.FORWARD : Servo.Direction.REVERSE);
     }
 
     @Override

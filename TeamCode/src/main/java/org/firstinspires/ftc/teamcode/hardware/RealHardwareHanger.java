@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.example.commonlogic.hardwareInterfaces.Logger;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareHanger;
+import com.example.commonlogic.hardwareInterfaces.HardwareHanger;
 
 public class RealHardwareHanger implements HardwareHanger {
     private final DcMotor motor;
-    public RealHardwareHanger(HardwareMap hardwareMap){
+    private final Logger logger;
+    public RealHardwareHanger(HardwareMap hardwareMap, Logger logger){
+        this.logger = logger;
         motor = hardwareMap.get(DcMotor.class, "hangerMotor");
     }
     @Override
@@ -24,16 +27,16 @@ public class RealHardwareHanger implements HardwareHanger {
         motor.setTargetPosition(position);
     }
     @Override
-    public DcMotorSimple.Direction getDirection(){
-        return motor.getDirection();
+    public Direction getDirection(){
+        return motor.getDirection() == DcMotorSimple.Direction.FORWARD ? HardwareHanger.Direction.FORWARD : Direction.BACKWARD;
     }
     @Override
     public double getPower(){
         return motor.getPower();
     }
     @Override
-    public void setDirection(DcMotorSimple.Direction direction){
-        motor.setDirection(direction);
+    public void setDirection(Direction direction){
+        motor.setDirection(direction == HardwareHanger.Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
     }
     @Override
     public void setPower(double power){

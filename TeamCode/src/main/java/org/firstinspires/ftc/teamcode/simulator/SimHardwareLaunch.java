@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.hardwareInterfaces.HardwareLaunch;
-import org.firstinspires.ftc.teamcode.simulator.Simulation;
+import com.example.commonlogic.hardwareInterfaces.HardwareLaunch;
 
 public class SimHardwareLaunch implements HardwareLaunch {
     private final Simulation sim;
@@ -25,13 +24,13 @@ public class SimHardwareLaunch implements HardwareLaunch {
     }
 
     @Override
-    public Servo.Direction getDirection()
+    public Direction getDirection()
     {
         return null;//TODO: Implement
     }
 
     @Override
-    public void setDirection(Servo.Direction direction)
+    public void setDirection(Direction direction)
     {
         //TODO: Implement
     }
