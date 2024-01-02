@@ -10,8 +10,8 @@ public class Claw {
     private static final double CLAW_OPEN = 0.501;
     private static final double CLAW_HALF_OPEN = 0.424;
     private static final double CLAW_CLOSED = 0.353;
-    private static final double FLIP_IN = 0.182;
-    private static final double FLIP_OUT = 0.512;
+    private static final double FLIP_IN = 0.128;
+    private static final double FLIP_OUT = 0.497;
     private static final double BOTTOM_FLIP_LIMIT = 2000;
 
     private final HardwareClaw hardwareClaw;
@@ -112,6 +112,28 @@ public class Claw {
                 this.setPincherState(PincherState.HALF_OPEN);
                 break;
             case NONE:
+                break;
+        }
+        switch (flipIntent) {
+            case FLIP:
+                if (flipState == FlipState.IN) {
+                    setFlipState(FlipState.OUT);
+                } else if (flipState == FlipState.OUT) {
+                    setPincherState(PincherState.CLOSED);
+                    setFlipState(FlipState.IN);
+                }
+                break;
+            case TWEAK_UP:
+                clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
+                break;
+            case TWEAK_DOWN:
+                clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
+                break;
+            case IN:
+                setFlipState(FlipState.IN);
+                break;
+            case OUT:
+                setFlipState(FlipState.OUT);
                 break;
         }
         if(flipIntent == Intent.ClawFlipIntent.FLIP){

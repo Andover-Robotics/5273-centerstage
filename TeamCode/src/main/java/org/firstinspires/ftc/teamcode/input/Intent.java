@@ -56,7 +56,9 @@ public class Intent {
         FLIP,
         NONE,
         TWEAK_UP,
-        TWEAK_DOWN
+        TWEAK_DOWN,
+        IN,
+        OUT,
     }
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
@@ -72,15 +74,16 @@ public class Intent {
     public final int slides_absolute;
 
 
-    @NonNull
     @Override
     public String toString() {
         return "Intent{" +
                 "movement=" + movement +
                 ", launch=" + launch +
                 ", intake=" + intake +
-                ", claw=" + clawPincher +
+                ", clawFlip=" + clawFlip +
+                ", clawPincher=" + clawPincher +
                 ", slides=" + slides +
+                ", slidesOverride=" + slidesOverride +
                 ", slides_absolute=" + slides_absolute +
                 '}';
     }
