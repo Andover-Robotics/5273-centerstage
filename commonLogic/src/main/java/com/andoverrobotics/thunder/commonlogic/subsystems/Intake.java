@@ -1,7 +1,7 @@
-package com.example.commonlogic.subsystems;
+package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareFlyWheels;
-import com.example.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
 
 public class Intake {
     private final HardwareFlyWheels flyWheels;

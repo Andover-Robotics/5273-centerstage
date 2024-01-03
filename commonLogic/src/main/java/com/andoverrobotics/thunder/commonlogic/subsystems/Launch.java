@@ -1,6 +1,6 @@
-package com.example.commonlogic.subsystems;
+package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareLaunch;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareLaunch;
 
 public class Launch {
     private class LaunchThread extends Thread{

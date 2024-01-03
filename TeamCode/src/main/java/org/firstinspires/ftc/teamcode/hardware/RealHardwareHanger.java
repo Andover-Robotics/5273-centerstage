@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareHanger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareHanger;
 
 public class RealHardwareHanger implements HardwareHanger {
     private final DcMotor motor;

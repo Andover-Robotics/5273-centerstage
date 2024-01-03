@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 
 public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     final Simulation sim;

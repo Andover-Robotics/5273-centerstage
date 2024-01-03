@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import com.example.commonlogic.hardwareInterfaces.HardwareSlides;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 
 public class SimHardwareSlides implements HardwareSlides {
     final Simulation sim;

@@ -1,9 +1,9 @@
-package com.example.commonlogic.subsystems;
+package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareClawFlipper;
-import com.example.commonlogic.hardwareInterfaces.Logger;
-import com.example.commonlogic.input.Intent;
-import com.example.commonlogic.hardwareInterfaces.HardwareClaw;
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 
 public class Claw {
     private final Logger logger;

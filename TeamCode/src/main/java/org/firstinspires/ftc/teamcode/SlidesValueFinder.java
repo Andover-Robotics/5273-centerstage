@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import com.example.commonlogic.bot.Bot;
-import com.example.commonlogic.bot.HardwareBot;
+import com.andoverrobotics.thunder.commonlogic.bot.Bot;
+import com.andoverrobotics.thunder.commonlogic.bot.HardwareBot;
 import org.firstinspires.ftc.teamcode.hardware.FtcDashboardLogger;
 import org.firstinspires.ftc.teamcode.hardware.FtcTelemetryLogger;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareClaw;
@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.hardware.RealHardwareLaunch;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareSlides;
 
-import com.example.commonlogic.hardwareInterfaces.CombinedLogger;
-import com.example.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.CombinedLogger;
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
 
 @TeleOp(name = "sides value finder", group = "Teleop")
 public class SlidesValueFinder extends LinearOpMode {

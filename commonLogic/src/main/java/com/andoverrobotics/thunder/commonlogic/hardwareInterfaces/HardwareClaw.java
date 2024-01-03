@@ -1,11 +1,11 @@
-package com.example.commonlogic.hardwareInterfaces;
+package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
 
-public interface HardwareLaunch {
+public interface HardwareClaw {
     double getPosition();
     void scaleRange(double min, double max);
     enum Direction {
         FORWARD,
-        REVERSE
+        BACKWARD
     }
     Direction getDirection();
     void setDirection(Direction direction);

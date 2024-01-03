@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 import java.util.Date;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.example.commonlogic.hardwareInterfaces;
+package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
 
 import java.util.ArrayList;
 import java.util.Arrays;

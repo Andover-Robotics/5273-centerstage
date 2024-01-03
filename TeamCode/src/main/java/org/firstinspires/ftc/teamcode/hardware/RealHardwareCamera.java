@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import com.example.commonlogic.hardwareInterfaces.HardwareCamera;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareCamera;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 public class RealHardwareCamera implements HardwareCamera {

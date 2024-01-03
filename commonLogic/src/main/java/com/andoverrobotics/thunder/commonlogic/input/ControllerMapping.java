@@ -1,6 +1,6 @@
-package com.example.commonlogic.input;
+package com.andoverrobotics.thunder.commonlogic.input;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareController;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareController;
 
 public class ControllerMapping {
     final HardwareController controller1;

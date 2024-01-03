@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareController;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareController;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class RealHardwareController implements HardwareController {

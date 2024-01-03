@@ -1,10 +1,10 @@
-package com.example.commonlogic.subsystems;
+package com.andoverrobotics.thunder.commonlogic.subsystems;
 
 
 
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareSlides;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 
 
 public class Slides {

@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final DcMotor leftFrontMotor;

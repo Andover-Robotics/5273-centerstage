@@ -1,9 +1,8 @@
-package com.example.commonlogic.subsystems;
+package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
-import com.example.commonlogic.hardwareInterfaces.Logger;
-import com.example.commonlogic.input.Intent;
-
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 
 public class Movement {

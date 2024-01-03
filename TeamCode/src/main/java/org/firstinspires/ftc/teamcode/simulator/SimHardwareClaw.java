@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.qualcomm.robotcore.hardware.Servo;
-
-import com.example.commonlogic.hardwareInterfaces.HardwareClaw;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 
 public class SimHardwareClaw implements HardwareClaw {
     private final Simulation sim;

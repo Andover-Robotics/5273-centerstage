@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 public class FtcDashboardLogger extends Logger {
     private final FtcDashboard ftcDashboard;

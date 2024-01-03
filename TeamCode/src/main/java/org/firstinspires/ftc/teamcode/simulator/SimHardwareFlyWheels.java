@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareFlyWheels;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
 
 public class SimHardwareFlyWheels implements HardwareFlyWheels {
 

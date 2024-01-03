@@ -1,4 +1,4 @@
-package com.example.commonlogic.input;
+package com.andoverrobotics.thunder.commonlogic.input;
 
 public class Intent {
     public Intent() {

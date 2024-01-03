@@ -1,15 +1,15 @@
-package com.example.commonlogic.bot;
+package com.andoverrobotics.thunder.commonlogic.bot;
 
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 
-import com.example.commonlogic.subsystems.Camera;
-import com.example.commonlogic.subsystems.Claw;
-import com.example.commonlogic.subsystems.Hanger;
-import com.example.commonlogic.subsystems.Intake;
-import com.example.commonlogic.subsystems.Launch;
-import com.example.commonlogic.subsystems.Movement;
-import com.example.commonlogic.subsystems.Slides;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Camera;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Claw;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Hanger;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Intake;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Launch;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Movement;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Slides;
 
 
 public class Bot {

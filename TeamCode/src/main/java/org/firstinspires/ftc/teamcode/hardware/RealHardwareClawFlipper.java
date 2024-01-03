@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareClawFlipper;
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareClawFlipper implements HardwareClawFlipper {
     private final Servo servo;

@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import com.example.commonlogic.hardwareInterfaces.HardwareHanger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareHanger;
 
 public class SimHardwareHanger implements HardwareHanger {
     final Simulation sim;

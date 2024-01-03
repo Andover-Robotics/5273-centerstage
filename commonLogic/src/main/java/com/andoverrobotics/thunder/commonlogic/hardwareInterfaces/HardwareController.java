@@ -1,4 +1,4 @@
-package com.example.commonlogic.hardwareInterfaces;
+package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
 
 public interface HardwareController {
     double getLeftStickX();

@@ -3,8 +3,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import com.example.commonlogic.hardwareInterfaces.HardwareFlyWheels;
-import com.example.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 public class RealHardwareFlyWheels implements HardwareFlyWheels {
     private final CRServo leftFlyWheel;

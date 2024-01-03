@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.simulator;
 
-import com.qualcomm.robotcore.hardware.Servo;
-
-import com.example.commonlogic.hardwareInterfaces.HardwareClawFlipper;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
 
 public class SimHardwareClawFlipper implements HardwareClawFlipper {
     public SimHardwareClawFlipper(Simulation sim){}
