@@ -1,0 +1,16 @@
+plugins {
+    id 'application'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation project(':commonLogic')
+}
+
+application {
+    mainClassName = 'com.andoverrobotics.thunder.simulator.Simulation'
+}

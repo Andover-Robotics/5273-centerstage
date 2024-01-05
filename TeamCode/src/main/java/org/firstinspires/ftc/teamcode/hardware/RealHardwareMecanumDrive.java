@@ -41,17 +41,6 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
         return new int[]{leftFrontMotor.getCurrentPosition(),rightFrontMotor.getCurrentPosition(),leftBackMotor.getCurrentPosition(),rightBackMotor.getCurrentPosition()};
     }
     @Override
-    public int[] getTargetPosition(){
-        return new int[]{leftFrontMotor.getTargetPosition(),rightFrontMotor.getTargetPosition(),leftBackMotor.getTargetPosition(),rightBackMotor.getTargetPosition()};
-    }
-    @Override
-    public void setTargetPosition(int leftFrontPos, int rightFrontPos, int leftBackPos, int rightBackPos){
-        leftFrontMotor.setTargetPosition(leftFrontPos);
-        rightFrontMotor.setTargetPosition(rightFrontPos);
-        leftBackMotor.setTargetPosition(leftBackPos);
-        rightBackMotor.setTargetPosition(rightBackPos);
-    }
-    @Override
     public boolean[] isBusy(){
         return new boolean[]{leftFrontMotor.isBusy(),rightFrontMotor.isBusy(),leftBackMotor.isBusy(),rightBackMotor.isBusy()};
     }

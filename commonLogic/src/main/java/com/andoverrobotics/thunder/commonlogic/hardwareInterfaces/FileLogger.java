@@ -27,7 +27,7 @@ public class FileLogger extends Logger {
         super();
         this.data = new HashMap<>();
         Date now = new Date();
-        String fileName = logFilePath + "log" + now + ".txt";
+        String fileName = logFilePath + "log" + now + ".log";
         try {
             logFile = new BufferedOutputStream(new FileOutputStream(fileName));
         } catch (FileNotFoundException e) {
