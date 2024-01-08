@@ -3,6 +3,7 @@ package com.andoverrobotics.thunder.commonlogic.subsystems;
 import com.andoverrobotics.thunder.commonlogic.input.Intent;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 
 public class Movement {
@@ -29,7 +30,7 @@ public class Movement {
         this.y = y;
         this.heading = heading;
         this.drive = hardwareMecanumDrive;
-        hardwareMecanumDrive.setDirection(HardwareMecanumDrive.Direction.FORWARD, HardwareMecanumDrive.Direction.REVERSE, HardwareMecanumDrive.Direction.FORWARD, HardwareMecanumDrive.Direction.REVERSE);
+        hardwareMecanumDrive.setDirection(Direction.FORWARD, Direction.REVERSE, Direction.FORWARD, Direction.REVERSE);
     }
     public void moveTo(double x, double y) { // no rotation
         moveTo(x, y, heading);

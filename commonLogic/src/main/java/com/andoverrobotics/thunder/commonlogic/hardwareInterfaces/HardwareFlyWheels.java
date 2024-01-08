@@ -1,10 +1,7 @@
 package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 public interface HardwareFlyWheels {
-    enum Direction {
-        FORWARD,
-        REVERSE
-    }
     void setDirection(Direction direction);
     void setPower(double power);
 }

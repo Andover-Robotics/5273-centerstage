@@ -1,4 +1,5 @@
 package com.andoverrobotics.thunder.commonlogic.subsystems;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 
 
@@ -23,7 +24,7 @@ public class Slides {
         this.logger = logger;
         this.hardwareSlides = hardwareSlides;
         hardwareSlides.resetEncoders();
-        hardwareSlides.setDirections(HardwareSlides.Direction.FORWARD, HardwareSlides.Direction.BACKWARD);
+        hardwareSlides.setDirections(Direction.FORWARD, Direction.REVERSE);
         int[] positions = hardwareSlides.getSlidesPositions();
         lastPos = 0;
     }

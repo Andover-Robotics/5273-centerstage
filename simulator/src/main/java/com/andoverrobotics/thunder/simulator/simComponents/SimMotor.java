@@ -2,9 +2,10 @@ package com.andoverrobotics.thunder.simulator.simComponents;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 public class SimMotor {
-    public void setDirection(HardwareSlides.Direction directionLeft) {
+    public void setDirection(Direction directionLeft) {
     }
 
     public void setPower(double powerRight) {
@@ -21,7 +22,7 @@ public class SimMotor {
         return 0;
     }
 
-    public HardwareMecanumDrive.Direction getDirection() {
+    public Direction getDirection() {
         return null;
     }
 }

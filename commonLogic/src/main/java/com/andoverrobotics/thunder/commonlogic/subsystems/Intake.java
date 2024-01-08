@@ -2,12 +2,13 @@ package com.andoverrobotics.thunder.commonlogic.subsystems;
 
 import com.andoverrobotics.thunder.commonlogic.input.Intent;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 public class Intake {
     private final HardwareFlyWheels flyWheels;
     public Intake(HardwareFlyWheels flyWheels) {
         this.flyWheels = flyWheels;
-        flyWheels.setDirection(HardwareFlyWheels.Direction.REVERSE);
+        flyWheels.setDirection(Direction.REVERSE);
     }
     public void forward(){
         flyWheels.setPower(1);

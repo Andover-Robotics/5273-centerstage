@@ -2,6 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareHanger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 
