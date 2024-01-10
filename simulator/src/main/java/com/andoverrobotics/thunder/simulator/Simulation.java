@@ -18,6 +18,8 @@ public class Simulation {
     private SimMotor driveBackLeft;
     private SimMotor driveBackRight;
 
+    private static RobotConfiguration robotConfiguration;
+
     public SimServo getServo(String servoName) {
         switch (servoName) {
             case "clawPincher":

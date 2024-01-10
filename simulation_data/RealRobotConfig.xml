@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Robot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="RobotConfig.xsd">
+    <name>drivetrain</name>
+    <motor5202>
+        <id>driveFrontLeft</id>
+        <name>Drive Front Left Motor</name>
+    </motor5202>
+    <motor5202>
+        <id>driveFrontRight</id>
+        <name>Drive Front Right Motor</name>
+    </motor5202>
+    <motor5202>
+        <id>driveBackLeft</id>
+        <name>Drive Back Left Motor</name>
+    </motor5202>
+    <motor5202>
+        <id>driveBackRight</id>
+        <name>Drive Back Right Motor</name>
+    </motor5202>
+    <wheel96mm>
+        <name>Drive Front Left Wheel</name>
+        <connection>
+            <motor>driveFrontLeft</motor>
+            <gearRatio>1</gearRatio>
+        </connection>
+    </wheel96mm>
+    <wheel96mm>
+        <name>Drive Front Right Wheel</name>
+        <connection>
+            <motor>driveFrontRight</motor>
+            <gearRatio>1</gearRatio>
+        </connection>
+    </wheel96mm>
+    <wheel96mm>
+        <name>Drive Back Left Wheel</name>
+        <connection>
+            <motor>driveBackLeft</motor>
+            <gearRatio>1</gearRatio>
+        </connection>
+    </wheel96mm>
+    <wheel96mm>
+        <name>Drive Back Right Wheel</name>
+        <connection>
+            <motor>driveBackRight</motor>
+            <gearRatio>1</gearRatio>
+        </connection>
+    </wheel96mm>
+</Robot>

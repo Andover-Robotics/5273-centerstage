@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="Robot" type="RobotType"/>
+
+    <xs:complexType name="RobotType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="motor5202" type="Motor5202Type" minOccurs="4" maxOccurs="4"/>
+            <xs:element name="wheel96mm" type="Wheel96mmType" minOccurs="4" maxOccurs="4"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Motor5202Type">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Wheel96mmType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="connection" type="ConnectionType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ConnectionType">
+        <xs:sequence>
+            <xs:element name="motor" type="xs:string"/>
+            <xs:element name="gearRatio" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
