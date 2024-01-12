@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -26,7 +27,7 @@ public class RealHardwareClaw implements HardwareClaw {
 
     @Override
     public Direction getDirection() {
-        return clawServo.getDirection() == Servo.Direction.FORWARD ? Direction.FORWARD : Direction.BACKWARD;
+        return clawServo.getDirection() == Servo.Direction.FORWARD ? Direction.FORWARD : Direction.REVERSE;
     }
 
     @Override

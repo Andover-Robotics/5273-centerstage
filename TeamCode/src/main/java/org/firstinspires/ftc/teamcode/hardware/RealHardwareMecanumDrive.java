@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -39,10 +40,6 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     @Override
     public int[] getCurrentPosition(){
         return new int[]{leftFrontMotor.getCurrentPosition(),rightFrontMotor.getCurrentPosition(),leftBackMotor.getCurrentPosition(),rightBackMotor.getCurrentPosition()};
-    }
-    @Override
-    public boolean[] isBusy(){
-        return new boolean[]{leftFrontMotor.isBusy(),rightFrontMotor.isBusy(),leftBackMotor.isBusy(),rightBackMotor.isBusy()};
     }
     private Direction[] convertDirections(DcMotorSimple.Direction[] directions){
         Direction[] convertedDirections = new Direction[directions.length];

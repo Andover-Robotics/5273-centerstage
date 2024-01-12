@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,28 +16,8 @@ public class RealHardwareHanger implements HardwareHanger {
         motor = hardwareMap.get(DcMotor.class, "hangerMotor");
     }
     @Override
-    public int getTargetPosition(){
-        return motor.getTargetPosition();
-    }
-    @Override
-    public boolean isBusy(){
-        return motor.isBusy();
-    }
-    @Override
-    public void setTargetPosition(int position){
-        motor.setTargetPosition(position);
-    }
-    @Override
-    public Direction getDirection(){
-        return motor.getDirection() == DcMotorSimple.Direction.FORWARD ? HardwareHanger.Direction.FORWARD : Direction.BACKWARD;
-    }
-    @Override
-    public double getPower(){
-        return motor.getPower();
-    }
-    @Override
     public void setDirection(Direction direction){
-        motor.setDirection(direction == HardwareHanger.Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
+        motor.setDirection(direction == Direction.FORWARD ? DcMotorSimple.Direction.FORWARD : DcMotorSimple.Direction.REVERSE);
     }
     @Override
     public void setPower(double power){
