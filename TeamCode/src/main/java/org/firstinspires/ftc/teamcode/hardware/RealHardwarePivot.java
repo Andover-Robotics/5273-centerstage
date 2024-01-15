@@ -30,7 +30,7 @@ public class RealHardwarePivot implements HardwarePivot {
     }
 
     @Override
-    public void resetEncoder() {
+    public void resetEncoders() {
         pivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         pivotMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
