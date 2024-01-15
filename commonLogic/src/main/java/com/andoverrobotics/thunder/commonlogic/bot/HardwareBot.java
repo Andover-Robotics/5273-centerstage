@@ -6,6 +6,7 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWhe
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareHanger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareLaunch;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwarePivot;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 
 public class HardwareBot {
@@ -16,4 +17,5 @@ public class HardwareBot {
     public HardwareMecanumDrive mecanumDrive;
     public HardwareSlides slides;
     public HardwareClawFlipper clawFlipper;
+    public HardwarePivot pivot;
 }
