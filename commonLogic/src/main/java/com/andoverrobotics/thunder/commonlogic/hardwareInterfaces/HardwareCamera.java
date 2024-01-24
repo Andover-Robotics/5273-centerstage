@@ -1,5 +1,7 @@
 package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
 
-public interface HardwareCamera {
+import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
 
+public interface HardwareCamera {
+    public MarkerPos getMarkerPos();
 }

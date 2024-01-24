@@ -16,18 +16,4 @@ public class Camera {
     public Camera(){
 
     }
-
-    public MarkPosition findMark(){
-        return null;
-    }
-
-    //NOTE: size will always be 7x11
-    public MarkPosition[][] scanBoard(){
-        return null;
-    }
-
-    //TODO: figure out how the results will be returned, positions will be relative to different things
-    public void getApriltagPosition(){
-        //TODO
-    }
 }

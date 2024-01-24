@@ -1,80 +1,82 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.Alliance;
+import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareCamera;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-public class RealHardwareCamera implements HardwareCamera {
-    private static final boolean USE_WEBCAM = true;
-    private AprilTagProcessor aprilTag;
-    private VisionPortal visionPortal;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
 
-
-    private void initAprilTag(HardwareMap hardwareMap) {
-
-        // Create the AprilTag processor.
-        aprilTag = new AprilTagProcessor.Builder()
-
-                // The following default settings are available to un-comment and edit as needed.
-                //.setDrawAxes(false)
-                //.setDrawCubeProjection(false)
-                //.setDrawTagOutline(true)
-                //.setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
-                //.setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
-                //.setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
-
-                // == CAMERA CALIBRATION ==
-                // If you do not manually specify calibration parameters, the SDK will attempt
-                // to load a predefined calibration for your camera.
-                //.setLensIntrinsics(578.272, 578.272, 402.145, 221.506)
-                // ... these parameters are fx, fy, cx, cy.
-
-                .build();
-
-        // Adjust Image Decimation to trade-off detection-range for detection-rate.
-        // eg: Some typical detection data using a Logitech C920 WebCam
-        // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
-        // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
-        // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second (default)
-        // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second (default)
-        // Note: Decimation can be changed on-the-fly to adapt during a match.
-        //aprilTag.setDecimation(3);
-
-        // Create the vision portal by using a builder.
-        VisionPortal.Builder builder = new VisionPortal.Builder();
-
-        // Set the camera (webcam vs. built-in RC phone camera).
-        if (USE_WEBCAM) {
-            builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
-        } else {
-            builder.setCamera(BuiltinCameraDirection.BACK);
+public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera {
+    private static final Rect leftBound = new Rect(); // TODO: tune each for x,y,width,height
+    private static final Rect centerBound = new Rect();
+    private static final Rect rightBound = new Rect();
+    private final int alliance; // 1 is red, 2 is blue
+    private final int[] totalMarkerPoints = new int[3];
+    private OpenCvCamera camera;
+    public RealHardwareCamera(HardwareMap hardwareMap, Alliance alliance, Logger logger){
+        this.alliance = alliance==Alliance.RED?1:2;
+        WebcamName camName = hardwareMap.get(WebcamName.class, "camera");
+        camera = OpenCvCameraFactory.getInstance().createWebcam(camName);
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                camera.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+            }
+            @Override
+            public void onError(int errorCode) {
+                logger.setProp("Camera error:", errorCode);
+            }
+        });
+        camera.setPipeline(this);
+    }
+    public Mat processFrame(Mat input){
+        Mat frame = new Mat();
+        Imgproc.cvtColor(input, frame, Imgproc.COLOR_RGB2YCrCb);
+        Mat[] frames = {
+            input.submat(leftBound),
+            input.submat(centerBound),
+            input.submat(rightBound)
+        };
+        double[] markerPoints = new double[3];
+        double max = 0;
+        for(int i = 0; i < 3; i++) {
+            for (int j = 0; j < frames[i].rows(); j++) {
+                for (int k = 0; k < frames[i].cols(); k++) {
+                    markerPoints[i] += frames[i].get(j, k)[alliance];
+                }
+            }
+            max = Math.max(max, markerPoints[i]);
         }
-
-        // Choose a camera resolution. Not all cameras support all resolutions.
-        //builder.setCameraResolution(new Size(640, 480));
-
-        // Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
-        //builder.enableLiveView(true);
-
-        // Set the stream format; MJPEG uses less bandwidth than default YUY2.
-        //builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
-
-        // Choose whether or not LiveView stops if no processors are enabled.
-        // If set "true", monitor shows solid orange screen if no processors enabled.
-        // If set "false", monitor shows camera view without annotations.
-        //builder.setAutoStopLiveView(false);
-
-        // Set and enable the processor.
-        builder.addProcessor(aprilTag);
-
-        // Build the Vision Portal, using the above settings.
-        visionPortal = builder.build();
-
-        // Disable or re-enable the aprilTag processor at any time.
-        //visionPortal.setProcessorEnabled(aprilTag, true);
-
-    }   // end method initAprilTag()
-
+        for(int i=0; i<3; i++){
+            if(markerPoints[i]==max){
+                totalMarkerPoints[i]++;
+            }
+        }
+        return input;
+    }
+    public MarkerPos getMarkerPos(){
+        camera = null; // probably stops it
+        int max=0;
+        for(int i=0; i<3; i++){
+            max=Math.max(max,totalMarkerPoints[i]);
+        }
+        if(max==totalMarkerPoints[2]){
+            return MarkerPos.RIGHT;
+        }else if(max==totalMarkerPoints[1]){
+            return MarkerPos.CENTER;
+        }else{
+            return MarkerPos.LEFT;
+        }
+    }
 }
