@@ -13,6 +13,7 @@ public class Simulation {
     private SimMotor hanger;
     private SimMotor slidesLeft;
     private SimMotor slidesRight;
+    private SimMotor pivot;
     private SimMotor driveFrontLeft;
     private SimMotor driveFrontRight;
     private SimMotor driveBackLeft;
@@ -49,6 +50,8 @@ public class Simulation {
                 return driveBackLeft;
             case "driveBackRight":
                 return driveBackRight;
+            case "pivot":
+                return pivot;
             default:
                 throw new IllegalArgumentException("Unknown motor name: " + motorName);
         }

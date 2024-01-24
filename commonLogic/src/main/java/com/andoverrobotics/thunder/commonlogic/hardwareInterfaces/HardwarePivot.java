@@ -6,5 +6,5 @@ public interface HardwarePivot {
     int getPosition();
     void setDirection(Direction direction);
     void setPower(double power);
-    void resetEncoder();
+    void resetEncoders();
 }

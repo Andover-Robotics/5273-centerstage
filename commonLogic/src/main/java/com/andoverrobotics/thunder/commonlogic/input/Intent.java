@@ -69,6 +69,7 @@ public class Intent {
     public double slides;
     public boolean slidesOverride;
     public final int slides_absolute;
+    public double pivot;
 
 
     @Override

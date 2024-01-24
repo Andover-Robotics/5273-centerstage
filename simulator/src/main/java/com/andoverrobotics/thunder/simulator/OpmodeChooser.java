@@ -1,30 +1,17 @@
 package com.andoverrobotics.thunder.simulator;
 
-import static java.lang.System.exit;
-
 import javax.swing.*;
 
 import java.awt.*;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OpmodeChooser {
     public static void main(String[] args) {
-
-        try {
-            new RobotConfiguration("./RealRobotConfig.xml");
-        } catch (Exception e) {
-            System.out.println("Error loading robot configuration: " + e.getMessage());
-        }
-        exit(0);
         System.out.println("Starting opmode chooser...");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OpModeSelector opModeSelector = new OpModeSelector();
-                opModeSelector.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            OpModeSelector opModeSelector = new OpModeSelector();
+            opModeSelector.setVisible(true);
         });
     }
 }
@@ -37,10 +24,10 @@ class OpModeSelector extends JFrame {
     private JButton startButton;
     private enum OpModeType {
         TEST, OPMODE
-    };
+    }
     private OpModeType opModeType;
-    private Map<String, String> opModeDescriptions;
-    private Map<String, String> opModeTests;
+    private final Map<String, String> opModeDescriptions;
+    private final Map<String, String> opModeTests;
 
     public OpModeSelector() {
         opModeDescriptions = new HashMap<>();

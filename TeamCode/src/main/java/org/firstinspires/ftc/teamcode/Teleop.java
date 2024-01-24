@@ -54,6 +54,7 @@ public class Teleop extends LinearOpMode {
             bot.slides.executeIntent(intent.slides, intent.slidesOverride);
             bot.claw.executeIntent(intent.clawPincher, intent.clawFlip);
             bot.launch.executeIntent(intent.launch);
+            bot.pivot.executeIntent(intent.pivot);
 
             logger.setProp("x", bot.movement.x);
             logger.setProp("y", bot.movement.y);

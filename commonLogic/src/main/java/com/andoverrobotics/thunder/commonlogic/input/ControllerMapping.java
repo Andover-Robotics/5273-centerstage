@@ -108,6 +108,8 @@ public class ControllerMapping {
 
         intent.launch = state2.x && !lastState2.x;
 
+        intent.pivot = state2.right_stick_y;
+
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;

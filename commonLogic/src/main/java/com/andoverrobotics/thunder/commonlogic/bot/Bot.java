@@ -9,6 +9,7 @@ import com.andoverrobotics.thunder.commonlogic.subsystems.Hanger;
 import com.andoverrobotics.thunder.commonlogic.subsystems.Intake;
 import com.andoverrobotics.thunder.commonlogic.subsystems.Launch;
 import com.andoverrobotics.thunder.commonlogic.subsystems.Movement;
+import com.andoverrobotics.thunder.commonlogic.subsystems.Pivot;
 import com.andoverrobotics.thunder.commonlogic.subsystems.Slides;
 
 
@@ -20,6 +21,7 @@ public class Bot {
     public Movement movement;
     public Slides slides;
     public Intake intake;
+    public Pivot pivot;
 
     public Bot(HardwareBot hardwareBot, Logger logger) {
         assert hardwareBot.claw != null;
@@ -29,6 +31,7 @@ public class Bot {
         assert hardwareBot.launch != null;
         assert hardwareBot.mecanumDrive != null;
         assert hardwareBot.slides != null;
+        assert hardwareBot.pivot!=null;
         claw = new Claw(hardwareBot.claw, hardwareBot.clawFlipper, logger);
         intake = new Intake(hardwareBot.flyWheel);
 //        camera = new Camera();
@@ -36,6 +39,7 @@ public class Bot {
         launch = new Launch(hardwareBot.launch);
         movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, logger);
         slides = new Slides(hardwareBot.slides, logger);
+        pivot = new Pivot(hardwareBot.pivot, logger);
     }
 
     public void place_pixel_ground() {
