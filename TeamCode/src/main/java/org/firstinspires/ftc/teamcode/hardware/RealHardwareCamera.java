@@ -16,6 +16,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 
 public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera {
     private static final Rect leftBound = new Rect(); // TODO: tune each for x,y,width,height
@@ -23,11 +25,11 @@ public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera
     private static final Rect rightBound = new Rect();
     private final int alliance; // 1 is red, 2 is blue
     private final int[] totalMarkerPoints = new int[3];
-    private OpenCvCamera camera;
+    private final OpenCvCamera camera;
     public RealHardwareCamera(HardwareMap hardwareMap, Alliance alliance, Logger logger){
         this.alliance = alliance==Alliance.RED?1:2;
-        WebcamName camName = hardwareMap.get(WebcamName.class, "camera");
-        camera = OpenCvCameraFactory.getInstance().createWebcam(camName);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "camera"));
+        camera.setPipeline(this);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -38,35 +40,39 @@ public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera
                 logger.setProp("Camera error:", errorCode);
             }
         });
-        camera.setPipeline(this);
     }
     public Mat processFrame(Mat input){
         Mat frame = new Mat();
         Imgproc.cvtColor(input, frame, Imgproc.COLOR_RGB2YCrCb);
         Mat[] frames = {
-            input.submat(leftBound),
-            input.submat(centerBound),
-            input.submat(rightBound)
+                frame.submat(leftBound),
+                frame.submat(centerBound),
+                frame.submat(rightBound)
         };
-        double[] markerPoints = new double[3];
-        double max = 0;
+
+        Imgproc.rectangle(input,new Point(leftBound.x,leftBound.y),new Point(leftBound.x+leftBound.width,leftBound.y+leftBound.height),new Scalar(0,0,0),5);
+        Imgproc.rectangle(input,new Point(centerBound.x,centerBound.y),new Point(centerBound.x+centerBound.width,centerBound.y+centerBound.height),new Scalar(0,0,0),5);
+        Imgproc.rectangle(input,new Point(rightBound.x,rightBound.y),new Point(rightBound.x+rightBound.width,rightBound.y+rightBound.height),new Scalar(0,0,0),5);
+
+        int[] markerPoints = new int[3];
+        int max = 0;
         for(int i = 0; i < 3; i++) {
             for (int j = 0; j < frames[i].rows(); j++) {
                 for (int k = 0; k < frames[i].cols(); k++) {
-                    markerPoints[i] += frames[i].get(j, k)[alliance];
+                    markerPoints[i] += (int)frames[i].get(j, k)[alliance];
                 }
             }
             max = Math.max(max, markerPoints[i]);
         }
         for(int i=0; i<3; i++){
-            if(markerPoints[i]==max){
-                totalMarkerPoints[i]++;
-            }
+             if(markerPoints[i]==max){
+                 totalMarkerPoints[i]++;
+             }
         }
         return input;
     }
     public MarkerPos getMarkerPos(){
-        camera = null; // probably stops it
+        camera.closeCameraDevice();
         int max=0;
         for(int i=0; i<3; i++){
             max=Math.max(max,totalMarkerPoints[i]);
