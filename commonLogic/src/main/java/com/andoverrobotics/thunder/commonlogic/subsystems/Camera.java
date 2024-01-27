@@ -1,19 +1,14 @@
 package com.andoverrobotics.thunder.commonlogic.subsystems;
 
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareCamera;
+import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
+
 public class Camera {
-    public enum MarkPosition {
-        LEFT,
-        CENTER,
-        RIGHT
+    private final HardwareCamera camera;
+    public Camera(HardwareCamera camera){
+        this.camera = camera;
     }
-
-    public enum PixelColor {
-        PURPLE,
-        YELLOW,
-        WHITE
-    }
-    //TODO: create a hardware wrapper for the camera and pass it in here
-    public Camera(){
-
+    public MarkerPos getMarkerPos(){
+        return camera.getMarkerPos();
     }
 }

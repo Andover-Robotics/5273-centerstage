@@ -34,12 +34,13 @@ public class Bot {
         assert hardwareBot.pivot!=null;
         claw = new Claw(hardwareBot.claw, hardwareBot.clawFlipper, logger);
         intake = new Intake(hardwareBot.flyWheel);
-//        camera = new Camera();
-//        hanger = new Hanger(hardwareBot.hanger);
         launch = new Launch(hardwareBot.launch);
         movement = new Movement(0, 0, 0, hardwareBot.mecanumDrive, logger);
         slides = new Slides(hardwareBot.slides, logger);
         pivot = new Pivot(hardwareBot.pivot, logger);
+        if(camera!=null) {
+            camera = new Camera(hardwareBot.camera);
+        }
     }
 
     public void place_pixel_ground() {

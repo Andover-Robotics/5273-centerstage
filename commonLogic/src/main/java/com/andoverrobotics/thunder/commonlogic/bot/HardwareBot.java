@@ -1,5 +1,6 @@
 package com.andoverrobotics.thunder.commonlogic.bot;
 
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareCamera;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
@@ -18,4 +19,5 @@ public class HardwareBot {
     public HardwareSlides slides;
     public HardwareClawFlipper clawFlipper;
     public HardwarePivot pivot;
+    public HardwareCamera camera;
 }
