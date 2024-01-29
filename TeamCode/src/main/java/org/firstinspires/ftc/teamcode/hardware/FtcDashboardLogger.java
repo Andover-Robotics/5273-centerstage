@@ -16,7 +16,7 @@ public class FtcDashboardLogger extends Logger {
 
     @Override
     public void setProp(String label, Object value) {
-        packet.put(label, value);
+        packet.put(label, value==null?"null":value);
     }
 
     @Override

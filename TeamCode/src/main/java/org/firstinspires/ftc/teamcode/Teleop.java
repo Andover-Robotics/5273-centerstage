@@ -13,9 +13,9 @@ import org.firstinspires.ftc.teamcode.hardware.RealHardwareClaw;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareClawFlipper;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareController;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareFlyWheels;
-import org.firstinspires.ftc.teamcode.hardware.RealHardwareHanger;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareLaunch;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardware.RealHardwarePivot;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareSlides;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.CombinedLogger;
@@ -40,8 +40,8 @@ public class Teleop extends LinearOpMode {
         hardwareBot.flyWheel = new RealHardwareFlyWheels(hardwareMap, logger);
         hardwareBot.mecanumDrive = new RealHardwareMecanumDrive(hardwareMap, logger);
         hardwareBot.launch = new RealHardwareLaunch(hardwareMap, logger);
-        hardwareBot.hanger = new RealHardwareHanger(hardwareMap, logger);
         hardwareBot.slides = new RealHardwareSlides(hardwareMap, logger);
+        hardwareBot.pivot = new RealHardwarePivot(hardwareMap, logger);
         Bot bot = new Bot(hardwareBot, logger);
         waitForStart();
         bot.movement.resetEncoders();

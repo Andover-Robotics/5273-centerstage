@@ -10,7 +10,7 @@ public class FtcTelemetryLogger extends Logger {
     private final Telemetry telemetry;
 
     private static class LogEntry {
-        public final Object value;
+        public Object value;
         public final Date timestamp;
 
         public LogEntry(Object value, Date timestamp) {
@@ -43,6 +43,9 @@ public class FtcTelemetryLogger extends Logger {
             LogEntry logEntry = data.get(key);
             if (logEntry == null) {
                 continue;
+            }
+            if (logEntry.value == null){
+                logEntry.value = "null";
             }
             telemetry.addData(key, logEntry.value.toString());
         }

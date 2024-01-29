@@ -9,10 +9,9 @@ public class Claw {
     private final Logger logger;
     private static final double CLAW_OPEN = 0.501;
     private static final double CLAW_HALF_OPEN = 0.424;
-    private static final double CLAW_CLOSED = 0.353;
-    private static final double FLIP_IN = 0.128;
-    private static final double FLIP_OUT = 0.497;
-    private static final double BOTTOM_FLIP_LIMIT = 2000;
+    private static final double CLAW_CLOSED = 0.372777777777777777777777777777777;
+    private static final double FLIP_IN = 0.0344444;
+    private static final double FLIP_OUT = 0.7183333;
 
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
@@ -58,11 +57,9 @@ public class Claw {
     public void open() {
         this.hardwareClaw.setPosition(CLAW_OPEN);
     }
-
     public void halfOpen() {
         this.hardwareClaw.setPosition(CLAW_HALF_OPEN);
     }
-
     public void close() {
         this.hardwareClaw.setPosition(CLAW_CLOSED);
     }

@@ -24,7 +24,7 @@ public class Slides {
         this.logger = logger;
         this.hardwareSlides = hardwareSlides;
         hardwareSlides.resetEncoders();
-        hardwareSlides.setDirections(Direction.FORWARD, Direction.REVERSE);
+        hardwareSlides.setDirections(Direction.REVERSE, Direction.FORWARD);
         int[] positions = hardwareSlides.getSlidesPositions();
         lastPos = 0;
     }

@@ -2,7 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareController;
 
-public class simHardwareGamepad implements HardwareController {
+public class SimHardwareController implements HardwareController {
     public float leftStickY;
     public float leftStickX;
     public float rightStickY;

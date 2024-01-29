@@ -30,7 +30,7 @@ public class Movement {
         this.y = y;
         this.heading = heading;
         this.drive = hardwareMecanumDrive;
-        hardwareMecanumDrive.setDirection(Direction.FORWARD, Direction.REVERSE, Direction.FORWARD, Direction.REVERSE);
+        hardwareMecanumDrive.setDirection(Direction.REVERSE, Direction.FORWARD, Direction.REVERSE, Direction.FORWARD);
     }
     public void moveTo(double x, double y) { // no rotation
         moveTo(x, y, heading);

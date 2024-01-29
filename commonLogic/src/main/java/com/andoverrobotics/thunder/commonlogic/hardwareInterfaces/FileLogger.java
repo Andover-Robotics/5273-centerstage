@@ -21,7 +21,7 @@ public class FileLogger extends Logger {
         }
     }
 
-    protected HashMap<String, LogEntry> data;
+    private final HashMap<String, LogEntry> data;
 
     public FileLogger(String logFilePath) {
         super();

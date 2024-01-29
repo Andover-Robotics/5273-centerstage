@@ -10,10 +10,11 @@ java {
 dependencies {
     implementation project(':commonLogic')
     implementation 'net.java.jinput:jinput:2.0.9'
+    implementation 'org.reflections:reflections:0.10.2'
 }
 
 application {
-    mainClassName = 'com.andoverrobotics.thunder.simulator.Simulation'
+    mainClassName = 'com.andoverrobotics.thunder.simulator.OpmodeChooser'
 }
 
 def libsDir = file("${projectDir}/libs")

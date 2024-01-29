@@ -20,13 +20,16 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 
 public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera {
-    private static final Rect leftBound = new Rect(); // TODO: tune each for x,y,width,height
-    private static final Rect centerBound = new Rect();
-    private static final Rect rightBound = new Rect();
+    private static final Rect leftBound = new Rect(1025,300,200,200); // TODO: tune each for x,y,width,height
+    private static final Rect centerBound = new Rect(375,325,200,200);
+    private static final int COLOR_THRESHOLD = 5700000; // if both are below threshold then it is right
     private final int alliance; // 1 is red, 2 is blue
-    private final int[] totalMarkerPoints = new int[3];
+    private MarkerPos markerPos;
     private final OpenCvCamera camera;
+    private final Logger logger;
+    private final int[] logVals = new int[2];
     public RealHardwareCamera(HardwareMap hardwareMap, Alliance alliance, Logger logger){
+        this.logger = logger;
         this.alliance = alliance==Alliance.RED?1:2;
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "camera"));
         camera.setPipeline(this);
@@ -37,52 +40,44 @@ public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera
             }
             @Override
             public void onError(int errorCode) {
-                logger.setProp("Camera error:", errorCode);
+                logger.setProp("Camera error:", errorCode); logger.push();
             }
         });
     }
     public Mat processFrame(Mat input){
-        Mat frame = new Mat();
-        Imgproc.cvtColor(input, frame, Imgproc.COLOR_RGB2YCrCb);
+
+        Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2YCrCb);
         Mat[] frames = {
-                frame.submat(leftBound),
-                frame.submat(centerBound),
-                frame.submat(rightBound)
+                input.submat(leftBound),
+                input.submat(centerBound)
         };
 
-        Imgproc.rectangle(input,new Point(leftBound.x,leftBound.y),new Point(leftBound.x+leftBound.width,leftBound.y+leftBound.height),new Scalar(0,0,0),5);
-        Imgproc.rectangle(input,new Point(centerBound.x,centerBound.y),new Point(centerBound.x+centerBound.width,centerBound.y+centerBound.height),new Scalar(0,0,0),5);
-        Imgproc.rectangle(input,new Point(rightBound.x,rightBound.y),new Point(rightBound.x+rightBound.width,rightBound.y+rightBound.height),new Scalar(0,0,0),5);
+        Imgproc.rectangle(input,new Point(leftBound.x,leftBound.y),new Point(leftBound.x+leftBound.width,leftBound.y+leftBound.height),new Scalar(0,255,0),5);
+        Imgproc.rectangle(input,new Point(centerBound.x,centerBound.y),new Point(centerBound.x+centerBound.width,centerBound.y+centerBound.height),new Scalar(0,255,255),5);
 
-        int[] markerPoints = new int[3];
-        int max = 0;
-        for(int i = 0; i < 3; i++) {
+        int[] markerPoints = new int[2];
+        for(int i = 0; i < 2; i++) {
             for (int j = 0; j < frames[i].rows(); j++) {
                 for (int k = 0; k < frames[i].cols(); k++) {
                     markerPoints[i] += (int)frames[i].get(j, k)[alliance];
                 }
             }
-            max = Math.max(max, markerPoints[i]);
+            logVals[i] = markerPoints[i];
         }
-        for(int i=0; i<3; i++){
-             if(markerPoints[i]==max){
-                 totalMarkerPoints[i]++;
-             }
+        if(markerPoints[0]<COLOR_THRESHOLD&&markerPoints[1]<COLOR_THRESHOLD){
+            markerPos = MarkerPos.RIGHT;
+        }else if(markerPoints[1]>=markerPoints[0]){
+            markerPos = MarkerPos.CENTER;
+        }else{
+            markerPos = MarkerPos.LEFT;
         }
+        camera.closeCameraDeviceAsync(() -> {});
         return input;
     }
     public MarkerPos getMarkerPos(){
-        camera.closeCameraDevice();
-        int max=0;
-        for(int i=0; i<3; i++){
-            max=Math.max(max,totalMarkerPoints[i]);
-        }
-        if(max==totalMarkerPoints[2]){
-            return MarkerPos.RIGHT;
-        }else if(max==totalMarkerPoints[1]){
-            return MarkerPos.CENTER;
-        }else{
-            return MarkerPos.LEFT;
-        }
+        return markerPos;
+    }
+    public int[] getLogVals(){
+        return logVals;
     }
 }

@@ -1,6 +1,6 @@
 package com.andoverrobotics.thunder.simulator;
 
-import com.andoverrobotics.thunder.simulator.hardwareInterfaces.simHardwareGamepad;
+import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareController;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class GamepadManager implements Runnable {
     private final ArrayList<Controller> controllers;
-    private final simHardwareGamepad[] simGamepads;
+    private final SimHardwareController[] simGamepads;
     private final int[] assignments;
 
     public GamepadManager() {
         controllers = new ArrayList<>();
-        simGamepads = new simHardwareGamepad[2];
+        simGamepads = new SimHardwareController[2];
         Controller[] rawControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
         for (Controller controller : rawControllers) {
             System.out.println(controller.getName());
@@ -35,7 +35,9 @@ public class GamepadManager implements Runnable {
         thread.start();
     }
 
-    public simHardwareGamepad getGamepad(int index) {
+    //this function takes in a 1 indexed index of which controller to get.
+    //for now there is only controller 1 and 2 accessed with indices 1 and 2 respectively
+    public SimHardwareController getGamepad(int index) {
         assert 0 < index && index <= simGamepads.length;
         return simGamepads[index-1];
     }
@@ -63,9 +65,9 @@ public class GamepadManager implements Runnable {
                 if (assignments[i] == -1) {
                     continue;
                 }
-                simHardwareGamepad simGamepad = simGamepads[assignments[i]];
+                SimHardwareController simGamepad = simGamepads[assignments[i]];
                 if(simGamepad == null){
-                    simGamepad = new simHardwareGamepad();
+                    simGamepad = new SimHardwareController();
                     simGamepads[assignments[i]] = simGamepad;
                 }
                 simGamepad.leftStickX = controller.getComponent(Component.Identifier.Axis.X).getPollData();

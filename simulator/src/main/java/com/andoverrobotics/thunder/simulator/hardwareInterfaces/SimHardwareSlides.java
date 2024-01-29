@@ -3,20 +3,19 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
+import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 
 public class SimHardwareSlides implements HardwareSlides {
-    private final Simulation simulation;
     private final Logger logger;
     private final SimMotor leftMotor;
     private final SimMotor rightMotor;
 
-    public SimHardwareSlides(Simulation simulation, Logger logger) {
-        this.simulation = simulation;
+    public SimHardwareSlides(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.leftMotor = simulation.getMotor("leftSlideMotor");
-        this.rightMotor = simulation.getMotor("rightSlideMotor");
+        this.leftMotor = simHardwareMap.getMotor("leftSlideMotor");
+        this.rightMotor = simHardwareMap.getMotor("rightSlideMotor");
     }
 
     @Override

@@ -1,14 +1,21 @@
 package com.andoverrobotics.thunder.simulator;
 
+import org.reflections.Reflections;
+
 import javax.swing.*;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class OpmodeChooser {
     public static void main(String[] args) {
         System.out.println("Starting opmode chooser...");
+
         SwingUtilities.invokeLater(() -> {
             OpModeSelector opModeSelector = new OpModeSelector();
             opModeSelector.setVisible(true);
@@ -16,6 +23,11 @@ public class OpmodeChooser {
     }
 }
 
+class OpmodeInfo {
+    public String name;
+    public String description;
+    public Class<? extends SimLinearOpMode> opmodeClass;
+}
 
 class OpModeSelector extends JFrame {
     private JList<String> opModeList;
@@ -26,14 +38,19 @@ class OpModeSelector extends JFrame {
         TEST, OPMODE
     }
     private OpModeType opModeType;
-    private final Map<String, String> opModeDescriptions;
+    private final ArrayList<OpmodeInfo> opmodeInfo;
     private final Map<String, String> opModeTests;
 
     public OpModeSelector() {
-        opModeDescriptions = new HashMap<>();
-        opModeDescriptions.put("OpMode1", "Description of OpMode1.");
-        opModeDescriptions.put("OpMode2", "Description of OpMode2.");
-        opModeDescriptions.put("OpMode3", "Description of OpMode3.");
+        opmodeInfo = new Reflections("com.andoverrobotics.thunder.simulator").getSubTypesOf(SimLinearOpMode.class).stream()
+                .map(opmodeClass -> {
+                    OpmodeInfo info = new OpmodeInfo();
+                    info.opmodeClass = opmodeClass;
+                    info.name = opmodeClass.getSimpleName();
+                    info.description = "Description of " + opmodeClass.getSimpleName() + ".";
+                    return info;
+                }).collect(Collectors.toCollection(ArrayList::new));
+
 
         opModeTests = new HashMap<>();
         opModeTests.put("TeleOp forward test", "tests that robot moves forward when joystick is pushed forward");
@@ -53,9 +70,10 @@ class OpModeSelector extends JFrame {
 
         DefaultListModel<String> opModeListModel = new DefaultListModel<>();
         DefaultListModel<String> opModeTestListModel = new DefaultListModel<>();
-        for (String opMode : opModeDescriptions.keySet()) {
-            opModeListModel.addElement(opMode);
+        for (OpmodeInfo info : opmodeInfo) {
+            opModeListModel.addElement(info.name);
         }
+
         for (String opModeTest : opModeTests.keySet()) {
             opModeTestListModel.addElement(opModeTest);
         }
@@ -67,8 +85,8 @@ class OpModeSelector extends JFrame {
 
 
         opModeList.addListSelectionListener(e -> {
-            String selectedOpMode = opModeList.getSelectedValue();
-            String description = opModeDescriptions.get(selectedOpMode);
+            int selectedOpMode = opModeList.getSelectedIndex();
+            String description = opmodeInfo.get(selectedOpMode).description;
             descriptionTextArea.setText(description);
             startButton.setText("Start opmode");
             opModeTestList.clearSelection();
@@ -93,16 +111,18 @@ class OpModeSelector extends JFrame {
 
         startButton = new JButton("Start OpMode");
         startButton.addActionListener(e -> {
-            String selectedOpMode = opModeType == OpModeType.OPMODE ? opModeList.getSelectedValue() : opModeTestList.getSelectedValue();
+            int selectedOpModeIndex = opModeList.getSelectedIndex();
+            OpmodeInfo selectedOpMode = opmodeInfo.get(selectedOpModeIndex);
             if (selectedOpMode != null) {
                 this.setVisible(false);
-                JFrame runner = new JFrame();
-                runner.setTitle("OpMode Runner");
-                runner.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                runner.setLayout(new BorderLayout());
-                runner.setSize(new Dimension(2000, 2000));
-                runner.add(new JLabel("Running " + selectedOpMode), BorderLayout.CENTER);
-                runner.setVisible(true);
+                OpModeRunner opModeRunner = null;
+                try {
+                    opModeRunner = new OpModeRunner(selectedOpMode);
+                } catch (NoSuchMethodException | InvocationTargetException |
+                         InstantiationException | IllegalAccessException ex) {
+                    throw new RuntimeException(ex);
+                }
+                opModeRunner.setVisible(true);
             }
         });
 

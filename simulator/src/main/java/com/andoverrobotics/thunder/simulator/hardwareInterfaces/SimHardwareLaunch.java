@@ -3,18 +3,17 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareLaunch;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
+import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimServo;
 
 public class SimHardwareLaunch implements HardwareLaunch {
-    private final Simulation simulation;
     private final Logger logger;
     private final SimServo launchServo;
 
-    public SimHardwareLaunch(Simulation simulation, Logger logger) {
-        this.simulation = simulation;
+    public SimHardwareLaunch(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.launchServo = simulation.getServo("launchServo");
+        this.launchServo = simHardwareMap.getServo("launchServo");
     }
 
     @Override
