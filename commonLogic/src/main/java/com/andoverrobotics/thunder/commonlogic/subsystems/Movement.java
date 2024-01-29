@@ -75,8 +75,8 @@ public class Movement {
         double scale = 1 / Math.max(Math.abs(motorPow1), Math.abs(motorPow2)); // scale up
         motorPow1 *= scale * power;
         motorPow2 *= scale * power;
-        double motorPow3 = -turnPower; // left side
-        double motorPow4 = turnPower; // right side
+        double motorPow3 = turnPower; // left side
+        double motorPow4 = -turnPower; // right side
         double leftFront = motorPow1 + motorPow3;
         double rightFront = motorPow2 + motorPow4;
         double leftBack = motorPow2 + motorPow3;
