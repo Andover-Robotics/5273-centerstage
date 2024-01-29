@@ -10,18 +10,12 @@ public class Claw {
     private static final double CLAW_OPEN = 0.501;
     private static final double CLAW_HALF_OPEN = 0.424;
     private static final double CLAW_CLOSED = 0.372777777777777777777777777777777;
-    private static final double FLIP_IN = 0.0344444;
-    private static final double FLIP_OUT = 0.7183333;
+    private static final double FLIP_STARTING_POS = 0.0344444;
+    private static final double FLIP_INTAKE_POS = 0.7183333;
 
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
     private PincherState pincherState;
-    private FlipState flipState;
-    public enum FlipState{
-        IN,
-        OUT,
-    }
-
     public enum PincherState {
         OPEN,
         HALF_OPEN,
@@ -34,55 +28,47 @@ public class Claw {
         this.hardwareClaw = hardwareClaw;
         this.clawFlipper = clawFlipper;
         this.pincherState = PincherState.OPEN;
-        this.flipState = FlipState.IN;
-        this.open();
-        this.setFlipState(FlipState.IN);
+        this.closePincher();
+        this.gotoStartingPos();
     }
 
     public void setPincherState(PincherState pincherState) {
         this.pincherState = pincherState;
         switch (pincherState) {
             case OPEN:
-                this.open();
+                this.openPincher();
                 break;
             case HALF_OPEN:
-                this.halfOpen();
+                this.halfOpenPincher();
                 break;
             case CLOSED:
-                this.close();
+                this.closePincher();
                 break;
         }
     }
 
-    public void open() {
+    public void openPincher() {
         this.hardwareClaw.setPosition(CLAW_OPEN);
     }
-    public void halfOpen() {
+
+    public void halfOpenPincher() {
         this.hardwareClaw.setPosition(CLAW_HALF_OPEN);
     }
-    public void close() {
+
+    public void closePincher() {
         this.hardwareClaw.setPosition(CLAW_CLOSED);
     }
 
     public PincherState getPincherState() {
         return this.pincherState;
     }
-    public void setFlipState(FlipState state){
-        switch (state) {
-            case IN:
-                clawFlipper.setPosition(FLIP_IN);
-                flipState = FlipState.IN;
-                break;
-            case OUT:
-                clawFlipper.setPosition(FLIP_OUT);
-                flipState = FlipState.OUT;
-                break;
-        }
-    }
-    public FlipState getFlipState(){
-        return flipState;
-    }
 
+    public void gotoStartingPos(){
+        this.clawFlipper.setPosition(FLIP_STARTING_POS);
+    }
+    public void gotoIntakePos(){
+        this.clawFlipper.setPosition(FLIP_INTAKE_POS);
+    }
     public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
         switch (pincherIntent) {
             case OPEN_HALF_RELATIVE:
@@ -112,39 +98,24 @@ public class Claw {
                 break;
         }
         switch (flipIntent) {
-            case FLIP:
-                if (flipState == FlipState.IN) {
-                    setFlipState(FlipState.OUT);
-                } else if (flipState == FlipState.OUT) {
-                    setPincherState(PincherState.CLOSED);
-                    setFlipState(FlipState.IN);
-                }
-                break;
-            case TWEAK_UP:
+            case MOVE_UP:
                 clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
                 break;
-            case TWEAK_DOWN:
+            case MOVE_DOWN:
                 clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
                 break;
-            case IN:
-                setFlipState(FlipState.IN);
+            case STARTING_POS:
+                gotoStartingPos();
                 break;
-            case OUT:
-                setFlipState(FlipState.OUT);
+            case INTAKE_POS:
+                gotoIntakePos();
+                break;
+            case NONE:
                 break;
         }
-        if(flipIntent == Intent.ClawFlipIntent.FLIP){
-            if(flipState == FlipState.IN){
-                setFlipState(FlipState.OUT);
-            }else if(flipState == FlipState.OUT){
-                if(pincherState == PincherState.OPEN){
-                    setPincherState(PincherState.HALF_OPEN);
-                }
-                setFlipState(FlipState.IN);
-            }
-        }else if(flipIntent == Intent.ClawFlipIntent.TWEAK_UP){
+        if (flipIntent == Intent.ClawFlipIntent.MOVE_UP) {
             clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
-        }else if(flipIntent == Intent.ClawFlipIntent.TWEAK_DOWN){
+        } else if (flipIntent == Intent.ClawFlipIntent.MOVE_DOWN) {
             clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
         }
 

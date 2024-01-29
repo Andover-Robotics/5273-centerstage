@@ -43,7 +43,7 @@ public class SlidesValueFinder extends LinearOpMode {
         slidesMotorRight.setDirection(DcMotor.Direction.REVERSE);
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
-        bot.claw.executeIntent(Intent.ClawPincherIntent.CLOSE_FULL, Intent.ClawFlipIntent.IN);
+        bot.claw.executeIntent(Intent.ClawPincherIntent.CLOSE_FULL, Intent.ClawFlipIntent.STARTING_POS);
         waitForStart();
         while(opModeIsActive()){
             if(gamepad2.dpad_up){

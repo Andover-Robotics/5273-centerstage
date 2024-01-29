@@ -96,10 +96,13 @@ public class ControllerMapping {
         intent.slidesOverride = state2.b;
 
         if(state2.a && !lastState2.a) {
-            intent.clawFlip = Intent.ClawFlipIntent.FLIP;
-            intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
+            intent.clawFlip = Intent.ClawFlipIntent.INTAKE_POS;
         }
-        intent.clawFlip = Intent.ClawFlipIntent.NONE;
+        if(state2.left_stick_x > 0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.MOVE_UP;
+        } else if(state2.left_stick_x < -0.5){
+            intent.clawFlip = Intent.ClawFlipIntent.MOVE_DOWN;
+        }
 
 
         intent.launch = state2.x && !lastState2.x;

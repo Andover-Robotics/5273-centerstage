@@ -50,12 +50,11 @@ public class Intent {
     public ClawFlipIntent clawFlip;
     public ClawPincherIntent clawPincher;
     public enum ClawFlipIntent{
-        FLIP,
         NONE,
-        TWEAK_UP,
-        TWEAK_DOWN,
-        IN,
-        OUT,
+        MOVE_UP,
+        MOVE_DOWN,
+        STARTING_POS,
+        INTAKE_POS
     }
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
