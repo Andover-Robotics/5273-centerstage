@@ -11,9 +11,8 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides
 public class Slides {
     private final HardwareSlides hardwareSlides;
     private static final double ENCODER_RES = 384.5;
-    private static final int MIN_FLIP_HEIGHT = 2350;
     private static final int AUTO_RES = 20;
-    private static final int OFFSET = 4300; // max height when minHeight = 0
+    private static final int OFFSET = 3100; // max height when minHeight = 0
     private int minHeight=0; // can be overridden
     private static final double SPEED_LIMIT_FACTOR = 0.2;
     private static final double DECEL_FACTOR = 0.5;
@@ -101,7 +100,7 @@ public class Slides {
     }
     private int getPos(){
         int[] positions = hardwareSlides.getSlidesPositions();
-        return Math.max(-positions[0], -positions[1]);
+        return Math.min(positions[0], positions[1]);
     }
 
     public void resetEncoders() {
