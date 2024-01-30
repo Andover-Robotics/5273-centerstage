@@ -11,4 +11,7 @@ public class Camera {
     public MarkerPos getMarkerPos(){
         return camera.getMarkerPos();
     }
+    public boolean isReady(){
+        return camera.isReady();
+    }
 }

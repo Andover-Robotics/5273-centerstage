@@ -8,7 +8,6 @@ import com.andoverrobotics.thunder.commonlogic.bot.HardwareBot;
 import org.firstinspires.ftc.teamcode.hardware.FtcDashboardLogger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.FileLogger;
 import org.firstinspires.ftc.teamcode.hardware.FtcTelemetryLogger;
-import org.firstinspires.ftc.teamcode.hardware.RealHardwareCamera;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareClaw;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareClawFlipper;
 import org.firstinspires.ftc.teamcode.hardware.RealHardwareController;
@@ -52,10 +51,10 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("intent", intent.toString());
             bot.movement.executeIntent(intent.movement);
             bot.intake.executeIntent(intent.intake);
-            bot.slides.executeIntent(intent.slides, intent.slidesOverride);
+            bot.slides.executeIntent(intent.slides, intent.override);
+            bot.pivot.executeIntent(intent);
             bot.claw.executeIntent(intent.clawPincher, intent.clawFlip);
             bot.launch.executeIntent(intent.launch);
-            bot.pivot.executeIntent(intent.pivot);
 
             logger.setProp("x", bot.movement.x);
             logger.setProp("y", bot.movement.y);

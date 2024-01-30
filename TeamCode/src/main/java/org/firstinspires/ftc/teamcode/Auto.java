@@ -83,6 +83,8 @@ public class Auto extends LinearOpMode {
         }
         hardwareBot.camera = new RealHardwareCamera(hardwareMap, alliance, logger);
         Bot bot = new Bot(hardwareBot, logger);
+
+        // for debugging
         while(false && (!gamepad2.y && !isStopRequested())){
             double[] logVals = ((RealHardwareCamera)hardwareBot.camera).getLogVals();
             logger.setProp("Color vals",Arrays.toString(logVals));
@@ -90,6 +92,12 @@ public class Auto extends LinearOpMode {
             logger.setProp("prediction", hardwareBot.camera.getMarkerPos());
             logger.push();
         }
+
+        logger.log("Waiting for camera...");
+        logger.push();
+        while(!bot.camera.isReady()){}
+        logger.log("Camera is ready!");
+        logger.push();
         waitForStart();
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();

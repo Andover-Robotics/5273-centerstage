@@ -6,7 +6,7 @@ public class Intent {
         launch = false;
         intake = IntakeIntent.STOP;
         clawPincher = ClawPincherIntent.NONE;
-        clawFlip = ClawFlipIntent.NONE;
+        clawFlip = new ClawFlipIntent(ClawFlipPreset.NONE);
         slides = 0;
         slides_absolute = 0;
     }
@@ -39,6 +39,7 @@ public class Intent {
         BACKWARD,
     }
     public IntakeIntent intake;
+    public ClawPincherIntent clawPincher;
     public enum ClawPincherIntent {
         OPEN_HALF_RELATIVE,
         CLOSE_HALF_RELATIVE,
@@ -48,13 +49,21 @@ public class Intent {
         NONE,
     }
     public ClawFlipIntent clawFlip;
-    public ClawPincherIntent clawPincher;
-    public enum ClawFlipIntent{
+    public static class ClawFlipIntent {
+        public ClawFlipIntent(ClawFlipPreset preset){
+            this.referenceAngle = 0;
+            this.preset = preset;
+        }
+        public double referenceAngle;
+        public ClawFlipPreset preset;
+    }
+    public enum ClawFlipPreset{
         NONE,
         MOVE_UP,
         MOVE_DOWN,
         STARTING_POS,
-        INTAKE_POS
+        INTAKE_POS,
+        SCORING_POS
     }
     public enum SlidesIntent {
         UP_RELATIVE_HALF,
@@ -66,7 +75,7 @@ public class Intent {
         ABSOLUTE,
     }
     public double slides;
-    public boolean slidesOverride;
+    public boolean override;
     public final int slides_absolute;
     public double pivot;
 
@@ -80,7 +89,7 @@ public class Intent {
                 ", clawFlip=" + clawFlip +
                 ", clawPincher=" + clawPincher +
                 ", slides=" + slides +
-                ", slidesOverride=" + slidesOverride +
+                ", slidesOverride=" + override +
                 ", slides_absolute=" + slides_absolute +
                 '}';
     }

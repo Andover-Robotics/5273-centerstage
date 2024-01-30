@@ -93,21 +93,22 @@ public class ControllerMapping {
 
         // slides
         intent.slides = -state2.left_stick_y;
-        intent.slidesOverride = state2.b;
+        intent.override = state2.b;
 
         if(state2.a && !lastState2.a) {
-            intent.clawFlip = Intent.ClawFlipIntent.INTAKE_POS;
-        }
-        if(state2.left_stick_x > 0.5){
-            intent.clawFlip = Intent.ClawFlipIntent.MOVE_UP;
+            intent.clawFlip.preset = Intent.ClawFlipPreset.INTAKE_POS;
+        } else if(state2.y && !lastState2.y){
+            intent.clawFlip.preset = Intent.ClawFlipPreset.SCORING_POS;
+        }else if(state2.left_stick_x > 0.5){
+            intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_UP;
         } else if(state2.left_stick_x < -0.5){
-            intent.clawFlip = Intent.ClawFlipIntent.MOVE_DOWN;
+            intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_DOWN;
         }
 
 
         intent.launch = state2.x && !lastState2.x;
 
-        intent.pivot = state2.right_stick_y;
+        intent.pivot = -state2.right_stick_y;
 
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;

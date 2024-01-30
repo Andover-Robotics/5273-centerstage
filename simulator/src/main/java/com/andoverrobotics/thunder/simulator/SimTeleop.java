@@ -4,13 +4,11 @@ import com.andoverrobotics.thunder.commonlogic.bot.Bot;
 import com.andoverrobotics.thunder.commonlogic.bot.HardwareBot;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.CombinedLogger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.FileLogger;
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.input.ControllerMapping;
 import com.andoverrobotics.thunder.commonlogic.input.Intent;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareClaw;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareClawFlipper;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareFlyWheels;
-import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareHanger;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareLaunch;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareMecanumDrive;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareSlides;
@@ -44,10 +42,10 @@ public class SimTeleop extends SimLinearOpMode{
             logger.setProp("intent", intent.toString());
             bot.movement.executeIntent(intent.movement);
             bot.intake.executeIntent(intent.intake);
-            bot.slides.executeIntent(intent.slides, intent.slidesOverride);
+            bot.slides.executeIntent(intent.slides, intent.override);
             bot.claw.executeIntent(intent.clawPincher, intent.clawFlip);
             bot.launch.executeIntent(intent.launch);
-            bot.pivot.executeIntent(intent.pivot);
+            bot.pivot.executeIntent(intent);
 
             logger.setProp("x", bot.movement.x);
             logger.setProp("y", bot.movement.y);

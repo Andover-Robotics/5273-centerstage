@@ -10,8 +10,9 @@ public class Claw {
     private static final double CLAW_OPEN = 0.501;
     private static final double CLAW_HALF_OPEN = 0.424;
     private static final double CLAW_CLOSED = 0.372777777777777777777777777777777;
-    private static final double FLIP_STARTING_POS = 0.0344444;
-    private static final double FLIP_INTAKE_POS = 0.7183333;
+    private static final double FLIP_STARTING_POS = 0.0344444; //assumed to be 180 degrees form the intake pos
+    private static final double FLIP_INTAKE_POS = 0.7183333; //asumed to be parallel to the ground
+    private Intent.ClawFlipPreset targetPreset = Intent.ClawFlipPreset.NONE;
 
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
@@ -70,6 +71,9 @@ public class Claw {
         this.clawFlipper.setPosition(FLIP_INTAKE_POS);
     }
     public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
+        if(flipIntent.preset != Intent.ClawFlipPreset.NONE) {
+            targetPreset = flipIntent.preset;
+        }
         switch (pincherIntent) {
             case OPEN_HALF_RELATIVE:
                 if (this.pincherState == PincherState.CLOSED) {
@@ -94,10 +98,8 @@ public class Claw {
             case OPEN_HALF:
                 this.setPincherState(PincherState.HALF_OPEN);
                 break;
-            case NONE:
-                break;
         }
-        switch (flipIntent) {
+        switch (targetPreset) {
             case MOVE_UP:
                 clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
                 break;
@@ -110,12 +112,18 @@ public class Claw {
             case INTAKE_POS:
                 gotoIntakePos();
                 break;
-            case NONE:
+            case SCORING_POS:
+            {
+                double degree0 = FLIP_INTAKE_POS;
+                double degree180 = FLIP_STARTING_POS;
+                double targetAngle = 60 - flipIntent.referenceAngle;
+                clawFlipper.setPosition(degree0 + (targetAngle / 180) * (degree180 - degree0));
                 break;
+            }
         }
-        if (flipIntent == Intent.ClawFlipIntent.MOVE_UP) {
+        if (targetPreset == Intent.ClawFlipPreset.MOVE_UP) {
             clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
-        } else if (flipIntent == Intent.ClawFlipIntent.MOVE_DOWN) {
+        } else if (targetPreset == Intent.ClawFlipPreset.MOVE_DOWN) {
             clawFlipper.setPosition(clawFlipper.getPosition() - 0.01);
         }
 
