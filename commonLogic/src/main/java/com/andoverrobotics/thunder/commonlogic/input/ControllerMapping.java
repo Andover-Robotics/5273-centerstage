@@ -63,12 +63,15 @@ public class ControllerMapping {
         double x = state1.left_stick_x;
         double y = -state1.left_stick_y;
 
+        double speedMod1 = 1 - state1.right_trigger * 0.75;
+        double speedMod2 = 1 - state2.right_trigger * 0.75;
+
         intent.movement.moveDirection = Math.atan2(y, x); // pi/2 is forwards
         // right trigger scales down movement and turn speeds
-        intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * (1 - state1.right_trigger * 0.75);
+        intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * speedMod1;
         //turn speed: controller 1 right stick left/right
-        intent.movement.turnSpeed = state1.right_stick_x * (1 - state1.right_trigger * 0.75);
-        intent.movement.centric = Intent.Centric.ROBOT;
+        intent.movement.turnSpeed = state1.right_stick_x * speedMod1;
+        intent.movement.centric = Intent.Centric.FIELD;
         // y resets heading for field centric angle correction
         intent.movement.resetHeading = state1.y && !lastState1.y;
 
@@ -92,7 +95,7 @@ public class ControllerMapping {
         }
 
         // slides
-        intent.slides = -state2.left_stick_y;
+        intent.slides = -state2.left_stick_y * speedMod2;
         intent.override = state2.b;
 
         if(state2.a && !lastState2.a) {
@@ -108,7 +111,7 @@ public class ControllerMapping {
 
         intent.launch = state2.x && !lastState2.x;
 
-        intent.pivot = -state2.right_stick_y;
+        intent.pivot = -state2.right_stick_y * speedMod2;
 
         //TODO: do literally all of the rest of the controls
         lastState1 = state1;
