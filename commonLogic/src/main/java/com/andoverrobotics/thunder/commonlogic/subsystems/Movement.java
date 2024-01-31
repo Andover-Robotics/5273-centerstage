@@ -20,6 +20,7 @@ public class Movement {
     private static final double DECEL_FACTOR = 0.5;
     private static final double TARGET_RES = 1; // target resolution (inches)
     private final Logger logger;
+    private Thread thread;
 
     private static double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
@@ -35,22 +36,40 @@ public class Movement {
     public void moveTo(double x, double y) { // no rotation
         moveTo(x, y, heading);
     }
-    public void moveTo(double x, double y, double heading){
-        drive.resetEncoders();
-        double dist;
-        while ((dist=Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2))) > TARGET_RES || Math.abs(this.heading - heading) > 0.1){
-            logger.setProp("distance error", dist);
-            logger.setProp("heading error", this.heading - heading);
-            double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
-            logger.setProp("power", power);
-
-            double turnPower = clamp(this.heading - heading, -1, 1);
-            logger.setProp("turn power", turnPower);
-
-
-            moveTick(Math.atan2(y - this.y, x - this.x) - heading, power, turnPower);
+    public void moveTo(final double targetX, final double targetY, final double targetH){
+        if(thread != null) {
+            thread.interrupt();
+            drive.setPower(0,0,0,0);
         }
-        drive.setPower(0,0,0,0);
+        thread = new Thread(){
+            public void run(){
+                drive.resetEncoders();
+                double dist;
+                while ((dist=Math.sqrt(Math.pow(getX() - targetX, 2) + Math.pow(getY() - targetY, 2))) > TARGET_RES || Math.abs(getH() - targetH) > 0.1){
+                    logger.setProp("distance error", dist);
+                    logger.setProp("heading error", getH() - targetH);
+                    double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
+                    logger.setProp("power", power);
+
+                    double turnPower = clamp(getH() - targetH, -1, 1);
+                    logger.setProp("turn power", turnPower);
+
+                    moveTick(Math.atan2(targetY - getY(), targetX - getX()) - targetH, power, turnPower);
+                }
+                drive.setPower(0,0,0,0);
+            }
+        };
+        thread.start();
+    }
+
+    public double getX(){
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+    public double getH(){
+        return heading;
     }
 
 //    public void motionProfileTo(double x, double y, double heading)
@@ -125,7 +144,7 @@ public class Movement {
 
         x += xVel_global;
         y += yVel_global;
-        heading += aVel;
+        heading -= aVel;//this needs to be like this, otherwise its reversed
         heading = (((heading % (Math.PI*2)) + (Math.PI*2)) % (Math.PI*2));
     }
     public void resetEncoders(){ // bruh

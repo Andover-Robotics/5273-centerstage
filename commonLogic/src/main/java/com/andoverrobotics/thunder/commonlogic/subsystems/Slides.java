@@ -18,6 +18,7 @@ public class Slides {
     private static final double DECEL_FACTOR = 0.5;
     private final Logger logger;
     private int lastPos;
+    private Thread thread;
 
     public Slides(HardwareSlides hardwareSlides, Logger logger){
         this.logger = logger;
@@ -90,13 +91,22 @@ public class Slides {
 
 
     }
-    public void moveTo(int targ){
-        int dist;
-        while(Math.abs(dist = targ - getPos()) > AUTO_RES){
-            double power = (dist < 0 ? -1 : 1) * (-Math.pow(2, -DECEL_FACTOR * Math.abs(dist)) + 1);
-            hardwareSlides.setPowers(power, power);
+    public void moveTo(final int targ){
+        if(thread != null){
+            thread.interrupt();
+            hardwareSlides.setPowers(0,0);
         }
-        hardwareSlides.setPowers(0, 0);
+        thread = new Thread(){
+            public void run(){ // probably should be changed
+                int dist;
+                while(Math.abs(dist = targ - getPos()) > AUTO_RES){
+                    double power = (dist < 0 ? -1 : 1) * (-Math.pow(2, -DECEL_FACTOR * Math.abs(dist)) + 1);
+                    hardwareSlides.setPowers(power, power);
+                }
+                hardwareSlides.setPowers(0, 0);
+            }
+        };
+        thread.start();
     }
     private int getPos(){
         int[] positions = hardwareSlides.getSlidesPositions();
