@@ -7,11 +7,11 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 
 public class Claw {
     private final Logger logger;
-    private static final double CLAW_OPEN = 0.501;
-    private static final double CLAW_HALF_OPEN = 0.424;
-    private static final double CLAW_CLOSED = 0.372777777777777777777777777777777;
-    private static final double FLIP_STARTING_POS = 0.0344444; //assumed to be 180 degrees form the intake pos
-    private static final double FLIP_INTAKE_POS = 0.7183333; //asumed to be parallel to the ground
+    private static final double CLAW_OPEN = 0.52;
+    private static final double CLAW_HALF_OPEN = 0.384;
+    private static final double CLAW_CLOSED = 0.371;
+    private static final double FLIP_STARTING_POS = 0.091; //assumed to be 180 degrees form the intake pos
+    private static final double FLIP_INTAKE_POS = 0.7416; //asumed to be parallel to the ground
     private Intent.ClawFlipPreset targetPreset = Intent.ClawFlipPreset.NONE;
 
     private final HardwareClaw hardwareClaw;
