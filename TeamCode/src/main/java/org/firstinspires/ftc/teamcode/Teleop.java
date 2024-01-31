@@ -43,8 +43,7 @@ public class Teleop extends LinearOpMode {
         hardwareBot.pivot = new RealHardwarePivot(hardwareMap, logger);
         Bot bot = new Bot(hardwareBot, logger);
         waitForStart();
-        bot.movement.resetEncoders();
-        bot.slides.resetEncoders();
+        bot.resetEncoders();
         ControllerMapping controllerMapping = new ControllerMapping(new RealHardwareController(gamepad1), new RealHardwareController(gamepad2));
         while(opModeIsActive()){
             Intent intent = controllerMapping.get_intent();

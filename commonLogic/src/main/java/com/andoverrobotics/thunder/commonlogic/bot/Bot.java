@@ -46,4 +46,10 @@ public class Bot {
     public void place_pixel_backboard(int x, int height) {
         //TODO
     }
+
+    public void resetEncoders(){
+        movement.resetEncoders();
+        slides.resetEncoders();
+        pivot.resetEncoders();
+    }
 }

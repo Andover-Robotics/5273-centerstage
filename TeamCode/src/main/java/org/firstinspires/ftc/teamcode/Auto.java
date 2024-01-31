@@ -99,8 +99,7 @@ public class Auto extends LinearOpMode {
         logger.log("Camera is ready!");
         logger.push();
         waitForStart();
-        bot.movement.resetEncoders();
-        bot.slides.resetEncoders();
+        bot.resetEncoders();
         MarkerPos markerPos = bot.camera.getMarkerPos();
         logger.setProp("Marker pos:",markerPos);
         logger.push();
