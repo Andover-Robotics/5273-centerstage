@@ -1,5 +1,6 @@
 package com.andoverrobotics.thunder.simulator;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.simulator.simComponents.SimCRServo;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 import com.andoverrobotics.thunder.simulator.simComponents.SimServo;
@@ -10,7 +11,6 @@ public class Simulation {
     private SimCRServo flyWheelLeft;
     private SimCRServo flyWheelRight;
     private SimServo launcher;
-    private SimMotor hanger;
     private SimMotor slidesLeft;
     private SimMotor slidesRight;
     private SimMotor pivot;
@@ -41,11 +41,11 @@ public class Simulation {
 
     public SimServo getServo(String servoName) {
         switch (servoName) {
-            case "clawPincher":
+            case DSConfig.CLAW_SERVO:
                 return clawPincher;
-            case "clawFlipper":
+            case DSConfig.FLIPPER_SERVO:
                 return clawFlipper;
-            case "launcher":
+            case DSConfig.LAUNCH_SERVO:
                 return launcher;
             default:
                 throw new IllegalArgumentException("Unknown servo name: " + servoName);
@@ -54,21 +54,19 @@ public class Simulation {
 
     public SimMotor getMotor(String motorName) {
         switch (motorName) {
-            case "hanger":
-                return hanger;
-            case "slidesLeft":
+            case DSConfig.SLIDES_LEFT_MOTOR:
                 return slidesLeft;
-            case "slidesRight":
+            case DSConfig.SLIDES_RIGHT_MOTOR:
                 return slidesRight;
-            case "driveFrontLeft":
+            case DSConfig.DRIVETRAIN_FRONT_LEFT_MOTOR:
                 return driveFrontLeft;
-            case "driveFrontRight":
+            case DSConfig.DRIVETRAIN_FRONT_RIGHT_MOTOR:
                 return driveFrontRight;
-            case "driveBackLeft":
+            case DSConfig.DRIVETRAIN_BACK_LEFT_MOTOR:
                 return driveBackLeft;
-            case "driveBackRight":
+            case DSConfig.DRIVETRAIN_BACK_RIGHT_MOTOR:
                 return driveBackRight;
-            case "pivot":
+            case DSConfig.PIVOT_MOTOR:
                 return pivot;
             default:
                 throw new IllegalArgumentException("Unknown motor name: " + motorName);
@@ -77,9 +75,9 @@ public class Simulation {
 
     public SimCRServo getCRServo(String crServoName) {
         switch (crServoName) {
-            case "flyWheelLeft":
+            case DSConfig.FLYWHEEL_LEFT_CR_SERVO:
                 return flyWheelLeft;
-            case "flyWheelRight":
+            case DSConfig.FLYWHEEL_RIGHT_CR_SERVO:
                 return flyWheelRight;
             default:
                 throw new IllegalArgumentException("Unknown CR servo name: " + crServoName);
