@@ -1,5 +1,7 @@
 package com.andoverrobotics.thunder.simulator;
 
+import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimTelemetry;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,9 +25,14 @@ public class OpModeRunner extends JFrame {
     JButton stopButton;
     JButton startButton;
     Thread uiThread;
+    JTextArea logsArea;
     enum OpmodeState {
         off, initing, inited, started
     }
+    //this is for simulation specific logs, no messages from the opmode will be logged here
+    private String nativeLogContents = "";
+    //this is a referanec to the opmode's logger
+    private SimTelemetry opmodeLogger;
 
     public OpModeRunner(OpmodeInfo opmodeInfo) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         initializeUI();
@@ -42,6 +49,15 @@ public class OpModeRunner extends JFrame {
                 }
             }
         });
+        uiThread.start();
+    }
+
+    public void log(String message) {
+        nativeLogContents += message + "\n";
+    }
+
+    public void clearLog() {
+        nativeLogContents = "";
     }
 
     private void initializeUI() {
@@ -66,22 +82,34 @@ public class OpModeRunner extends JFrame {
         initButton.addActionListener(e -> {
             System.out.println("init button pressed");
             if (opmodeState != OpmodeState.off) {
+                System.out.println("shutting down already running opmode");
                 //turn off the opmode
                 opmodeState = OpmodeState.off;
                 opmodeThread.interrupt();
                 opmodeThread = null;
+                System.out.println("shut down already running opmode");
             }
             //start a new thread with the opmode
             opmodeThread = new Thread(() -> {
                 try {
+                    System.out.println("making new opmode instance");
                     opMode = opmodeClass.getDeclaredConstructor().newInstance();
+                    System.out.println("made new opmode instance");
                 } catch (InstantiationException | IllegalAccessException |
                          InvocationTargetException | NoSuchMethodException ex) {
+                    System.err.println("Error creating opmode instance");
                     throw new RuntimeException(ex);
                 }
                 opmodeState = OpmodeState.initing;
-                opMode.runOpmode();
+                System.out.println("running opmode now");
+                opmodeLogger = opMode.telemetry;
+                try {
+                    opMode.runOpmode();
+                } finally {
+                    opmodeLogger = null;
+                }
             });
+            opmodeThread.start();
         });
 
         stopButton.addActionListener(e -> {
@@ -106,7 +134,7 @@ public class OpModeRunner extends JFrame {
         });
 
         // Right container for logs
-        JTextArea logsArea = new JTextArea(1000, 40);
+        logsArea = new JTextArea(1000, 40);
         JScrollPane logsScrollPane = new JScrollPane(logsArea);
         logsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         logsScrollPane.setMaximumSize(new Dimension(300, 2000));
@@ -163,6 +191,11 @@ public class OpModeRunner extends JFrame {
                 stopButton.setEnabled(true);
                 startButton.setEnabled(false);
                 break;
+        }
+
+        //update the log contents
+        synchronized (opmodeLogger) {
+            logsArea.setText(nativeLogContents + "\n-----------------\n" + opmodeLogger.finalData);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.andoverrobotics.thunder.simulator;
 
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareController;
+import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimTelemetry;
 
 public abstract class SimLinearOpMode {
     private Simulation sim;
@@ -9,6 +10,7 @@ public abstract class SimLinearOpMode {
     public SimHardwareController gamepad1;
     public SimHardwareController gamepad2;
     public boolean waiting = false;
+    public SimTelemetry telemetry = new SimTelemetry();
     public SimLinearOpMode() {
         sim = new Simulation(18, 18, 20);
         hardwareMap = new SimHardwareMap(sim);

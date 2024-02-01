@@ -15,12 +15,10 @@ import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareSlide
 
 public class SimTeleop extends SimLinearOpMode{
     public void runOpmode() {
-        if(true){
-            throw new RuntimeException("RuntimeException: SimTeleop.runOpmode() is not implemented");
-        }
         CombinedLogger logger = new CombinedLogger(
                 new ConsoleLogger(),
-                new FileLogger("./logs/")
+                new FileLogger("./logs/"),
+                telemetry
         );
         logger.setProp("opmode", "Main Teleop Sim");
 

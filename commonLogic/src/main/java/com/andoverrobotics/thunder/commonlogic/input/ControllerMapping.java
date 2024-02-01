@@ -113,7 +113,6 @@ public class ControllerMapping {
 
         intent.pivot = -state2.right_stick_y * speedMod2;
 
-        //TODO: do literally all of the rest of the controls
         lastState1 = state1;
         lastState2 = state2;
         return intent;
