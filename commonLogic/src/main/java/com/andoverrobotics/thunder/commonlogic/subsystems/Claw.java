@@ -71,6 +71,12 @@ public class Claw {
         this.clawFlipper.setPosition(FLIP_INTAKE_POS);
     }
     public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
+        if(flipIntent.preset == Intent.ClawFlipPreset.STARTING_POS){
+            flipIntent.preset = Intent.ClawFlipPreset.NONE;
+        }
+        if(targetPreset == Intent.ClawFlipPreset.STARTING_POS){
+            targetPreset = Intent.ClawFlipPreset.INTAKE_POS;
+        }
         if(flipIntent.preset != Intent.ClawFlipPreset.NONE) {
             targetPreset = flipIntent.preset;
         }
