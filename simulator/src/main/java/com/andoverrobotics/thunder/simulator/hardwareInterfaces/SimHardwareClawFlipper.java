@@ -2,6 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
@@ -13,7 +14,7 @@ public class SimHardwareClawFlipper implements HardwareClawFlipper {
 
     public SimHardwareClawFlipper(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.clawFlipperServo = simHardwareMap.getServo("clawFlipperServo");
+        this.clawFlipperServo = simHardwareMap.getServo(DSConfig.FLIPPER_SERVO);
     }
 
     @Override

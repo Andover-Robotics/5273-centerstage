@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.Alliance;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -30,7 +31,7 @@ public class RealHardwareCamera extends OpenCvPipeline implements HardwareCamera
     public RealHardwareCamera(HardwareMap hardwareMap, Alliance alliance, Logger logger){
         this.logger = logger;
         this.allianceNum = alliance==Alliance.RED?1:2;
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "camera"));
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, DSConfig.CAMERA));
         camera.setPipeline(this);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override

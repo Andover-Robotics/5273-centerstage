@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -16,10 +17,10 @@ public class RealHardwareMecanumDrive implements HardwareMecanumDrive {
     private final Logger logger;
     public RealHardwareMecanumDrive(HardwareMap hardwareMap, Logger logger){
         this.logger = logger;
-        leftFrontMotor=hardwareMap.get( DcMotor.class, "driveFL");
-        rightFrontMotor=hardwareMap.get(DcMotor.class, "driveFR");
-        leftBackMotor=hardwareMap.get(  DcMotor.class, "driveBL");
-        rightBackMotor=hardwareMap.get( DcMotor.class, "driveBR");
+        leftFrontMotor=hardwareMap.get( DcMotor.class, DSConfig.DRIVETRAIN_FRONT_LEFT_MOTOR);
+        rightFrontMotor=hardwareMap.get(DcMotor.class, DSConfig.DRIVETRAIN_FRONT_RIGHT_MOTOR);
+        leftBackMotor=hardwareMap.get(  DcMotor.class, DSConfig.DRIVETRAIN_BACK_LEFT_MOTOR);
+        rightBackMotor=hardwareMap.get( DcMotor.class, DSConfig.DRIVETRAIN_BACK_RIGHT_MOTOR);
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,7 +10,7 @@ public class FlipperValueFinder extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
-        Servo flipperServo = hardwareMap.get(Servo.class, "flipperServo");
+        Servo flipperServo = hardwareMap.get(Servo.class, DSConfig.FLIPPER_SERVO);
         while(opModeIsActive()){
             if(gamepad2.dpad_up){
                 flipperServo.setPosition(flipperServo.getPosition()+0.0001);
