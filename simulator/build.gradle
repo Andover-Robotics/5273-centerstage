@@ -21,3 +21,9 @@ def libsDir = file("${projectDir}/libs")
 tasks.withType(JavaExec) {
     systemProperty 'java.library.path', libsDir
 }
+
+tasks.withType(JavaExec).configureEach {
+    if (name.endsWith("main()")) {
+        notCompatibleWithConfigurationCache("JavaExec created by IntelliJ")
+    }
+}
