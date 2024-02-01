@@ -2,6 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
@@ -14,8 +15,8 @@ public class SimHardwareSlides implements HardwareSlides {
 
     public SimHardwareSlides(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.leftMotor = simHardwareMap.getMotor("leftSlideMotor");
-        this.rightMotor = simHardwareMap.getMotor("rightSlideMotor");
+        this.leftMotor = simHardwareMap.getMotor(DSConfig.SLIDES_LEFT_MOTOR);
+        this.rightMotor = simHardwareMap.getMotor(DSConfig.SLIDES_RIGHT_MOTOR);
     }
 
     @Override

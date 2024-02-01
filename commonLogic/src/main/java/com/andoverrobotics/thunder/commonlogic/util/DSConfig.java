@@ -6,8 +6,8 @@ public class DSConfig {
     public final static String SLIDES_RIGHT_MOTOR = "slidesWheelMotorRight";
     public final static String SLIDES_LEFT_MOTOR = "slidesWheelMotorLeft";
     public final static String CAMERA = "camera";
-    public final static String FLY_WHEEL_LEFT_CR_SERVO = "flywheelLeft";
-    public final static String FLY_WHEEL_RIGHT_CR_SERVO = "flywheelRight";
+    public final static String FLYWHEEL_LEFT_CR_SERVO = "flywheelLeft";
+    public final static String FLYWHEEL_RIGHT_CR_SERVO = "flywheelRight";
     public final static String IMU = "imu";
     public final static String LAUNCH_SERVO = "launchServo";
     public final static String DRIVETRAIN_FRONT_LEFT_MOTOR = "driveFL";

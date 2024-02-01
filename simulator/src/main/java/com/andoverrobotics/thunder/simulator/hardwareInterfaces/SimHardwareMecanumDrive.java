@@ -2,6 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
@@ -16,10 +17,10 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
 
     public SimHardwareMecanumDrive(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.leftFrontMotor = simHardwareMap.getMotor("leftFrontMotor");
-        this.rightFrontMotor = simHardwareMap.getMotor("rightFrontMotor");
-        this.leftBackMotor = simHardwareMap.getMotor("leftBackMotor");
-        this.rightBackMotor = simHardwareMap.getMotor("rightBackMotor");
+        this.leftFrontMotor = simHardwareMap.getMotor(DSConfig.DRIVETRAIN_FRONT_LEFT_MOTOR);
+        this.rightFrontMotor = simHardwareMap.getMotor(DSConfig.DRIVETRAIN_FRONT_RIGHT_MOTOR);
+        this.leftBackMotor = simHardwareMap.getMotor(DSConfig.DRIVETRAIN_BACK_LEFT_MOTOR);
+        this.rightBackMotor = simHardwareMap.getMotor(DSConfig.DRIVETRAIN_BACK_RIGHT_MOTOR);
     }
 
     @Override

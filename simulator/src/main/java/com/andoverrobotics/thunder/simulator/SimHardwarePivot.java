@@ -3,6 +3,7 @@ package com.andoverrobotics.thunder.simulator;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.CombinedLogger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwarePivot;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 
@@ -12,7 +13,7 @@ public class SimHardwarePivot implements HardwarePivot {
 
     public SimHardwarePivot(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.pivotMotor = simHardwareMap.getMotor("pivotMotor");
+        this.pivotMotor = simHardwareMap.getMotor(DSConfig.PIVOT_MOTOR);
     }
 
     @Override

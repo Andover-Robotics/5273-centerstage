@@ -2,6 +2,7 @@ package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareFlyWheels;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
 import com.andoverrobotics.thunder.simulator.Simulation;
@@ -14,8 +15,8 @@ public class SimHardwareFlyWheels implements HardwareFlyWheels {
 
     public SimHardwareFlyWheels(SimHardwareMap simHardwareMap, Logger logger) {
         this.logger = logger;
-        this.leftFlyWheel = simHardwareMap.getCRServo("leftFlyWheel");
-        this.rightFlyWheel = simHardwareMap.getCRServo("rightFlyWheel");
+        this.leftFlyWheel = simHardwareMap.getCRServo(DSConfig.FLYWHEEL_LEFT_CR_SERVO);
+        this.rightFlyWheel = simHardwareMap.getCRServo(DSConfig.FLYWHEEL_RIGHT_CR_SERVO);
     }
 
     @Override
