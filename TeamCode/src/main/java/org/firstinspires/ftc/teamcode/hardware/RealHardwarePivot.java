@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwarePivot;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,7 +13,7 @@ public class RealHardwarePivot implements HardwarePivot {
 
     public RealHardwarePivot(HardwareMap hardwareMap, Logger logger) {
         this.logger = logger;
-        pivotMotor = hardwareMap.get(DcMotor.class, "pivotMotor");
+        pivotMotor = hardwareMap.get(DcMotor.class, DSConfig.PIVOT_MOTOR);
     }
     @Override
     public int getPosition() {

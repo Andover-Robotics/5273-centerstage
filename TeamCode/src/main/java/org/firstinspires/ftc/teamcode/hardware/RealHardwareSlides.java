@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -16,8 +17,8 @@ public class RealHardwareSlides implements HardwareSlides {
         private final Logger logger;
         public RealHardwareSlides(HardwareMap hardwareMap, Logger logger){
                 this.logger = logger;
-                slidesMotorLeft=hardwareMap.get(DcMotor.class, "slidesWheelMotorLeft");
-                slidesMotorRight=hardwareMap.get(DcMotor.class, "slidesWheelMotorRight");
+                slidesMotorLeft=hardwareMap.get(DcMotor.class, DSConfig.SLIDES_LEFT_MOTOR);
+                slidesMotorRight=hardwareMap.get(DcMotor.class, DSConfig.SLIDES_RIGHT_MOTOR);
         }
         @Override
         public void resetEncoders() {

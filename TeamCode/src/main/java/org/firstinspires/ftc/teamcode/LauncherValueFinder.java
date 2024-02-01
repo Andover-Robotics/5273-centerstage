@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,7 +10,7 @@ public class LauncherValueFinder extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
-        Servo launcher = hardwareMap.get(Servo.class, "launchServo");
+        Servo launcher = hardwareMap.get(Servo.class, DSConfig.LAUNCH_SERVO);
         while(opModeIsActive()){
             if(gamepad2.dpad_up){
                 launcher.setPosition(launcher.getPosition()+0.0001);

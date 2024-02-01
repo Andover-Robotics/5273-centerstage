@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -12,7 +13,7 @@ public class RealHardwareClawFlipper implements HardwareClawFlipper {
     private final Logger logger;
     public RealHardwareClawFlipper(HardwareMap hardwareMap, Logger logger){
         this.logger = logger;
-        servo = hardwareMap.get(Servo.class, "flipperServo");
+        servo = hardwareMap.get(Servo.class, DSConfig.FLIPPER_SERVO);
     }
     @Override
     public void setDirection(Direction direction) {

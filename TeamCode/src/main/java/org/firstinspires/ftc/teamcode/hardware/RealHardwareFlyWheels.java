@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardware;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,8 +14,8 @@ public class RealHardwareFlyWheels implements HardwareFlyWheels {
     private final Logger logger;
     public RealHardwareFlyWheels(HardwareMap hardwareMap, Logger logger) {
         this.logger = logger;
-        leftFlyWheel = hardwareMap.get(CRServo.class, "flywheelLeft");
-        rightFlyWheel = hardwareMap.get(CRServo.class, "flywheelRight");
+        leftFlyWheel = hardwareMap.get(CRServo.class, DSConfig.FLY_WHEEL_LEFT_CR_SERVO);
+        rightFlyWheel = hardwareMap.get(CRServo.class, DSConfig.FLY_WHEEL_RIGHT_CR_SERVO);
         leftFlyWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFlyWheel.setDirection(DcMotorSimple.Direction.FORWARD);
     }

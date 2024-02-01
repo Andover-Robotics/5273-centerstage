@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -39,8 +40,8 @@ public class SlidesValueFinder extends LinearOpMode {
         hardwareBot.slides = new RealHardwareSlides(hardwareMap, logger);
         hardwareBot.pivot = new RealHardwarePivot(hardwareMap, logger);
         Bot bot = new Bot(hardwareBot, logger);
-        DcMotor slidesMotorLeft=hardwareMap.get(DcMotor.class, "slidesWheelMotorLeft");
-        DcMotor slidesMotorRight=hardwareMap.get(DcMotor.class, "slidesWheelMotorRight");
+        DcMotor slidesMotorLeft=hardwareMap.get(DcMotor.class, DSConfig.SLIDES_LEFT_MOTOR);
+        DcMotor slidesMotorRight=hardwareMap.get(DcMotor.class, DSConfig.SLIDES_RIGHT_MOTOR);
         slidesMotorLeft.setDirection(DcMotor.Direction.FORWARD);
         slidesMotorRight.setDirection(DcMotor.Direction.REVERSE);
         bot.movement.resetEncoders();

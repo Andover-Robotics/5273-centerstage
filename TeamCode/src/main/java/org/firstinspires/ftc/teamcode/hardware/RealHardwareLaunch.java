@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.hardware;
+import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,7 +12,7 @@ public class RealHardwareLaunch implements HardwareLaunch {
     private final Logger logger;
     public RealHardwareLaunch(HardwareMap hardwareMap, Logger logger) {
         this.logger = logger;
-        this.launchServo = hardwareMap.get(Servo.class, "launchServo");
+        this.launchServo = hardwareMap.get(Servo.class, DSConfig.LAUNCH_SERVO);
     }
 
     @Override
