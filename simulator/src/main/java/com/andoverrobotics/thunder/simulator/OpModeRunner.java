@@ -79,7 +79,7 @@ public class OpModeRunner extends JFrame {
         buttonPanel.add(initButton);
 
         //listeners for the buttons
-        initButton.addActionListener(e -> {
+        initButton.addActionListener(event -> {
             System.out.println("init button pressed");
             if (opmodeState != OpmodeState.off) {
                 System.out.println("shutting down already running opmode");
@@ -105,6 +105,12 @@ public class OpModeRunner extends JFrame {
                 opmodeLogger = opMode.telemetry;
                 try {
                     opMode.runOpmode();
+                } catch (Exception e) {
+                    log("Error running opmode: " + e.getMessage());
+                    log("Stack trace: ");
+                    for (StackTraceElement el : e.getStackTrace()) {
+                        log(el.toString());
+                    }
                 } finally {
                     opmodeLogger = null;
                 }
@@ -161,10 +167,12 @@ public class OpModeRunner extends JFrame {
         //check if the opmode is waiting and the state is initing
         //this will mean that the opmode has finished initing and is waiting for start
         if (opmodeState == OpmodeState.initing && opMode.waiting) {
+            System.out.println("opmode has finished initing");
             opmodeState = OpmodeState.inited;
         }
         //check if the thread has been interrupted or has exited
         if (opmodeThread != null && (!opmodeThread.isAlive() || opmodeThread.isInterrupted())) {
+            System.out.println("opmode has stopped");
             opmodeState = OpmodeState.off;
             opmodeThread = null;
         }
@@ -194,8 +202,12 @@ public class OpModeRunner extends JFrame {
         }
 
         //update the log contents
-        synchronized (opmodeLogger) {
-            logsArea.setText(nativeLogContents + "\n-----------------\n" + opmodeLogger.finalData);
+        if(opmodeLogger != null){
+            synchronized (opmodeLogger) {
+                logsArea.setText(nativeLogContents + "\n-----------------\n" + opmodeLogger.finalData);
+            }
+        }else{
+            logsArea.setText(nativeLogContents);
         }
     }
 }

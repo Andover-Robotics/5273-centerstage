@@ -6,8 +6,9 @@ import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 import com.andoverrobotics.thunder.simulator.simComponents.SimServo;
 
 public class Simulation {
+    public static final double INCH_OUNCE_TO_NEWTON_METER = 0.00706155183333;
     private SimServo clawPincher;
-    private SimServo clawFlipper;
+    private SimServo clawFlipper = new SimServo(0.001);
     private SimCRServo flyWheelLeft;
     private SimCRServo flyWheelRight;
     private SimServo launcher;
