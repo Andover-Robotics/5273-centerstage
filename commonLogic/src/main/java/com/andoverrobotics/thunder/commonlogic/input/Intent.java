@@ -8,7 +8,8 @@ public class Intent {
         clawPincher = ClawPincherIntent.NONE;
         clawFlip = new ClawFlipIntent(ClawFlipPreset.NONE);
         slides = 0;
-        slides_absolute = 0;
+        slidesIntent = SlidesIntent.POWER;
+        pivotIntent = PivotIntent.POWER;
     }
     public enum Centric {
         ROBOT,
@@ -19,7 +20,14 @@ public class Intent {
         public double moveDirection;
         public double moveSpeed;
         public double turnSpeed;
-        public boolean resetHeading;
+        public enum HeadingReset {
+            UP,
+            RIGHT,
+            DOWN,
+            LEFT,
+            NONE
+        }
+        public HeadingReset resetHeading;
 
         @Override
         public String toString() {
@@ -65,20 +73,23 @@ public class Intent {
         INTAKE_POS,
         SCORING_POS
     }
+
     public enum SlidesIntent {
-        UP_RELATIVE_HALF,
-        DOWN_RELATIVE_HALF,
-        UP_RELATIVE_FULL,
-        DOWN_RELATIVE_FULL,
-        TOP,
-        BOTTOM,
-        ABSOLUTE,
+        POWER,
+        TARGET
     }
     public double slides;
+    public SlidesIntent slidesIntent;
     public boolean override;
-    public final int slides_absolute;
-    public double pivot;
 
+    public enum PivotIntent {
+        POWER,
+        TARGET
+    }
+
+
+    public double pivot;
+    public PivotIntent pivotIntent;
 
     @Override
     public String toString() {
@@ -90,7 +101,6 @@ public class Intent {
                 ", clawPincher=" + clawPincher +
                 ", slides=" + slides +
                 ", slidesOverride=" + override +
-                ", slides_absolute=" + slides_absolute +
                 '}';
     }
 }

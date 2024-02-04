@@ -7,9 +7,9 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 
 public class Claw {
     private final Logger logger;
-    private static final double CLAW_OPEN = 0.52;
-    private static final double CLAW_HALF_OPEN = 0.384;
-    private static final double CLAW_CLOSED = 0.371;
+    private static final double CLAW_OPEN = 0.727;
+    private static final double CLAW_HALF_OPEN = 0.574;
+    private static final double CLAW_CLOSED = 0.572;
     private static final double FLIP_STARTING_POS = 0.091; //assumed to be 180 degrees form the intake pos
     private static final double FLIP_INTAKE_POS = 0.7416; //asumed to be parallel to the ground
     private Intent.ClawFlipPreset targetPreset = Intent.ClawFlipPreset.NONE;
@@ -71,14 +71,11 @@ public class Claw {
         this.clawFlipper.setPosition(FLIP_INTAKE_POS);
     }
     public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
-        if(flipIntent.preset == Intent.ClawFlipPreset.STARTING_POS){
-            flipIntent.preset = Intent.ClawFlipPreset.NONE;
-        }
-        if(targetPreset == Intent.ClawFlipPreset.STARTING_POS){
-            targetPreset = Intent.ClawFlipPreset.INTAKE_POS;
-        }
         if(flipIntent.preset != Intent.ClawFlipPreset.NONE) {
             targetPreset = flipIntent.preset;
+        }
+        if(flipIntent.preset == Intent.ClawFlipPreset.NONE && (targetPreset == Intent.ClawFlipPreset.MOVE_DOWN || targetPreset == Intent.ClawFlipPreset.MOVE_UP)){
+            targetPreset = Intent.ClawFlipPreset.NONE;
         }
         switch (pincherIntent) {
             case OPEN_HALF_RELATIVE:

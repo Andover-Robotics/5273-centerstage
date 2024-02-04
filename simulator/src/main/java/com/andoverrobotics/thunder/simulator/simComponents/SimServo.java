@@ -1,12 +1,11 @@
 package com.andoverrobotics.thunder.simulator.simComponents;
 
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.Simulation;
 
+//https://www.gobilda.com/2000-series-dual-mode-servo-25-2-torque/
+//control hub/driver station sends 6v to servos, using the no load speed
 public class SimServo {
-    //https://www.gobilda.com/2000-series-dual-mode-servo-25-2-torque/
-    //control hub/driver station sends 6v to servos, using the no load speed
     private static final double MAX_SPEED = 50; //RPM
     private static final double MAX_TORQUE = 300 * Simulation.INCH_OUNCE_TO_NEWTON_METER; //N*m
     public double realPosition = 0.5;

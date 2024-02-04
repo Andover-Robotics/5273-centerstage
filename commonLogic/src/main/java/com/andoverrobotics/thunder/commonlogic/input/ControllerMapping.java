@@ -73,7 +73,19 @@ public class ControllerMapping {
         intent.movement.turnSpeed = state1.right_stick_x * speedMod1;
         intent.movement.centric = Intent.Centric.FIELD;
         // y resets heading for field centric angle correction
-        intent.movement.resetHeading = state1.y && !lastState1.y;
+
+        //dpad directions resets the heading in the different directions
+        if(state1.dpad_up && !lastState1.dpad_up){
+            intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.UP;
+        }else if(state1.dpad_right && !lastState1.dpad_right){
+            intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.RIGHT;
+        }else if(state1.dpad_down && !lastState1.dpad_down){
+            intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.DOWN;
+        }else if(state1.dpad_left && !lastState1.dpad_left){
+            intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.LEFT;
+        }else{
+            intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.NONE;
+        }
 
         //claw
         if(state2.dpad_up && !lastState2.dpad_up){
@@ -96,6 +108,7 @@ public class ControllerMapping {
 
         // slides
         intent.slides = -state2.left_stick_y * speedMod2;
+        intent.slidesIntent = Intent.SlidesIntent.POWER;
         intent.override = state2.b;
 
         if(state2.a && !lastState2.a) {
@@ -106,12 +119,24 @@ public class ControllerMapping {
             intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_UP;
         } else if(state2.left_stick_x < -0.5){
             intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_DOWN;
+        }else{
+            intent.clawFlip.preset = Intent.ClawFlipPreset.NONE;
+        }
+
+        intent.pivot = -state2.right_stick_y * speedMod2;
+        intent.pivotIntent = Intent.PivotIntent.POWER;
+
+        if(state2.a && !lastState2.a){
+            intent.slides = 0;
+            intent.slidesIntent = Intent.SlidesIntent.TARGET;
+            intent.clawPincher = Intent.ClawPincherIntent.OPEN_FULL;
+            intent.pivot = 0;
+            intent.pivotIntent = Intent.PivotIntent.TARGET;
         }
 
 
         intent.launch = state2.x && !lastState2.x;
 
-        intent.pivot = -state2.right_stick_y * speedMod2;
 
         lastState1 = state1;
         lastState2 = state2;

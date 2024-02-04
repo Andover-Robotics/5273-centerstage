@@ -20,7 +20,6 @@ public class Movement {
     private static final double DECEL_FACTOR = 0.5;
     private static final double TARGET_RES = 1; // target resolution (inches)
     private final Logger logger;
-    private Thread thread;
 
     private static double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
@@ -36,30 +35,31 @@ public class Movement {
     public void moveTo(double x, double y) { // no rotation
         moveTo(x, y, heading);
     }
-    public void moveTo(final double targetX, final double targetY, final double targetH){
-        if(thread != null) {
-            thread.interrupt();
-            drive.setPower(0,0,0,0);
+    public void moveTo(double targetXDiff, double targetYDiff, final double targetH){
+        final double targetX = x + targetXDiff;
+        final double targetY = y + targetYDiff;
+        drive.resetEncoders();
+        double dist;
+        while ((dist=Math.sqrt(Math.pow(getX() - targetX, 2) + Math.pow(getY() - targetY, 2))) > TARGET_RES || Math.abs(getH() - targetH) > 0.1){
+            logger.setProp("distance error", dist);
+            logger.setProp("heading error", getH() - targetH);
+            double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
+            logger.setProp("power", power);
+
+            double turnPower = clamp(getH() - targetH, -1, 1);
+            logger.setProp("turn power", turnPower);
+
+            moveTick(Math.atan2(targetY - getY(), targetX - getX()) - targetH, power, turnPower);
         }
-        thread = new Thread(){
-            public void run(){
-                drive.resetEncoders();
-                double dist;
-                while ((dist=Math.sqrt(Math.pow(getX() - targetX, 2) + Math.pow(getY() - targetY, 2))) > TARGET_RES || Math.abs(getH() - targetH) > 0.1){
-                    logger.setProp("distance error", dist);
-                    logger.setProp("heading error", getH() - targetH);
-                    double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
-                    logger.setProp("power", power);
+        drive.setPower(0,0,0,0);
+    }
 
-                    double turnPower = clamp(getH() - targetH, -1, 1);
-                    logger.setProp("turn power", turnPower);
+    public void turnTo(final double targetHeading){
+        while(Math.abs(getH() - targetHeading) > 0.1){
+            double turnPower = clamp(getH() - targetHeading, -1, 1);
+            moveTick(0, 0, turnPower);
+        }
 
-                    moveTick(Math.atan2(targetY - getY(), targetX - getX()) - targetH, power, turnPower);
-                }
-                drive.setPower(0,0,0,0);
-            }
-        };
-        thread.start();
     }
 
     public double getX(){
@@ -78,9 +78,16 @@ public class Movement {
         if (intent == null) {
             return;
         }
-        if(intent.resetHeading){
+        if(intent.resetHeading == Intent.MovementIntent.HeadingReset.UP){
             heading = 0;
+        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.DOWN){
+            heading = Math.PI;
+        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.LEFT) {
+            heading = Math.PI / 2;
+        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.RIGHT){
+            heading = -Math.PI / 2;
         }
+
         if(intent.centric == Intent.Centric.ROBOT) {
             moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
         } else if(intent.centric == Intent.Centric.FIELD){
@@ -145,6 +152,7 @@ public class Movement {
         x += xVel_global;
         y += yVel_global;
         heading -= aVel;//this needs to be like this, otherwise its reversed
+
         heading = (((heading % (Math.PI*2)) + (Math.PI*2)) % (Math.PI*2));
     }
     public void resetEncoders(){ // bruh
