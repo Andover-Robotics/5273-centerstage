@@ -5,7 +5,6 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
-import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 
 public class SimHardwareSlides implements HardwareSlides {
@@ -22,7 +21,8 @@ public class SimHardwareSlides implements HardwareSlides {
     @Override
     public int[] getSlidesPositions() {
         // Implement the logic to get the positions of the slides
-        // Example: return new int[]{leftMotor.getCurrentPosition(), rightMotor.getCurrentPosition()};
+        // Example: return new int[]{leftMotor.getCurrentPosition(),
+        // rightMotor.getCurrentPosition()};
         return new int[0];
     }
 

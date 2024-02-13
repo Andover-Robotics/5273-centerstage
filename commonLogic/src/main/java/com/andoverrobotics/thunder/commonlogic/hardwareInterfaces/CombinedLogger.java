@@ -11,7 +11,7 @@ public class CombinedLogger extends Logger {
         this.loggers = new ArrayList<>(Arrays.asList(loggers));
     }
 
-    public void addLogger(Logger logger){
+    public void addLogger(Logger logger) {
         this.loggers.add(logger);
     }
 
@@ -24,7 +24,7 @@ public class CombinedLogger extends Logger {
 
     @Override
     public void close() {
-        for(Logger logger : loggers) {
+        for (Logger logger : loggers) {
             logger.close();
         }
     }

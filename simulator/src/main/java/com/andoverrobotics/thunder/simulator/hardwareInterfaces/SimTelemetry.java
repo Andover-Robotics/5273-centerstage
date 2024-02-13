@@ -1,9 +1,9 @@
 package com.andoverrobotics.thunder.simulator.hardwareInterfaces;
 
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
-
 import java.util.Date;
 import java.util.HashMap;
+
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 
 public class SimTelemetry extends Logger {
     public String finalData = "";
@@ -31,8 +31,7 @@ public class SimTelemetry extends Logger {
     }
 
     @Override
-    public void close() {
-    }
+    public void close() {}
 
     @Override
     public void push() {
@@ -52,5 +51,4 @@ public class SimTelemetry extends Logger {
             finalData = sb.toString();
         }
     }
-
 }

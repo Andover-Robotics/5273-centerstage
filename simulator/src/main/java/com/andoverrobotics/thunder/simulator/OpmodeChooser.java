@@ -1,25 +1,25 @@
 package com.andoverrobotics.thunder.simulator;
 
-import org.reflections.Reflections;
-
-import javax.swing.*;
-
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.swing.*;
+
+import org.reflections.Reflections;
 
 public class OpmodeChooser {
     public static void main(String[] args) {
         System.out.println("Starting opmode chooser...");
 
-        SwingUtilities.invokeLater(() -> {
-            OpModeSelector opModeSelector = new OpModeSelector();
-            opModeSelector.setVisible(true);
-        });
+        SwingUtilities.invokeLater(
+                () -> {
+                    OpModeSelector opModeSelector = new OpModeSelector();
+                    opModeSelector.setVisible(true);
+                });
     }
 }
 
@@ -34,30 +34,44 @@ class OpModeSelector extends JFrame {
     private JList<String> opModeTestList;
     private JTextArea descriptionTextArea;
     private JButton startButton;
+
     private enum OpModeType {
-        TEST, OPMODE
+        TEST,
+        OPMODE
     }
+
     private OpModeType opModeType;
     private final ArrayList<OpmodeInfo> opmodeInfo;
     private final Map<String, String> opModeTests;
 
     public OpModeSelector() {
-        opmodeInfo = new Reflections("com.andoverrobotics.thunder.simulator").getSubTypesOf(SimLinearOpMode.class).stream()
-                .map(opmodeClass -> {
-                    OpmodeInfo info = new OpmodeInfo();
-                    info.opmodeClass = opmodeClass;
-                    info.name = opmodeClass.getSimpleName();
-                    info.description = "Description of " + opmodeClass.getSimpleName() + ".";
-                    return info;
-                }).collect(Collectors.toCollection(ArrayList::new));
-
+        opmodeInfo =
+                new Reflections("com.andoverrobotics.thunder.simulator")
+                        .getSubTypesOf(SimLinearOpMode.class).stream()
+                                .map(
+                                        opmodeClass -> {
+                                            OpmodeInfo info = new OpmodeInfo();
+                                            info.opmodeClass = opmodeClass;
+                                            info.name = opmodeClass.getSimpleName();
+                                            info.description =
+                                                    "Description of "
+                                                            + opmodeClass.getSimpleName()
+                                                            + ".";
+                                            return info;
+                                        })
+                                .collect(Collectors.toCollection(ArrayList::new));
 
         opModeTests = new HashMap<>();
-        opModeTests.put("TeleOp forward test", "tests that robot moves forward when joystick is pushed forward");
-        opModeTests.put("TeleOp backward test", "tests that robot moves backward when joystick is pushed backward");
-        opModeTests.put("TeleOp left test", "tests that robot moves left when joystick is pushed left");
-        opModeTests.put("TeleOp right test", "tests that robot moves right when joystick is pushed right");
-
+        opModeTests.put(
+                "TeleOp forward test",
+                "tests that robot moves forward when joystick is pushed forward");
+        opModeTests.put(
+                "TeleOp backward test",
+                "tests that robot moves backward when joystick is pushed backward");
+        opModeTests.put(
+                "TeleOp left test", "tests that robot moves left when joystick is pushed left");
+        opModeTests.put(
+                "TeleOp right test", "tests that robot moves right when joystick is pushed right");
 
         initializeUI();
     }
@@ -83,48 +97,51 @@ class OpModeSelector extends JFrame {
         opModeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         opModeTestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        opModeList.addListSelectionListener(
+                e -> {
+                    int selectedOpMode = opModeList.getSelectedIndex();
+                    String description = opmodeInfo.get(selectedOpMode).description;
+                    descriptionTextArea.setText(description);
+                    startButton.setText("Start opmode");
+                    opModeTestList.clearSelection();
+                    opModeType = OpModeType.OPMODE;
+                });
 
-        opModeList.addListSelectionListener(e -> {
-            int selectedOpMode = opModeList.getSelectedIndex();
-            String description = opmodeInfo.get(selectedOpMode).description;
-            descriptionTextArea.setText(description);
-            startButton.setText("Start opmode");
-            opModeTestList.clearSelection();
-            opModeType = OpModeType.OPMODE;
-        });
-
-        opModeTestList.addListSelectionListener(e -> {
-            String selectedOpModeTest = opModeTestList.getSelectedValue();
-            String description = opModeTests.get(selectedOpModeTest);
-            descriptionTextArea.setText(description);
-            startButton.setText("Run test");
-            opModeList.clearSelection();
-            opModeType = OpModeType.TEST;
-        });
+        opModeTestList.addListSelectionListener(
+                e -> {
+                    String selectedOpModeTest = opModeTestList.getSelectedValue();
+                    String description = opModeTests.get(selectedOpModeTest);
+                    descriptionTextArea.setText(description);
+                    startButton.setText("Run test");
+                    opModeList.clearSelection();
+                    opModeType = OpModeType.TEST;
+                });
 
         JScrollPane opModeScrollPane = new JScrollPane(opModeList);
         JScrollPane opModeTestScrollPane = new JScrollPane(opModeTestList);
-
 
         descriptionTextArea = new JTextArea();
         descriptionTextArea.setEditable(false);
 
         startButton = new JButton("Start OpMode");
-        startButton.addActionListener(e -> {
-            int selectedOpModeIndex = opModeList.getSelectedIndex();
-            OpmodeInfo selectedOpMode = opmodeInfo.get(selectedOpModeIndex);
-            if (selectedOpMode != null) {
-                this.setVisible(false);
-                OpModeRunner opModeRunner = null;
-                try {
-                    opModeRunner = new OpModeRunner(selectedOpMode);
-                } catch (NoSuchMethodException | InvocationTargetException |
-                         InstantiationException | IllegalAccessException ex) {
-                    throw new RuntimeException(ex);
-                }
-                opModeRunner.setVisible(true);
-            }
-        });
+        startButton.addActionListener(
+                e -> {
+                    int selectedOpModeIndex = opModeList.getSelectedIndex();
+                    OpmodeInfo selectedOpMode = opmodeInfo.get(selectedOpModeIndex);
+                    if (selectedOpMode != null) {
+                        this.setVisible(false);
+                        OpModeRunner opModeRunner = null;
+                        try {
+                            opModeRunner = new OpModeRunner(selectedOpMode);
+                        } catch (NoSuchMethodException
+                                | InvocationTargetException
+                                | InstantiationException
+                                | IllegalAccessException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        opModeRunner.setVisible(true);
+                    }
+                });
 
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel opModesPanel = new JPanel(new BorderLayout());
@@ -151,10 +168,10 @@ class OpModeSelector extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            OpModeSelector opModeSelector = new OpModeSelector();
-            opModeSelector.setVisible(true);
-        });
+        SwingUtilities.invokeLater(
+                () -> {
+                    OpModeSelector opModeSelector = new OpModeSelector();
+                    opModeSelector.setVisible(true);
+                });
     }
 }
-

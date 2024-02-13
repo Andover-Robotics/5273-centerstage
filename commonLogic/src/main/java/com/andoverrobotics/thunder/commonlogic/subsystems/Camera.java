@@ -5,13 +5,16 @@ import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
 
 public class Camera {
     private final HardwareCamera camera;
-    public Camera(HardwareCamera camera){
+
+    public Camera(HardwareCamera camera) {
         this.camera = camera;
     }
-    public MarkerPos getMarkerPos(){
+
+    public MarkerPos getMarkerPos() {
         return camera.getMarkerPos();
     }
-    public boolean isReady(){
+
+    public boolean isReady() {
         return camera.isReady();
     }
 }

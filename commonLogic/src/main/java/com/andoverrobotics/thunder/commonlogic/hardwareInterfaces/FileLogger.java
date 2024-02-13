@@ -1,11 +1,11 @@
 package com.andoverrobotics.thunder.commonlogic.hardwareInterfaces;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.io.File;
 import java.util.HashMap;
 
 public class FileLogger extends Logger {
@@ -60,12 +60,14 @@ public class FileLogger extends Logger {
         // loop over all entries in data and push them to the log file
         for (String key : data.keySet()) {
             LogEntry logEntry = data.get(key);
-            if(logEntry == null){
+            if (logEntry == null) {
                 continue;
             }
             try {
                 if (logEntry.value != null) {
-                    logFile.write(String.format("[%s] %s: %s\n", logEntry.timestamp, key, logEntry.value).getBytes());
+                    logFile.write(
+                            String.format("[%s] %s: %s\n", logEntry.timestamp, key, logEntry.value)
+                                    .getBytes());
                 } else {
                     logFile.write(String.format("[%s] %s\n", logEntry.timestamp, key).getBytes());
                 }

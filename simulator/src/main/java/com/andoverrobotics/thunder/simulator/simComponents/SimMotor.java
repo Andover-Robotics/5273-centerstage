@@ -1,18 +1,13 @@
 package com.andoverrobotics.thunder.simulator.simComponents;
 
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareSlides;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 
 public class SimMotor {
-    public void setDirection(Direction directionLeft) {
-    }
+    public void setDirection(Direction directionLeft) {}
 
-    public void setPower(double powerRight) {
-    }
+    public void setPower(double powerRight) {}
 
-    public void resetEncoder() {
-    }
+    public void resetEncoder() {}
 
     public int getCurrentPosition() {
         return 0;

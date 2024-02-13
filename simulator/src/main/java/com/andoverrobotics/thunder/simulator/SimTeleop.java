@@ -13,13 +13,10 @@ import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareLaunc
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareMecanumDrive;
 import com.andoverrobotics.thunder.simulator.hardwareInterfaces.SimHardwareSlides;
 
-public class SimTeleop extends SimLinearOpMode{
+public class SimTeleop extends SimLinearOpMode {
     public void runOpmode() {
-        CombinedLogger logger = new CombinedLogger(
-                new ConsoleLogger(),
-                new FileLogger("./logs/"),
-                telemetry
-        );
+        CombinedLogger logger =
+                new CombinedLogger(new ConsoleLogger(), new FileLogger("./logs/"), telemetry);
         logger.setProp("opmode", "Main Teleop Sim");
 
         HardwareBot hardwareBot = new HardwareBot();
@@ -35,7 +32,7 @@ public class SimTeleop extends SimLinearOpMode{
         bot.movement.resetEncoders();
         bot.slides.resetEncoders();
         ControllerMapping controllerMapping = new ControllerMapping(gamepad1, gamepad2);
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
             Intent intent = controllerMapping.get_intent();
             logger.setProp("intent", intent.toString());
             bot.movement.executeIntent(intent.movement);

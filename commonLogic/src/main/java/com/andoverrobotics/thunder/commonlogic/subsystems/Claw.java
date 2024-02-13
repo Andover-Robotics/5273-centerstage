@@ -1,28 +1,29 @@
 package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.andoverrobotics.thunder.commonlogic.input.Intent;
+import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClawFlipper;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareClaw;
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
 
 public class Claw {
     private final Logger logger;
     private static final double CLAW_OPEN = 0.727;
     private static final double CLAW_HALF_OPEN = 0.574;
     private static final double CLAW_CLOSED = 0.572;
-    private static final double FLIP_STARTING_POS = 0.091; //assumed to be 180 degrees form the intake pos
-    private static final double FLIP_INTAKE_POS = 0.7416; //asumed to be parallel to the ground
+    private static final double FLIP_STARTING_POS =
+            0.091; // assumed to be 180 degrees form the intake pos
+    private static final double FLIP_INTAKE_POS = 0.7416; // asumed to be parallel to the ground
     private Intent.ClawFlipPreset targetPreset = Intent.ClawFlipPreset.NONE;
 
     private final HardwareClaw hardwareClaw;
     private final HardwareClawFlipper clawFlipper;
     private PincherState pincherState;
+
     public enum PincherState {
         OPEN,
         HALF_OPEN,
         CLOSED
     }
-
 
     public Claw(HardwareClaw hardwareClaw, HardwareClawFlipper clawFlipper, Logger logger) {
         this.logger = logger;
@@ -64,17 +65,22 @@ public class Claw {
         return this.pincherState;
     }
 
-    public void gotoStartingPos(){
+    public void gotoStartingPos() {
         this.clawFlipper.setPosition(FLIP_STARTING_POS);
     }
-    public void gotoIntakePos(){
+
+    public void gotoIntakePos() {
         this.clawFlipper.setPosition(FLIP_INTAKE_POS);
     }
-    public void executeIntent(Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
-        if(flipIntent.preset != Intent.ClawFlipPreset.NONE) {
+
+    public void executeIntent(
+            Intent.ClawPincherIntent pincherIntent, Intent.ClawFlipIntent flipIntent) {
+        if (flipIntent.preset != Intent.ClawFlipPreset.NONE) {
             targetPreset = flipIntent.preset;
         }
-        if(flipIntent.preset == Intent.ClawFlipPreset.NONE && (targetPreset == Intent.ClawFlipPreset.MOVE_DOWN || targetPreset == Intent.ClawFlipPreset.MOVE_UP)){
+        if (flipIntent.preset == Intent.ClawFlipPreset.NONE
+                && (targetPreset == Intent.ClawFlipPreset.MOVE_DOWN
+                        || targetPreset == Intent.ClawFlipPreset.MOVE_UP)) {
             targetPreset = Intent.ClawFlipPreset.NONE;
         }
         switch (pincherIntent) {
@@ -116,13 +122,13 @@ public class Claw {
                 gotoIntakePos();
                 break;
             case SCORING_POS:
-            {
-                double degree0 = FLIP_INTAKE_POS;
-                double degree180 = FLIP_STARTING_POS;
-                double targetAngle = 60 - flipIntent.referenceAngle;
-                clawFlipper.setPosition(degree0 + (targetAngle / 180) * (degree180 - degree0));
-                break;
-            }
+                {
+                    double degree0 = FLIP_INTAKE_POS;
+                    double degree180 = FLIP_STARTING_POS;
+                    double targetAngle = 60 - flipIntent.referenceAngle;
+                    clawFlipper.setPosition(degree0 + (targetAngle / 180) * (degree180 - degree0));
+                    break;
+                }
         }
         if (targetPreset == Intent.ClawFlipPreset.MOVE_UP) {
             clawFlipper.setPosition(clawFlipper.getPosition() + 0.01);
@@ -132,5 +138,4 @@ public class Claw {
 
         logger.setProp("flipper pos", clawFlipper.getPosition());
     }
-
 }

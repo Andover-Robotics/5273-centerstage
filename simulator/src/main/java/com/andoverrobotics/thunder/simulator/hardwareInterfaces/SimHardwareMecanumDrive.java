@@ -5,7 +5,6 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
-import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 
 public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
@@ -24,7 +23,11 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     }
 
     @Override
-    public void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower) {
+    public void setPower(
+            double leftFrontPower,
+            double rightFrontPower,
+            double leftBackPower,
+            double rightBackPower) {
         // Implement the logic to set power for each motor
         leftFrontMotor.setPower(leftFrontPower);
         rightFrontMotor.setPower(rightFrontPower);
@@ -35,38 +38,42 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     @Override
     public double[] getPower() {
         // Implement the logic to get power of each motor
-        return new double[]{
-                leftFrontMotor.getPower(),
-                rightFrontMotor.getPower(),
-                leftBackMotor.getPower(),
-                rightBackMotor.getPower()
+        return new double[] {
+            leftFrontMotor.getPower(),
+            rightFrontMotor.getPower(),
+            leftBackMotor.getPower(),
+            rightBackMotor.getPower()
         };
     }
 
     @Override
     public int[] getCurrentPosition() {
         // Implement the logic to get current position of each motor
-        return new int[]{
-                leftFrontMotor.getCurrentPosition(),
-                rightFrontMotor.getCurrentPosition(),
-                leftBackMotor.getCurrentPosition(),
-                rightBackMotor.getCurrentPosition()
+        return new int[] {
+            leftFrontMotor.getCurrentPosition(),
+            rightFrontMotor.getCurrentPosition(),
+            leftBackMotor.getCurrentPosition(),
+            rightBackMotor.getCurrentPosition()
         };
     }
 
     @Override
     public Direction[] getDirection() {
         // Implement the logic to get direction of each motor
-        return new Direction[]{
-                leftFrontMotor.getDirection(),
-                rightFrontMotor.getDirection(),
-                leftBackMotor.getDirection(),
-                rightBackMotor.getDirection()
+        return new Direction[] {
+            leftFrontMotor.getDirection(),
+            rightFrontMotor.getDirection(),
+            leftBackMotor.getDirection(),
+            rightBackMotor.getDirection()
         };
     }
 
     @Override
-    public void setDirection(Direction leftFrontDir, Direction rightFrontDir, Direction leftBackDir, Direction rightBackDir) {
+    public void setDirection(
+            Direction leftFrontDir,
+            Direction rightFrontDir,
+            Direction leftBackDir,
+            Direction rightBackDir) {
         // Implement the logic to set direction for each motor
         leftFrontMotor.setDirection(leftFrontDir);
         rightFrontMotor.setDirection(rightFrontDir);
@@ -84,7 +91,8 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
     }
 
     @Override
-    public void resetEncoders(boolean leftFront, boolean rightFront, boolean leftBack, boolean rightBack) {
+    public void resetEncoders(
+            boolean leftFront, boolean rightFront, boolean leftBack, boolean rightBack) {
         // Implement the logic to reset encoders for selected motors
         if (leftFront) leftFrontMotor.resetEncoder();
         if (rightFront) rightFrontMotor.resetEncoder();
@@ -92,4 +100,3 @@ public class SimHardwareMecanumDrive implements HardwareMecanumDrive {
         if (rightBack) rightBackMotor.resetEncoder();
     }
 }
-

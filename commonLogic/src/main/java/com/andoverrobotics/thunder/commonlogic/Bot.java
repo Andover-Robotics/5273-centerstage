@@ -1,4 +1,3 @@
 package com.andoverrobotics.thunder.commonlogic;
 
-public class Bot {
-}
+public class Bot {}

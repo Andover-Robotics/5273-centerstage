@@ -1,10 +1,9 @@
 package com.andoverrobotics.thunder.commonlogic.subsystems;
 
-import com.andoverrobotics.thunder.commonlogic.input.Intent;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareMecanumDrive;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
+import com.andoverrobotics.thunder.commonlogic.input.Intent;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
-
 
 public class Movement {
     public double x; // x position
@@ -24,26 +23,37 @@ public class Movement {
     private static double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
-    public Movement(double x, double y, double heading, HardwareMecanumDrive hardwareMecanumDrive, Logger logger) {
+
+    public Movement(
+            double x,
+            double y,
+            double heading,
+            HardwareMecanumDrive hardwareMecanumDrive,
+            Logger logger) {
         this.logger = logger;
         this.x = x;
         this.y = y;
         this.heading = heading;
         this.drive = hardwareMecanumDrive;
-        hardwareMecanumDrive.setDirection(Direction.REVERSE, Direction.FORWARD, Direction.REVERSE, Direction.FORWARD);
+        hardwareMecanumDrive.setDirection(
+                Direction.REVERSE, Direction.FORWARD, Direction.REVERSE, Direction.FORWARD);
     }
+
     public void moveTo(double x, double y) { // no rotation
         moveTo(x, y, heading);
     }
-    public void moveTo(double targetXDiff, double targetYDiff, final double targetH){
+
+    public void moveTo(double targetXDiff, double targetYDiff, final double targetH) {
         final double targetX = x + targetXDiff;
         final double targetY = y + targetYDiff;
         drive.resetEncoders();
         double dist;
-        while ((dist=Math.sqrt(Math.pow(getX() - targetX, 2) + Math.pow(getY() - targetY, 2))) > TARGET_RES || Math.abs(getH() - targetH) > 0.1){
+        while ((dist = Math.sqrt(Math.pow(getX() - targetX, 2) + Math.pow(getY() - targetY, 2)))
+                        > TARGET_RES
+                || Math.abs(getH() - targetH) > 0.1) {
             logger.setProp("distance error", dist);
             logger.setProp("heading error", getH() - targetH);
-            double power = -Math.pow(2,-DECEL_FACTOR*dist)+1;
+            double power = -Math.pow(2, -DECEL_FACTOR * dist) + 1;
             logger.setProp("power", power);
 
             double turnPower = clamp(getH() - targetH, -1, 1);
@@ -51,50 +61,53 @@ public class Movement {
 
             moveTick(Math.atan2(targetY - getY(), targetX - getX()) - targetH, power, turnPower);
         }
-        drive.setPower(0,0,0,0);
+        drive.setPower(0, 0, 0, 0);
     }
 
-    public void turnTo(final double targetHeading){
-        while(Math.abs(getH() - targetHeading) > 0.1){
+    public void turnTo(final double targetHeading) {
+        while (Math.abs(getH() - targetHeading) > 0.1) {
             double turnPower = clamp(getH() - targetHeading, -1, 1);
             moveTick(0, 0, turnPower);
         }
-
     }
 
-    public double getX(){
+    public double getX() {
         return x;
     }
-    public double getY(){
+
+    public double getY() {
         return y;
     }
-    public double getH(){
+
+    public double getH() {
         return heading;
     }
 
-//    public void motionProfileTo(double x, double y, double heading)
+    //    public void motionProfileTo(double x, double y, double heading)
 
     public void executeIntent(Intent.MovementIntent intent) {
         if (intent == null) {
             return;
         }
-        if(intent.resetHeading == Intent.MovementIntent.HeadingReset.UP){
+        if (intent.resetHeading == Intent.MovementIntent.HeadingReset.UP) {
             heading = 0;
-        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.DOWN){
+        } else if (intent.resetHeading == Intent.MovementIntent.HeadingReset.DOWN) {
             heading = Math.PI;
-        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.LEFT) {
+        } else if (intent.resetHeading == Intent.MovementIntent.HeadingReset.LEFT) {
             heading = Math.PI / 2;
-        }else if(intent.resetHeading == Intent.MovementIntent.HeadingReset.RIGHT){
+        } else if (intent.resetHeading == Intent.MovementIntent.HeadingReset.RIGHT) {
             heading = -Math.PI / 2;
         }
 
-        if(intent.centric == Intent.Centric.ROBOT) {
+        if (intent.centric == Intent.Centric.ROBOT) {
             moveTick(intent.moveDirection, intent.moveSpeed, intent.turnSpeed);
-        } else if(intent.centric == Intent.Centric.FIELD){
+        } else if (intent.centric == Intent.Centric.FIELD) {
             moveTick(intent.moveDirection - heading, intent.moveSpeed, intent.turnSpeed);
         }
     }
-    private void moveTick(double theta, double power, double turnPower){ // power is [0,1], turnPower is [-1,1]
+
+    private void moveTick(
+            double theta, double power, double turnPower) { // power is [0,1], turnPower is [-1,1]
         // pi/2 rad is forwards
         double motorPow1 = Math.sin(theta + Math.PI / 4); // left front and right back
         double motorPow2 = Math.sin(theta - Math.PI / 4); // right front and left back
@@ -112,8 +125,13 @@ public class Movement {
         logger.setProp("BR power", rightBack);
         logger.setProp("BL power", leftBack);
 
-        scale = Math.max(Math.max(Math.max(Math.abs(leftFront), Math.abs(rightFront)),Math.abs(leftBack)),Math.abs(rightBack));
-        if(scale > 1){ // scale down if needed
+        scale =
+                Math.max(
+                        Math.max(
+                                Math.max(Math.abs(leftFront), Math.abs(rightFront)),
+                                Math.abs(leftBack)),
+                        Math.abs(rightBack));
+        if (scale > 1) { // scale down if needed
             scale = 1 / scale;
             leftFront *= scale;
             rightFront *= scale;
@@ -128,6 +146,7 @@ public class Movement {
         public final double x;
         public final double y;
         public final double heading;
+
         public RobotVals(double x, double y, double heading) {
             this.x = x;
             this.y = y;
@@ -135,7 +154,7 @@ public class Movement {
         }
     }
 
-    public void updateXYH(){ // updates x, y, and heading and also resets encoders
+    public void updateXYH() { // updates x, y, and heading and also resets encoders
         int[] encoders = drive.getCurrentPosition();
         drive.resetEncoders();
         double wheel1AVel = encoders[0] / ENCODER_RES * 2 * Math.PI;
@@ -144,18 +163,20 @@ public class Movement {
         double wheel4AVel = encoders[3] / ENCODER_RES * 2 * Math.PI;
         double xVel_local = (wheel1AVel + wheel2AVel + wheel3AVel + wheel4AVel) * WHEEL_RAD / 4;
         double yVel_local = (-wheel1AVel + wheel2AVel + wheel3AVel - wheel4AVel) * WHEEL_RAD / 4;
-        double aVel = -(-wheel1AVel + wheel2AVel - wheel3AVel + wheel4AVel) * WHEEL_RAD / (4 * (LX + LY));
+        double aVel =
+                -(-wheel1AVel + wheel2AVel - wheel3AVel + wheel4AVel) * WHEEL_RAD / (4 * (LX + LY));
 
         double xVel_global = xVel_local * Math.cos(-heading) + yVel_local * Math.sin(-heading);
         double yVel_global = -xVel_local * Math.sin(-heading) + yVel_local * Math.cos(-heading);
 
         x += xVel_global;
         y += yVel_global;
-        heading -= aVel;//this needs to be like this, otherwise its reversed
+        heading -= aVel; // this needs to be like this, otherwise its reversed
 
-        heading = (((heading % (Math.PI*2)) + (Math.PI*2)) % (Math.PI*2));
+        heading = (((heading % (Math.PI * 2)) + (Math.PI * 2)) % (Math.PI * 2));
     }
-    public void resetEncoders(){ // bruh
+
+    public void resetEncoders() { // bruh
         drive.resetEncoders();
     }
 }

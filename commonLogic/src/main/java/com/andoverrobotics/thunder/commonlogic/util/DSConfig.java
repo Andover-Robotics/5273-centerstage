@@ -1,18 +1,18 @@
 package com.andoverrobotics.thunder.commonlogic.util;
 
 public class DSConfig {
-    public final static String CLAW_SERVO = "clawServo";
-    public final static String FLIPPER_SERVO = "flipperServo";
-    public final static String SLIDES_RIGHT_MOTOR = "slidesWheelMotorRight";
-    public final static String SLIDES_LEFT_MOTOR = "slidesWheelMotorLeft";
-    public final static String CAMERA = "camera";
-    public final static String FLYWHEEL_LEFT_CR_SERVO = "flywheelLeft";
-    public final static String FLYWHEEL_RIGHT_CR_SERVO = "flywheelRight";
-    public final static String IMU = "imu";
-    public final static String LAUNCH_SERVO = "launchServo";
-    public final static String DRIVETRAIN_FRONT_LEFT_MOTOR = "driveFL";
-    public final static String DRIVETRAIN_FRONT_RIGHT_MOTOR = "driveFR";
-    public final static String DRIVETRAIN_BACK_LEFT_MOTOR = "driveBL";
-    public final static String DRIVETRAIN_BACK_RIGHT_MOTOR = "driveBR";
-    public final static String PIVOT_MOTOR = "pivotMotor";
+    public static final String CLAW_SERVO = "clawServo";
+    public static final String FLIPPER_SERVO = "flipperServo";
+    public static final String SLIDES_RIGHT_MOTOR = "slidesWheelMotorRight";
+    public static final String SLIDES_LEFT_MOTOR = "slidesWheelMotorLeft";
+    public static final String CAMERA = "camera";
+    public static final String FLYWHEEL_LEFT_CR_SERVO = "flywheelLeft";
+    public static final String FLYWHEEL_RIGHT_CR_SERVO = "flywheelRight";
+    public static final String IMU = "imu";
+    public static final String LAUNCH_SERVO = "launchServo";
+    public static final String DRIVETRAIN_FRONT_LEFT_MOTOR = "driveFL";
+    public static final String DRIVETRAIN_FRONT_RIGHT_MOTOR = "driveFR";
+    public static final String DRIVETRAIN_BACK_LEFT_MOTOR = "driveBL";
+    public static final String DRIVETRAIN_BACK_RIGHT_MOTOR = "driveBR";
+    public static final String PIVOT_MOTOR = "pivotMotor";
 }

@@ -5,6 +5,7 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwareContro
 public class ControllerMapping {
     final HardwareController controller1;
     final HardwareController controller2;
+
     private static class ControllerState {
         public final double left_stick_x;
         public final double left_stick_y;
@@ -24,6 +25,7 @@ public class ControllerMapping {
         public final boolean right_bumper;
         public final boolean left_stick_button;
         public final boolean right_stick_button;
+
         public ControllerState(HardwareController gamepad) {
             left_stick_x = gamepad.getLeftStickX();
             left_stick_y = gamepad.getLeftStickY();
@@ -45,6 +47,7 @@ public class ControllerMapping {
             right_stick_button = gamepad.getRightStickButton();
         }
     }
+
     ControllerState lastState1;
     ControllerState lastState2;
 
@@ -54,9 +57,10 @@ public class ControllerMapping {
         lastState1 = new ControllerState(controller1);
         lastState2 = new ControllerState(controller2);
     }
+
     public Intent get_intent() {
         Intent intent = new Intent();
-        //drive direction + magnitude: controller 1 left stick, feild centric
+        // drive direction + magnitude: controller 1 left stick, feild centric
         ControllerState state1 = new ControllerState(controller1);
         ControllerState state2 = new ControllerState(controller2);
 
@@ -69,38 +73,37 @@ public class ControllerMapping {
         intent.movement.moveDirection = Math.atan2(y, x); // pi/2 is forwards
         // right trigger scales down movement and turn speeds
         intent.movement.moveSpeed = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * speedMod1;
-        //turn speed: controller 1 right stick left/right
+        // turn speed: controller 1 right stick left/right
         intent.movement.turnSpeed = state1.right_stick_x * speedMod1;
         intent.movement.centric = Intent.Centric.FIELD;
         // y resets heading for field centric angle correction
 
-        //dpad directions resets the heading in the different directions
-        if(state1.dpad_up && !lastState1.dpad_up){
+        // dpad directions resets the heading in the different directions
+        if (state1.dpad_up && !lastState1.dpad_up) {
             intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.UP;
-        }else if(state1.dpad_right && !lastState1.dpad_right){
+        } else if (state1.dpad_right && !lastState1.dpad_right) {
             intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.RIGHT;
-        }else if(state1.dpad_down && !lastState1.dpad_down){
+        } else if (state1.dpad_down && !lastState1.dpad_down) {
             intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.DOWN;
-        }else if(state1.dpad_left && !lastState1.dpad_left){
+        } else if (state1.dpad_left && !lastState1.dpad_left) {
             intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.LEFT;
-        }else{
+        } else {
             intent.movement.resetHeading = Intent.MovementIntent.HeadingReset.NONE;
         }
 
-        //claw
-        if(state2.dpad_up && !lastState2.dpad_up){
+        // claw
+        if (state2.dpad_up && !lastState2.dpad_up) {
             intent.clawPincher = Intent.ClawPincherIntent.CLOSE_FULL;
-        }else if(state2.dpad_down && !lastState2.dpad_down){
+        } else if (state2.dpad_down && !lastState2.dpad_down) {
             intent.clawPincher = Intent.ClawPincherIntent.OPEN_HALF_RELATIVE;
-        }else{
+        } else {
             intent.clawPincher = Intent.ClawPincherIntent.NONE;
         }
 
-
-        //intake
-        if(state2.left_trigger > 0.5){
+        // intake
+        if (state2.left_trigger > 0.5) {
             intent.intake = Intent.IntakeIntent.FORWARD;
-        } else if(state2.right_trigger > 0.5){
+        } else if (state2.right_trigger > 0.5) {
             intent.intake = Intent.IntakeIntent.BACKWARD;
         } else {
             intent.intake = Intent.IntakeIntent.STOP;
@@ -111,22 +114,22 @@ public class ControllerMapping {
         intent.slidesIntent = Intent.SlidesIntent.POWER;
         intent.override = state2.b;
 
-        if(state2.a && !lastState2.a) {
+        if (state2.a && !lastState2.a) {
             intent.clawFlip.preset = Intent.ClawFlipPreset.INTAKE_POS;
-        } else if(state2.y && !lastState2.y){
+        } else if (state2.y && !lastState2.y) {
             intent.clawFlip.preset = Intent.ClawFlipPreset.SCORING_POS;
-        }else if(state2.left_stick_x > 0.5){
+        } else if (state2.left_stick_x > 0.5) {
             intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_UP;
-        } else if(state2.left_stick_x < -0.5){
+        } else if (state2.left_stick_x < -0.5) {
             intent.clawFlip.preset = Intent.ClawFlipPreset.MOVE_DOWN;
-        }else{
+        } else {
             intent.clawFlip.preset = Intent.ClawFlipPreset.NONE;
         }
 
         intent.pivot = -state2.right_stick_y * speedMod2;
         intent.pivotIntent = Intent.PivotIntent.POWER;
 
-        if(state2.a && !lastState2.a){
+        if (state2.a && !lastState2.a) {
             intent.slides = 0;
             intent.slidesIntent = Intent.SlidesIntent.TARGET;
             intent.clawPincher = Intent.ClawPincherIntent.OPEN_FULL;
@@ -134,13 +137,10 @@ public class ControllerMapping {
             intent.pivotIntent = Intent.PivotIntent.TARGET;
         }
 
-
         intent.launch = state2.x && !lastState2.x;
-
 
         lastState1 = state1;
         lastState2 = state2;
         return intent;
     }
-
 }

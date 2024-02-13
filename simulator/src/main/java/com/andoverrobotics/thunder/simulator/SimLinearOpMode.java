@@ -11,6 +11,7 @@ public abstract class SimLinearOpMode {
     public SimHardwareController gamepad2;
     public boolean waiting = false;
     public SimTelemetry telemetry = new SimTelemetry();
+
     public SimLinearOpMode() {
         sim = new Simulation(18, 18, 20);
         hardwareMap = new SimHardwareMap(sim);
@@ -23,7 +24,7 @@ public abstract class SimLinearOpMode {
         return true;
     }
 
-    public synchronized void waitForStart(){
+    public synchronized void waitForStart() {
         waiting = true;
         while (waiting) {
             try {
@@ -33,5 +34,6 @@ public abstract class SimLinearOpMode {
             }
         }
     }
+
     public abstract void runOpmode();
 }

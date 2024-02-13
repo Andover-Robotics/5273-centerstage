@@ -21,6 +21,7 @@ public class SimHardwareController implements HardwareController {
     public boolean rightBumper;
     public boolean leftStickButton;
     public boolean rightStickButton;
+
     @Override
     public double getLeftStickX() {
         return leftStickX;
@@ -113,25 +114,43 @@ public class SimHardwareController implements HardwareController {
 
     @Override
     public String toString() {
-        return "simHardwareGamepad{" +
-                "leftStickY=" + leftStickY +
-                ", leftStickX=" + leftStickX +
-                ", rightStickY=" + rightStickY +
-                ", rightStickX=" + rightStickX +
-                ", leftTrigger=" + leftTrigger +
-                ", rightTrigger=" + rightTrigger +
-                ", a=" + a +
-                ", b=" + b +
-                ", x=" + x +
-                ", y=" + y +
-                ", dpadUp=" + dpadUp +
-                ", dpadDown=" + dpadDown +
-                ", dpadLeft=" + dpadLeft +
-                ", dpadRight=" + dpadRight +
-                ", leftBumper=" + leftBumper +
-                ", rightBumper=" + rightBumper +
-                ", leftStickButton=" + leftStickButton +
-                ", rightStickButton=" + rightStickButton +
-                '}';
+        return "simHardwareGamepad{"
+                + "leftStickY="
+                + leftStickY
+                + ", leftStickX="
+                + leftStickX
+                + ", rightStickY="
+                + rightStickY
+                + ", rightStickX="
+                + rightStickX
+                + ", leftTrigger="
+                + leftTrigger
+                + ", rightTrigger="
+                + rightTrigger
+                + ", a="
+                + a
+                + ", b="
+                + b
+                + ", x="
+                + x
+                + ", y="
+                + y
+                + ", dpadUp="
+                + dpadUp
+                + ", dpadDown="
+                + dpadDown
+                + ", dpadLeft="
+                + dpadLeft
+                + ", dpadRight="
+                + dpadRight
+                + ", leftBumper="
+                + leftBumper
+                + ", rightBumper="
+                + rightBumper
+                + ", leftStickButton="
+                + leftStickButton
+                + ", rightStickButton="
+                + rightStickButton
+                + '}';
     }
 }

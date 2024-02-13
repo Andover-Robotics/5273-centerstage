@@ -5,7 +5,6 @@ import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.DSConfig;
 import com.andoverrobotics.thunder.commonlogic.util.Direction;
 import com.andoverrobotics.thunder.simulator.SimHardwareMap;
-import com.andoverrobotics.thunder.simulator.Simulation;
 import com.andoverrobotics.thunder.simulator.simComponents.SimCRServo;
 
 public class SimHardwareFlyWheels implements HardwareFlyWheels {

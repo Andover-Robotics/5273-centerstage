@@ -85,12 +85,10 @@ public class Simulation {
         }
     }
 
-
-
     public void apply_force(double x, double y, double heading, double magnitude) {
-        //the x and y is the offset from the center of mass in the robot's frame of reference
-        //the heading is the angle of the force relative to the robot's frame of reference
-        //the magnitude is the magnitude of the force
+        // the x and y is the offset from the center of mass in the robot's frame of reference
+        // the heading is the angle of the force relative to the robot's frame of reference
+        // the magnitude is the magnitude of the force
 
         double torque = x * magnitude * Math.sin(heading) - y * magnitude * Math.cos(heading);
 

@@ -1,6 +1,5 @@
 package com.andoverrobotics.thunder.simulator;
 
-import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.CombinedLogger;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.HardwarePivot;
 import com.andoverrobotics.thunder.commonlogic.hardwareInterfaces.Logger;
 import com.andoverrobotics.thunder.commonlogic.util.DSConfig;

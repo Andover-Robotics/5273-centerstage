@@ -8,16 +8,17 @@ public class Launch {
     private boolean launching;
     private final HardwareLaunch hardwareLaunch;
 
-    public Launch (HardwareLaunch hardwareLaunch) {
+    public Launch(HardwareLaunch hardwareLaunch) {
         this.hardwareLaunch = hardwareLaunch;
         hardwareLaunch.setPosition(LAUNCH_OFF);
     }
-    public void executeIntent(boolean launch){
-        if(launch && !launching){
+
+    public void executeIntent(boolean launch) {
+        if (launch && !launching) {
             launching = true;
-            new Thread(){
-                public void run(){
-                    launching=true;
+            new Thread() {
+                public void run() {
+                    launching = true;
                     hardwareLaunch.setPosition(LAUNCH_ON);
                     try {
                         Thread.sleep(1000);
@@ -25,7 +26,7 @@ public class Launch {
                         e.printStackTrace();
                     }
                     hardwareLaunch.setPosition(LAUNCH_OFF);
-                    launching=false;
+                    launching = false;
                 }
             }.start();
         }

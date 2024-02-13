@@ -22,5 +22,4 @@ public class SimHardwareMap {
     public SimServo getServo(String id) {
         return sim.getServo(id);
     }
-
 }

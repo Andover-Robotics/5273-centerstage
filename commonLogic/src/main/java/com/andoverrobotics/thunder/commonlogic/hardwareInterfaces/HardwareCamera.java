@@ -4,5 +4,6 @@ import com.andoverrobotics.thunder.commonlogic.util.MarkerPos;
 
 public interface HardwareCamera {
     MarkerPos getMarkerPos();
+
     boolean isReady();
 }
