@@ -1,6 +1,9 @@
 plugins {
     id 'application'
+    id "com.diffplug.spotless"
 }
+
+apply from: '../formating.gradle'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

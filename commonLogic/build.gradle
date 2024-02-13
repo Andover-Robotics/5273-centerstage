@@ -1,6 +1,10 @@
 plugins {
+    id "com.diffplug.spotless"
     id 'java-library'
 }
+
+apply from: '../formating.gradle'
+
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
