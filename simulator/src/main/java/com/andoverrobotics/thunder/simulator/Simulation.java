@@ -6,32 +6,32 @@ import com.andoverrobotics.thunder.simulator.simComponents.SimMotor;
 import com.andoverrobotics.thunder.simulator.simComponents.SimServo;
 
 public class Simulation {
-    public static final double INCH_OUNCE_TO_NEWTON_METER = 0.00706155183333;
-    private SimServo clawPincher;
+    public static final double OUNCE_INCH_TO_NEWTON_METER = 0.00706155183333;
+    private SimServo clawPincher = new SimServo(0.001);
     private SimServo clawFlipper = new SimServo(0.001);
-    private SimCRServo flyWheelLeft;
-    private SimCRServo flyWheelRight;
-    private SimServo launcher;
-    private SimMotor slidesLeft;
+    private SimCRServo flyWheelLeft = new SimCRServo(0.01);
+    private SimCRServo flyWheelRight = new SimCRServo(0.01);
+    private SimServo launcher = new SimServo(0.0001);
+    private SimMotor slidesLeft;//TODO: figure out the type of motor used here and also the aproxomite weight of the slides
     private SimMotor slidesRight;
-    private SimMotor pivot;
-    private SimMotor driveFrontLeft;
+    private SimMotor pivot; //TODO: figure out the type of motor used here and also the aproxomite weight of the slides
+    private SimMotor driveFrontLeft;//TODO: figure out where to model the robot dynamic system and how to wire all of that
     private SimMotor driveFrontRight;
     private SimMotor driveBackLeft;
     private SimMotor driveBackRight;
-    private double width;
+    private double width;//TODO: measure these values
     private double length;
     private double mass;
-    public double x;
-    public double y;
-    public double heading;
-    public double vel_x;
-    public double vel_y;
-    public double ang_vel;
-    private double moment_of_inertia;
-    private double force_x;
-    private double force_y;
-    private double torque;
+    public double x = 0.0;
+    public double y = 0.0;
+    public double heading = 0.0;
+    public double vel_x = 0.0;
+    public double vel_y = 0.0;
+    public double ang_vel = 0.0;
+    private double moment_of_inertia;//TODO: estimate?
+    private double force_x = 0.0;
+    private double force_y = 0.0;
+    private double torque = 0.0;
 
     public Simulation(double width, double length, double mass) {
         this.width = width;

@@ -130,6 +130,9 @@ public class OpModeRunner extends JFrame {
                                             for (StackTraceElement el : e.getStackTrace()) {
                                                 log(el.toString());
                                             }
+                                            System.out.println(
+                                                    "Error running opmode: " + e.getMessage());
+                                            e.printStackTrace();
                                         } finally {
                                             opmodeLogger = null;
                                         }

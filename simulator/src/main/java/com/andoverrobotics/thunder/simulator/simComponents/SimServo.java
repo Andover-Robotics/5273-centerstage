@@ -7,7 +7,7 @@ import com.andoverrobotics.thunder.simulator.Simulation;
 // control hub/driver station sends 6v to servos, using the no load speed
 public class SimServo {
     private static final double MAX_SPEED = 50; // RPM
-    private static final double MAX_TORQUE = 300 * Simulation.INCH_OUNCE_TO_NEWTON_METER; // N*m
+    private static final double MAX_TORQUE = 300 * Simulation.OUNCE_INCH_TO_NEWTON_METER; // N*m
     public double realPosition = 0.5;
     private double softwarePosition = 0;
     private double min = 0;
@@ -16,12 +16,17 @@ public class SimServo {
     private double momentOfInertia; // kg*m^2
     private double rotationalVelocity = 0; // RPM
 
+    public static double lbmm2tokgm2(double lbmm2) {
+        return lbmm2 * 4.5359237 * Math.pow(10, -7);
+    }
+
     // construct with the moment of inertia of what is attached to the servo
+    // moment of inertia is given in kg*m^2
     public SimServo(double momentOfInertia) {
         this.momentOfInertia = momentOfInertia;
     }
 
-    public double getServoTorque() {
+    private double getServoTorque() {
         // max torque at stall
         // 0 torque at max speed
         // linear in between
@@ -56,12 +61,19 @@ public class SimServo {
 
     public void update(double dt) {
         double diff = realPosition - softwarePosition;
-        double change = dt * MAX_SPEED / 60;
-        // if it is close enough, just set it to the real position
-        if (Math.abs(diff) < change) {
+        // only use getServoTorque if the servo is accelerating in the same direction as the torque
+        double torque = diff * rotationalVelocity > 0 ? getServoTorque() : MAX_TORQUE;
+        // set the correct sign for the torque
+        torque *= diff > 0 ? 1 : -1;
+        double angularAcceleration = torque / momentOfInertia;
+        double angularVelocity = rotationalVelocity + angularAcceleration * dt;
+        realPosition += angularVelocity * dt;
+        double newDiff = realPosition - softwarePosition;
+        // if the position is close enough to the software position and the servo speed is low
+        // enough, set the position to the software position and the speed to 0
+        if (Math.abs(newDiff) < 0.001 && Math.abs(angularVelocity) < 0.001) {
             realPosition = softwarePosition;
-        } else {
-            realPosition -= change * Math.signum(diff);
+            rotationalVelocity = 0;
         }
     }
 }

@@ -37,7 +37,7 @@ public class SimTeleop extends SimLinearOpMode {
             logger.setProp("intent", intent.toString());
             bot.movement.executeIntent(intent.movement);
             bot.intake.executeIntent(intent.intake);
-            bot.slides.executeIntent(intent.slides, intent.override);
+            bot.slides.executeIntent(intent);
             bot.claw.executeIntent(intent.clawPincher, intent.clawFlip);
             bot.launch.executeIntent(intent.launch);
             bot.pivot.executeIntent(intent);

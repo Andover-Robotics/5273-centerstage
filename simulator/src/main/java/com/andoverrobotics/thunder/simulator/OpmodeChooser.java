@@ -80,7 +80,7 @@ class OpModeSelector extends JFrame {
         setTitle("OpMode Selector");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setSize(new Dimension(2000, 2000));
+        setSize(new Dimension(2000, 1000));
 
         DefaultListModel<String> opModeListModel = new DefaultListModel<>();
         DefaultListModel<String> opModeTestListModel = new DefaultListModel<>();
